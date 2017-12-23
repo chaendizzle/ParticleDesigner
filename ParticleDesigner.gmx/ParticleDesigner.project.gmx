@@ -5,12 +5,34 @@
   </Configs>
   <NewExtensions/>
   <sounds name="sound"/>
-  <sprites name="sprites"/>
+  <sprites name="sprites">
+    <sprite>sprites\spr_tab</sprite>
+  </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\setActive.gml</script>
+    <script>scripts\updateAbsolutePositions.gml</script>
+    <scripts name="menuElement">
+      <script>scripts\nextTabName.gml</script>
+      <script>scripts\addSubmenu.gml</script>
+      <script>scripts\selectTab.gml</script>
+      <script>scripts\createTab.gml</script>
+    </scripts>
+  </scripts>
   <objects name="objects">
-    <object>objects\obj_menu</object>
+    <object>objects\obj_menuElement</object>
+    <object>objects\obj_particleTypeMenu</object>
+    <object>objects\obj_particleTypeTabs</object>
   </objects>
+  <rooms name="rooms">
+    <room>rooms\rm_test</room>
+  </rooms>
+  <constants number="3">
+    <constant name="UPDATE_SIZES">0</constant>
+    <constant name="TAB_MENU">0</constant>
+    <constant name="TAB_NAME">1</constant>
+  </constants>
   <help>
     <rtf>help.rtf</rtf>
   </help>

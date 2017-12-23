@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_menuElement</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,39 +25,37 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// init
-// displays the menu on the right hand side of the screen
-// has submenus:
+            <string>/// no submenus
+event_inherited();
 
-// tabs of other particles
-
-// shape/sprite
-    // all shapes and sprites
-    // import
-// scale, size
-    // sliders or numbers
-// speed
-    // slider or number
-// direction
-    // angle spinner
-// gravity
-    // slider or number
-// orientation
-    // angle
-// color
-    // color type
-    // color submenu for choosing color
-// alpha
-    // alpha type
-    // alpha sliders?
-// blend
-    // checkbox
-// lifetime
-    // slider or number
-// step
-    // choose another particle type...
-// death
-    // choose another particle type...
+W = 30;
+H = 30;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// yay
+draw_set_color(c_black);
+draw_set_alpha(1);
+draw_rectangle(X, Y, X + W, Y + H, true);
 </string>
           </argument>
         </arguments>
