@@ -38,30 +38,12 @@ selected = noone;
 // since this is root, it starts out as active
 active = true;
 
-// height of this element is 32
-H = 64;
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// buttons draw info
-
+// size
+H = 52;
+W = 256;
+// right side of the screen
+RelX = getDisplayRoomWidth() - W;
+RelY = 0;
 </string>
           </argument>
         </arguments>
@@ -83,8 +65,40 @@ H = 64;
           <argument>
             <kind>1</kind>
             <string>/// create one tab
-ds_list_add(tabs, createTab("lelelel"));
+
+// generates names like Particle1, Particle2
+nameIndex = 0;
+
+// create the first tab
+ds_list_add(tabs, createTab(nextTabName()));
 selectTab(0);
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// buttons draw info
+buttonX = 0;
+buttonY = 0;
+buttonW = 32;
+buttonH = 32;
+buttonBarW = W;
+buttonBarH = 32;
 </string>
           </argument>
         </arguments>
@@ -107,13 +121,19 @@ selectTab(0);
             <kind>1</kind>
             <string>/// tab draw info
 
-// generates names like Particle1, Particle2
-nameIndex = 0;
-
 // single tab draw parameters
 tabMinW = 32;
 tabMaxW = 96;
-tabH = 24;
+tabH = 20;
+tabTextBorder = 2;
+
+// tab bar draw parameters
+tabBarX = 0;
+tabBarY = buttonBarH;
+tabBarW = W;
+tabBarH = 20;
+tabLeftSpace = 3;
+tabTopSpace = 0;
 </string>
           </argument>
         </arguments>
@@ -184,6 +204,128 @@ for (var i = 0; i &lt; ds_list_size(submenus); i++)
     {
         event_user(UPDATE_SIZES);
     }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// draw button bar
+var nowX = X + buttonX;
+var nowY = Y + buttonY;
+
+// draw the bar
+draw_set_color(c_dkgray);
+draw_set_alpha(1);
+draw_rectangle(nowX, nowY, nowX + buttonBarW, nowY + buttonBarH, false);
+// draw the 4 buttons
+for (var i = 0; i &lt; 4; i++)
+{
+    // highlight if mouse is there
+    if (checkFocus() &amp;&amp; mouse_in_rect(nowX + (i * buttonW), nowY, buttonW, buttonH))
+    {
+        draw_set_color(c_white);
+        draw_set_alpha(0.4);
+        draw_rectangle(nowX + (i * buttonW), nowY, nowX + (i * buttonW) + buttonW, nowY + buttonH, false);
+        draw_set_alpha(1);
+    }
+    draw_sprite_stretched(spr_file, i, nowX + (i * buttonW), nowY, buttonW, buttonH);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// draw the tabs
+nowX = X + tabBarX;
+nowY = Y + tabBarY;
+
+// draw the bar
+draw_set_color(c_dkgray);
+draw_set_alpha(1);
+draw_rectangle(nowX, nowY, nowX + buttonBarW, nowY + tabBarH, false);
+
+// draw to the tab surfaces
+for (var i = 0; i &lt; ds_list_size(tabs); i++)
+{
+    var tab = tabs[| i];
+    // get tab dimensions
+    var tabW = string_width(tab[| TAB_NAME]) + (2 * tabTextBorder);
+    tabW = clamp(tabW, tabMinW, tabMaxW);
+    // make sure surface exists... and draw if it doesn't
+    if (!surface_exists(tab[| TAB_SURF]))
+    {
+        tab[| TAB_SURF] = surface_create(tabW, tabH);
+        // draw to surface
+        surface_set_target(tab[| TAB_SURF]);
+        draw_set_halign(fa_left);
+        draw_set_valign(fa_top);
+        draw_set_color(c_black);
+        draw_set_alpha(1);
+        draw_set_font(fnt_tab);
+        draw_text(tabTextBorder, tabTextBorder, tab[| TAB_NAME]);
+        surface_reset_target();
+    }
+}
+
+// draw tabs to the screen
+var counterX = nowX + tabLeftSpace;
+var nowTabY = nowY + tabTopSpace;
+for (var i = 0; i &lt; ds_list_size(tabs); i++)
+{
+    var tab = tabs[| i];
+    var w = surface_get_width(tab[| TAB_SURF]);
+    // draw tab back
+    draw_set_color(c_ltgray);
+    draw_set_alpha(1);
+    draw_rectangle(counterX, nowTabY, counterX + w, nowTabY + tabH, false);
+    // highlight if mouse is there
+    if (checkFocus() &amp;&amp; mouse_in_rect(counterX, nowY, w, tabH))
+    {
+        draw_set_color(c_white);
+        draw_set_alpha(0.4);
+        draw_rectangle(counterX, nowY, counterX + w, nowY + tabH, false);
+        draw_set_alpha(1);
+    }
+    draw_set_color(c_black);
+    draw_set_alpha(1);
+    draw_rectangle(counterX, nowTabY, counterX + w, nowTabY + tabH, true);
+    // draw tab surface (w/ text)
+    draw_set_alpha(1);
+    draw_surface(tab[| TAB_SURF], counterX, nowTabY);
+    counterX += w;
 }
 </string>
           </argument>

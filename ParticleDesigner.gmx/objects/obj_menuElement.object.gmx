@@ -45,7 +45,7 @@ H = 0;
 parent = noone;
 
 // absolute position, set by updateAbsolutePositions(root)
-X = 0
+X = 0;
 Y = 0;
 </string>
           </argument>

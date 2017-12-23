@@ -6,7 +6,7 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\spr_tab</sprite>
+    <sprite>sprites\spr_file</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -19,19 +19,38 @@
       <script>scripts\selectTab.gml</script>
       <script>scripts\createTab.gml</script>
     </scripts>
+    <script>scripts\getDisplayRoomHeight.gml</script>
+    <script>scripts\getDisplayRoomWidth.gml</script>
+    <script>scripts\cursor_get_x.gml</script>
+    <script>scripts\cursor_get_y.gml</script>
+    <script>scripts\GUIToRoomX.gml</script>
+    <script>scripts\GUIToRoomY.gml</script>
+    <script>scripts\roomToGUIX.gml</script>
+    <script>scripts\roomToGUIY.gml</script>
+    <script>scripts\mouse_in_rect.gml</script>
+    <script>scripts\checkFocus.gml</script>
   </scripts>
+  <fonts name="fonts">
+    <font>fonts\fnt_tab</font>
+  </fonts>
   <objects name="objects">
     <object>objects\obj_menuElement</object>
     <object>objects\obj_particleTypeMenu</object>
-    <object>objects\obj_particleTypeTabs</object>
+    <object>objects\obj_particleTypeTest</object>
+    <object>objects\obj_focus</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_test</room>
   </rooms>
-  <constants number="3">
+  <constants number="8">
     <constant name="UPDATE_SIZES">0</constant>
     <constant name="TAB_MENU">0</constant>
     <constant name="TAB_NAME">1</constant>
+    <constant name="TAB_SURF">2</constant>
+    <constant name="BUTTON_NEW">0</constant>
+    <constant name="BUTTON_SAVE">1</constant>
+    <constant name="BUTTON_LOAD">2</constant>
+    <constant name="BUTTON_EXPORT">3</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>
