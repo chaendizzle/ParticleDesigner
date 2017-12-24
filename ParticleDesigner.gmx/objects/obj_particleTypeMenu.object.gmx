@@ -155,7 +155,8 @@ tabTopSpace = 0;
           <argument>
             <kind>1</kind>
             <string>/// test
-createNumBox(100, 100, 100, 24, "55555", fnt_title, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5);
+createNumBox(100, 100, 100, 24, "12345", fnt_title, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5);
+createMenuButton(100, 300, 100, 24, "no", fnt_title, c_white, c_dkgray, c_black, 1, 1, 1);
 </string>
           </argument>
         </arguments>

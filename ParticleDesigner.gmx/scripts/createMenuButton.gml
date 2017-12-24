@@ -1,5 +1,5 @@
-///createTextRect(X, Y, W, H, text, font, textcol, fillcol, outlinecol, textalpha, fillalpha, outlinealpha)
-var menu = instance_create(0, 0, obj_textrect);
+///createMenuButton(X, Y, W, H, text, font, textcol, fillcol, outlinecol, textalpha, fillalpha, outlinealpha)
+var menu = instance_create(0, 0, obj_menuButton);
 menu.RelX = argument0;
 menu.RelY = argument1;
 menu.X = menu.RelX;

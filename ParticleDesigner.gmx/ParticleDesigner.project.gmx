@@ -32,6 +32,7 @@
     <script>scripts\checkFocus.gml</script>
     <script>scripts\getTypeMenuW.gml</script>
     <script>scripts\createTextRect.gml</script>
+    <script>scripts\createMenuButton.gml</script>
     <script>scripts\createNumBox.gml</script>
     <script>scripts\inrange.gml</script>
     <script>scripts\findStringPos.gml</script>
@@ -48,6 +49,7 @@
     <object>objects\obj_particleTypeTest</object>
     <object>objects\obj_particleShapeMenu</object>
     <object>objects\obj_textrect</object>
+    <object>objects\obj_menuButton</object>
     <object>objects\obj_numbox</object>
   </objects>
   <rooms name="rooms">
