@@ -323,7 +323,7 @@ selection = false;
           <argument>
             <kind>1</kind>
             <string>/// click on textbox
-if (mouse_in_rect(X, Y, W, H))
+if (checkFocus() &amp;&amp; mouse_in_rect(X, Y, W, H))
 {
     // if unselected previously
     if (!selected)

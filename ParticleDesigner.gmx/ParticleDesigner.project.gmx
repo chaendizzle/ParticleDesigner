@@ -8,6 +8,8 @@
   <sprites name="sprites">
     <sprite>sprites\spr_file</sprite>
     <sprite>sprites\spr_newtab</sprite>
+    <sprite>sprites\spr_shapes</sprite>
+    <sprite>sprites\spr_particle</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -32,10 +34,16 @@
     <script>scripts\checkFocus.gml</script>
     <script>scripts\getTypeMenuW.gml</script>
     <script>scripts\createTextRect.gml</script>
+    <script>scripts\createCheckbox.gml</script>
     <script>scripts\createMenuButton.gml</script>
     <script>scripts\createNumBox.gml</script>
     <script>scripts\inrange.gml</script>
     <script>scripts\findStringPos.gml</script>
+    <script>scripts\drawCheckmark.gml</script>
+    <script>scripts\drawOutlineRectExt.gml</script>
+    <script>scripts\modulo.gml</script>
+    <script>scripts\draw_linestrip_width.gml</script>
+    <script>scripts\draw_linestrip_width_point.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_tab</font>
@@ -51,6 +59,9 @@
     <object>objects\obj_textrect</object>
     <object>objects\obj_menuButton</object>
     <object>objects\obj_numbox</object>
+    <object>objects\obj_checkbox</object>
+    <object>objects\obj_popupMenu</object>
+    <object>objects\obj_shapeMenu</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_test</room>

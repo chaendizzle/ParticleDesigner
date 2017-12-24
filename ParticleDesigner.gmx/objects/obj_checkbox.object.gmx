@@ -25,18 +25,10 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// menu item that is a rectangle with text in it
+            <string>/// checkbox
 event_inherited();
 
-text = "";
-textFont = fnt_title;
-textCol = c_black;
-fillCol = c_white;
-outlineCol = c_black;
-textAlpha = 1;
-fillAlpha = 1;
-outlineAlpha = 1;
-menuTarget = noone;
+checked = false;
 </string>
           </argument>
         </arguments>
@@ -59,16 +51,10 @@ menuTarget = noone;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// if clicked while base menu is in focus
+            <string>/// checkbox clicked, toggle
 if (checkFocus() &amp;&amp; mouse_in_rect(X, Y, W, H))
 {
-    /// open the menu
-    if (instance_exists(menuTarget))
-    {
-        menuTarget.active = true;
-        menuTarget.target = id;
-        obj_focus.focus = menuTarget;
-    }
+    checked = !checked;
 }
 </string>
           </argument>
@@ -92,27 +78,20 @@ if (checkFocus() &amp;&amp; mouse_in_rect(X, Y, W, H))
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// draw the textrect
-// draw the rect
-draw_set_color(fillCol);
-draw_set_alpha(fillAlpha);
-draw_rectangle(X, Y, X + W, Y + H, false);
-draw_set_color(outlineCol);
-draw_set_alpha(outlineAlpha);
-draw_rectangle(X, Y, X + W, Y + H, true);
-// draw the text
-draw_set_halign(fa_center);
-draw_set_valign(fa_center);
-draw_set_font(textFont);
-draw_set_color(textCol);
-draw_set_alpha(textAlpha);
-draw_text(X + (0.5 * W), Y + (0.5 * H), text);
-// draw the highlight on mouseover
+            <string>/// draw checkbox
+
+// draw box
+drawOutlineRectExt(X, Y, W, H, 2, fillCol, outlineCol, fillAlpha, outlineAlpha);
 if (checkFocus() &amp;&amp; mouse_in_rect(X, Y, W, H))
 {
     draw_set_color(c_white);
     draw_set_alpha(0.5);
     draw_rectangle(X, Y, X + W, Y + H, false);
+}
+// draw checkmark
+if (checked)
+{
+    drawCheckmark(X + (0.5 * W), Y + (0.75 * H), 0.5 * W, W, 0.2 * W, checkCol, checkAlpha);
 }
 </string>
           </argument>

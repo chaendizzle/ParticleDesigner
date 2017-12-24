@@ -1,4 +1,4 @@
-///createMenuButton(X, Y, W, H, text, font, textcol, fillcol, outlinecol, textalpha, fillalpha, outlinealpha)
+///createMenuButton(X, Y, W, H, text, font, textcol, fillcol, outlinecol, textalpha, fillalpha, outlinealpha, popupMenu)
 var menu = instance_create(0, 0, obj_menuButton);
 menu.RelX = argument0;
 menu.RelY = argument1;
@@ -14,4 +14,5 @@ menu.outlineCol = argument8;
 menu.textAlpha = argument9;
 menu.fillAlpha = argument10;
 menu.outlineAlpha = argument11;
+menu.menuTarget = argument12;
 return menu;

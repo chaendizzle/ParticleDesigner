@@ -156,7 +156,8 @@ tabTopSpace = 0;
             <kind>1</kind>
             <string>/// test
 createNumBox(100, 100, 100, 24, "12345", fnt_title, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5);
-createMenuButton(100, 300, 100, 24, "no", fnt_title, c_white, c_dkgray, c_black, 1, 1, 1);
+createMenuButton(100, 200, 100, 24, "no", fnt_title, c_white, c_dkgray, c_black, 1, 1, 1, instance_create(0, 0, obj_shapeMenu));
+createCheckbox(100, 300, 24, 24, c_red, c_dkgray, c_black, 1, 1, 1);
 </string>
           </argument>
         </arguments>
@@ -196,7 +197,6 @@ for (var i = 0; i &lt; ds_list_size(submenus); i++)
 
 // update all positions
 updateAbsolutePositions(id);
-
 </string>
           </argument>
         </arguments>
