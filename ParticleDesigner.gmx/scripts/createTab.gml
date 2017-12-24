@@ -7,7 +7,7 @@ var tabMenus = ds_list_create();
 // tabs of other particles is handled by this
 
 // shape/sprite
-    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleTypeTest));
+    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleShapeMenu));
     // all shapes and sprites
     // import
 

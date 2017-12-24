@@ -34,6 +34,7 @@
     <script>scripts\checkFocus.gml</script>
     <script>scripts\getTypeMenuW.gml</script>
     <script>scripts\createTextRect.gml</script>
+    <script>scripts\createSpriteRect.gml</script>
     <script>scripts\createCheckbox.gml</script>
     <script>scripts\createMenuButton.gml</script>
     <script>scripts\createNumBox.gml</script>
@@ -44,11 +45,13 @@
     <script>scripts\modulo.gml</script>
     <script>scripts\draw_linestrip_width.gml</script>
     <script>scripts\draw_linestrip_width_point.gml</script>
+    <script>scripts\stringDotTruncate.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_tab</font>
     <font>fonts\fnt_title</font>
     <font>fonts\fnt_subtitle</font>
+    <font>fonts\fnt_small</font>
   </fonts>
   <objects name="objects">
     <object>objects\obj_menuElement</object>
@@ -57,6 +60,7 @@
     <object>objects\obj_particleTypeTest</object>
     <object>objects\obj_particleShapeMenu</object>
     <object>objects\obj_textrect</object>
+    <object>objects\obj_spriterect</object>
     <object>objects\obj_menuButton</object>
     <object>objects\obj_numbox</object>
     <object>objects\obj_checkbox</object>
@@ -66,7 +70,7 @@
   <rooms name="rooms">
     <room>rooms\rm_test</room>
   </rooms>
-  <constants number="10">
+  <constants number="12">
     <constant name="UPDATE_SIZES">0</constant>
     <constant name="TAB_MENU">0</constant>
     <constant name="TAB_NAME">1</constant>
@@ -77,6 +81,8 @@
     <constant name="BUTTON_EXPORT">3</constant>
     <constant name="vk_period">190</constant>
     <constant name="vk_control2">162</constant>
+    <constant name="SHAPE_SHAPE">0</constant>
+    <constant name="SHAPE_SPRITE">1</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

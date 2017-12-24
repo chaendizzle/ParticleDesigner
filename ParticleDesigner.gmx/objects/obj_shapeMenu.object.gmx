@@ -27,6 +27,7 @@
             <kind>1</kind>
             <string>/// not an actual menu element, since it's a popup
 active = false;
+target = noone;
 </string>
           </argument>
         </arguments>
@@ -116,6 +117,28 @@ surfH = H - (2 * B) - bottomH;
 cellW = surfW / gridW;
 cellH = cellW;
 surf = noone;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// which index is selected
+selected = noone;
 </string>
           </argument>
         </arguments>
@@ -218,12 +241,26 @@ if (active)
     {
         var s = modulo(i, gridW);
         var t = floor(i / gridW);
-        if (obj_focus.focus == id &amp;&amp; mouse_in_rect(surfX + (s * cellW), surfY + (t * cellH), cellW, cellH))
+        // if selected, highlight
+        if (i == selected)
         {
             draw_set_color(c_white);
             draw_set_alpha(0.5);
             draw_rectangle(surfX + (s * cellW), surfY + (t * cellH),
             surfX + (s * cellW) + cellW - (2 * surfB), surfY + (t * cellH) + cellH - (2 * surfB), false);
+        }
+        if (obj_focus.focus == id &amp;&amp; mouse_in_rect(surfX + (s * cellW), surfY + (t * cellH), cellW, cellH))
+        {
+            // if hover, highlight
+            draw_set_color(c_white);
+            draw_set_alpha(0.5);
+            draw_rectangle(surfX + (s * cellW), surfY + (t * cellH),
+            surfX + (s * cellW) + cellW - (2 * surfB), surfY + (t * cellH) + cellH - (2 * surfB), false);
+            // if click, then select
+            if (mouse_check_button_pressed(mb_left))
+            {
+                selected = i;
+            }
         }
     }
     
@@ -267,7 +304,73 @@ if (active)
             <string>/// draw buttons
 if (active)
 {
+    var buttonW = 80;
+    var buttonH = 24;
+    var buttonSep = 12;
+    var buttonY = Y + H - (0.5 * bottomH) - (0.5 * buttonH);
     
+    // load button
+    var buttonX = X + buttonSep;
+    draw_set_color(c_dkgray);
+    draw_set_alpha(1);
+    draw_rectangle(buttonX, buttonY, buttonX + buttonW, buttonY + buttonH, false);
+    draw_set_color(c_black);
+    draw_set_alpha(1);
+    draw_rectangle(buttonX, buttonY, buttonX + buttonW, buttonY + buttonH, true);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_center);
+    draw_text(buttonX + (0.5 * buttonW), buttonY + (0.5 * buttonH), "Load");
+    // mouse-over highlight
+    if (mouse_in_rect(buttonX, buttonY, buttonW, buttonH))
+    {
+        draw_set_color(c_white);
+        draw_set_alpha(0.5);
+        draw_rectangle(buttonX, buttonY, buttonX + buttonW, buttonY + buttonH, false);
+        // if click on button, do something
+        if (mouse_check_button_pressed(mb_left))
+        {
+            // load
+        }
+    }
+    
+    // OK button
+    buttonX = X + W - buttonSep - buttonW;
+    draw_set_color(c_dkgray);
+    draw_set_alpha(1);
+    draw_rectangle(buttonX, buttonY, buttonX + buttonW, buttonY + buttonH, false);
+    draw_set_color(c_black);
+    draw_set_alpha(1);
+    draw_rectangle(buttonX, buttonY, buttonX + buttonW, buttonY + buttonH, true);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_center);
+    draw_text(buttonX + (0.5 * buttonW), buttonY + (0.5 * buttonH), "OK");
+    // mouse-over highlight
+    if (mouse_in_rect(buttonX, buttonY, buttonW, buttonH))
+    {
+        draw_set_color(c_white);
+        draw_set_alpha(0.5);
+        draw_rectangle(buttonX, buttonY, buttonX + buttonW, buttonY + buttonH, false);
+        // if click on button, do something
+        if (mouse_check_button_pressed(mb_left))
+        {
+            // ok
+            if (instance_exists(target) &amp;&amp; selected != noone)
+            {
+                if (selected &lt; ds_list_size(shapes))
+                {
+                    target.shapeType = SHAPE_SHAPE;
+                    target.shapeIndex = selected;
+                }
+                else
+                {
+                    target.shapeType = SHAPE_SPRITE;
+                    target.shapeIndex = selected - ds_list_size(shapes) + excludedSprites;
+                }
+            }
+            active = false;
+            obj_focus.focus = noone;
+        }
+    }
 }
 </string>
           </argument>

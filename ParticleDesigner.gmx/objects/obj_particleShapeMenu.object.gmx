@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>10</depth>
   <persistent>0</persistent>
   <parentName>obj_menuElement</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -25,11 +25,119 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// no submenus
+            <string>/// add submenus
 event_inherited();
 
 W = getTypeMenuW();
 border = 4;
+
+submenus = ds_list_create();
+
+// top bar
+addSubmenu(submenus, id, createTextRect(0, 0, W, 30, "Shape/Sprite", fnt_subtitle, c_black, c_ltgray, c_black, 1, 1, 0));
+
+// sprite/shape selection menu
+imagebox = createSpriteRect(6, 32, 60, 60, noone, 0, c_black, 1);
+addSubmenu(submenus, id, imagebox);
+
+textbox = createTextRect(67, 50, 85, 24, "noone", fnt_small, c_black, c_white, c_black, 1, 0, 0);
+textbox.halign = fa_left;
+addSubmenu(submenus, id, textbox);
+
+menuOutput = createMenuButton(X + W - 12 - 85, 50, 85, 24, "Change...", fnt_tab, c_black, c_gray, c_black, 1, 1, 1, instance_create(0, 0, obj_shapeMenu));
+menuOutput.shapeType = noone;
+menuOutput.shapeIndex = noone;
+addSubmenu(submenus, id, menuOutput);
+
+// animate checkbox
+//addSubmenu(submenus, id, createTextRect());
+//addSubmenu(submenus, id, createCheckbox());
+
+// stretch checkbox
+//addSubmenu(submenus, id, createTextRect());
+//addSubmenu(submenus, id, createCheckbox());
+
+// random checkbox
+//addSubmenu(submenus, id, createTextRect());
+//addSubmenu(submenus, id, createCheckbox());
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// shape index to string
+shapes = ds_list_create();
+shapes[| 0] = "Pixel";
+shapes[| 1] = "Circle";
+shapes[| 2] = "Square";
+shapes[| 3] = "Line";
+shapes[| 4] = "Star";
+shapes[| 5] = "Circle";
+shapes[| 6] = "Ring";
+shapes[| 7] = "Sphere";
+shapes[| 8] = "Flare";
+shapes[| 9] = "Spark";
+shapes[| 10] = "Explosion";
+shapes[| 11] = "Cloud";
+shapes[| 12] = "Smoke";
+shapes[| 13] = "Snow";
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// continuously scan for obj_shapeMenu feedback
+// if there's data
+if (menuOutput.shapeType != noone)
+{
+    // output it
+    if (menuOutput.shapeType == SHAPE_SHAPE)
+    {
+        textbox.text = stringDotTruncate(shapes[| menuOutput.shapeIndex], 12);
+        imagebox.spr = spr_shapes;
+        imagebox.img = menuOutput.shapeIndex;
+    }
+    else
+    {
+        textbox.text = stringDotTruncate(sprite_get_name(menuOutput.shapeIndex), 12);
+        imagebox.spr = menuOutput.shapeIndex;
+        imagebox.img = 0;
+    }
+    menuOutput.shapeType = noone;
+    menuOutput.shapeIndex = noone;
+}
 </string>
           </argument>
         </arguments>
@@ -75,6 +183,32 @@ for (var i = 0; i &lt; ds_list_size(submenus); i++)
 
 // surround that element with a border
 H = maxH + border;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// draw the background
+draw_set_color(c_ltgray);
+draw_set_alpha(1);
+draw_rectangle(X, Y, X + W, Y + H, false);
 </string>
           </argument>
         </arguments>

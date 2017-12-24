@@ -342,7 +342,7 @@ for (var i = 0; i &lt; ds_list_size(tabs); i++)
         draw_rectangle(counterX, nowY, counterX + w, nowY + tabH, false);
         draw_set_alpha(1);
     }
-    draw_set_color(c_black);
+    draw_set_color(c_ltgray);
     draw_set_alpha(1);
     draw_rectangle(counterX, nowTabY, counterX + w, nowTabY + tabH, true);
     // draw tab surface (w/ text)
