@@ -28,14 +28,14 @@
             <string>/// no submenus
 event_inherited();
 
-W = 30;
-H = 30;
+W = getTypeMenuW();
+border = 4;
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="64">
+    <event eventtype="7" enumb="10">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -52,10 +52,29 @@ H = 30;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// yay
-draw_set_color(c_gray);
-draw_set_alpha(1);
-draw_rectangle(X, Y, X + W, Y + H, true);
+            <string>/// update sizes of this menu and children
+for (var i = 0; i &lt; ds_list_size(submenus); i++)
+{
+    var inst = submenus[| i];
+    with (inst)
+    {
+        event_user(UPDATE_SIZES);
+    }
+}
+
+// find max height of any element
+var maxH = 0;
+for (var i = 0; i &lt; ds_list_size(submenus); i++)
+{
+    var inst = submenus[| i];
+    if (inst.RelY + inst.H &gt; maxH)
+    {
+        maxH = inst.RelY + inst.H;
+    }
+}
+
+// surround that element with a border
+H = maxH + border;
 </string>
           </argument>
         </arguments>

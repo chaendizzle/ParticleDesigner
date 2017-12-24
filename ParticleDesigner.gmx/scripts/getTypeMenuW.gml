@@ -1,0 +1,2 @@
+///getTypeMenuW()
+return 256;

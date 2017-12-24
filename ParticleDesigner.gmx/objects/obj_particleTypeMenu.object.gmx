@@ -39,7 +39,7 @@ selected = noone;
 active = true;
 
 // size
-H = 52;
+H = 56;
 W = 256;
 // right side of the screen
 RelX = getDisplayRoomWidth() - W;
@@ -124,16 +124,38 @@ buttonBarH = 32;
 // single tab draw parameters
 tabMinW = 32;
 tabMaxW = 96;
-tabH = 20;
+tabH = 24;
 tabTextBorder = 2;
 
 // tab bar draw parameters
 tabBarX = 0;
 tabBarY = buttonBarH;
 tabBarW = W;
-tabBarH = 20;
+tabBarH = 24;
 tabLeftSpace = 3;
 tabTopSpace = 0;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// test
+createNumBox(100, 100, 100, 24, "55555", fnt_title, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5);
 </string>
           </argument>
         </arguments>
@@ -327,6 +349,21 @@ for (var i = 0; i &lt; ds_list_size(tabs); i++)
     draw_surface(tab[| TAB_SURF], counterX, nowTabY);
     counterX += w;
 }
+
+// draw the new tab button
+var w = tabH;
+// highlight if mouse is there
+if (checkFocus() &amp;&amp; mouse_in_rect(counterX, nowY, w, tabH))
+{
+    draw_set_color(c_white);
+    draw_set_alpha(0.4);
+    draw_rectangle(counterX, nowY, counterX + w, nowY + tabH, false);
+    draw_set_alpha(1);
+}
+// draw tab surface (w/ text)
+draw_set_alpha(1);
+draw_sprite_stretched(spr_newtab, 0, counterX, nowY, w, tabH);
+counterX += w;
 </string>
           </argument>
         </arguments>

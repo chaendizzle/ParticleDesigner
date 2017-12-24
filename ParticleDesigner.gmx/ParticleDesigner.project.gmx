@@ -7,6 +7,7 @@
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprite>sprites\spr_file</sprite>
+    <sprite>sprites\spr_newtab</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -29,20 +30,30 @@
     <script>scripts\roomToGUIY.gml</script>
     <script>scripts\mouse_in_rect.gml</script>
     <script>scripts\checkFocus.gml</script>
+    <script>scripts\getTypeMenuW.gml</script>
+    <script>scripts\createTextRect.gml</script>
+    <script>scripts\createNumBox.gml</script>
+    <script>scripts\inrange.gml</script>
+    <script>scripts\findStringPos.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_tab</font>
+    <font>fonts\fnt_title</font>
+    <font>fonts\fnt_subtitle</font>
   </fonts>
   <objects name="objects">
     <object>objects\obj_menuElement</object>
+    <object>objects\obj_focus</object>
     <object>objects\obj_particleTypeMenu</object>
     <object>objects\obj_particleTypeTest</object>
-    <object>objects\obj_focus</object>
+    <object>objects\obj_particleShapeMenu</object>
+    <object>objects\obj_textrect</object>
+    <object>objects\obj_numbox</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_test</room>
   </rooms>
-  <constants number="8">
+  <constants number="10">
     <constant name="UPDATE_SIZES">0</constant>
     <constant name="TAB_MENU">0</constant>
     <constant name="TAB_NAME">1</constant>
@@ -51,6 +62,8 @@
     <constant name="BUTTON_SAVE">1</constant>
     <constant name="BUTTON_LOAD">2</constant>
     <constant name="BUTTON_EXPORT">3</constant>
+    <constant name="vk_period">190</constant>
+    <constant name="vk_control2">162</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>
