@@ -12,7 +12,7 @@ var tabMenus = ds_list_create();
     // import
 
 // scale, size
-    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleTypeTest));
+    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleSizeMenu));
     // sliders or numbers
 
 // speed

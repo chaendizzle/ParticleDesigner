@@ -31,6 +31,7 @@
     <script>scripts\roomToGUIX.gml</script>
     <script>scripts\roomToGUIY.gml</script>
     <script>scripts\mouse_in_rect.gml</script>
+    <script>scripts\mouse_in_circle.gml</script>
     <script>scripts\checkFocus.gml</script>
     <script>scripts\getTypeMenuW.gml</script>
     <script>scripts\createTextRect.gml</script>
@@ -38,6 +39,7 @@
     <script>scripts\createCheckbox.gml</script>
     <script>scripts\createMenuButton.gml</script>
     <script>scripts\createNumBox.gml</script>
+    <script>scripts\createAngleSlider.gml</script>
     <script>scripts\inrange.gml</script>
     <script>scripts\findStringPos.gml</script>
     <script>scripts\drawCheckmark.gml</script>
@@ -46,12 +48,16 @@
     <script>scripts\draw_linestrip_width.gml</script>
     <script>scripts\draw_linestrip_width_point.gml</script>
     <script>scripts\stringDotTruncate.gml</script>
+    <script>scripts\draw_pie.gml</script>
+    <script>scripts\map_range.gml</script>
+    <script>scripts\map_range_closed.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_tab</font>
     <font>fonts\fnt_title</font>
     <font>fonts\fnt_subtitle</font>
     <font>fonts\fnt_small</font>
+    <font>fonts\fnt_kindasmall</font>
   </fonts>
   <objects name="objects">
     <object>objects\obj_menuElement</object>
@@ -59,10 +65,12 @@
     <object>objects\obj_particleTypeMenu</object>
     <object>objects\obj_particleTypeTest</object>
     <object>objects\obj_particleShapeMenu</object>
+    <object>objects\obj_particleSizeMenu</object>
     <object>objects\obj_textrect</object>
     <object>objects\obj_spriterect</object>
     <object>objects\obj_menuButton</object>
     <object>objects\obj_numbox</object>
+    <object>objects\obj_angleSlider</object>
     <object>objects\obj_checkbox</object>
     <object>objects\obj_popupMenu</object>
     <object>objects\obj_shapeMenu</object>

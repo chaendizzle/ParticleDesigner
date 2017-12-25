@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>/// menu item that is a rectangle with text in it
 event_inherited();
-
+tag = "";
 text = "";
 textFont = fnt_title;
 textCol = c_black;

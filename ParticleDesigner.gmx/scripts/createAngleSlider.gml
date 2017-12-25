@@ -1,0 +1,21 @@
+///createAngleSlider(X, Y, R, twoHandled, outsideCol, handleCol, fillCol, pieCol, outsideAlpha, handleAlpha, fillAlpha, pieAlpha)
+var menu = instance_create(0, 0, obj_angleSlider);
+menu.centerX = argument0;
+menu.centerY = argument1;
+menu.R = argument2;
+menu.RelX = menu.centerX - menu.R;
+menu.RelY = menu.centerY - menu.R;
+menu.X = menu.RelX;
+menu.Y = menu.RelY;
+menu.W = 2 * menu.R;
+menu.H = 2 * menu.R;
+menu.twoHandled = argument3;
+menu.outlineCol = argument4;
+menu.handleCol = argument5;
+menu.fillCol = argument6;
+menu.pieCol = argument7;
+menu.outlineAlpha = argument8;
+menu.handleAlpha = argument9;
+menu.fillAlpha = argument10;
+menu.pieAlpha = argument11;
+return menu;

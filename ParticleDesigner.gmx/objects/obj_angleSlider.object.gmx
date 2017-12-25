@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>10</depth>
+  <depth>0</depth>
   <persistent>0</persistent>
   <parentName>obj_menuElement</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -25,80 +25,37 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// add submenus
+            <string>/// one or two-handled angle slider
 event_inherited();
 
-W = getTypeMenuW();
-border = 4;
+// control handles
+angleA = 0;
+angleB = 0;
+selected = false;
+change = 2;
+sgn = 1;
 
-submenus = ds_list_create();
+// position and radius
+centerX = 0;
+centerY = 0;
+R = 0;
+RelX = centerX - R;
+RelY = centerY - R;
+X = RelX;
+Y = RelY;
+W = 2 * R;
+H = 2 * R;
+twoHandled = true;
+outsideCol = c_black;
+handleCol = c_white;
+fillCol = c_dkgray;
+pieCol = c_white;
+outsideAlpha = 1;
+handleAlpha = 1;
+fillAlpha = 1;
+pieAlpha = 0.5;
 
-// top bar
-addSubmenu(submenus, id, createTextRect(0, 0, W, 30, "Shape/Sprite", fnt_subtitle, c_black, c_ltgray, c_black, 1, 1, 0));
-
-// sprite/shape selection menu
-imagebox = createSpriteRect(6, 32, 60, 60, noone, 0, c_black, 1);
-addSubmenu(submenus, id, imagebox);
-
-textbox = createTextRect(67, 50, 85, 24, "noone", fnt_small, c_black, c_white, c_black, 1, 0, 0);
-textbox.halign = fa_left;
-addSubmenu(submenus, id, textbox);
-
-menuOutput = createMenuButton(X + W - 12 - 85, 50, 85, 24, "Change...", fnt_tab, c_black, c_gray, c_black, 1, 1, 1, instance_create(0, 0, obj_shapeMenu));
-menuOutput.shapeType = noone;
-menuOutput.shapeIndex = noone;
-addSubmenu(submenus, id, menuOutput);
-
-// animate checkbox
-addSubmenu(submenus, id, createTextRect(5, 96, 60, 18, "Animate", fnt_kindasmall, c_black, c_gray, c_black, 1, 1, 1));
-anim = createCheckbox(5 + 60, 96, 18, 18, c_red, c_dkgray, c_black, 1, 1, 1);
-addSubmenu(submenus, id, anim);
-
-// stretch checkbox
-addSubmenu(submenus, id, createTextRect(5 + 83, 96, 60, 18, "Stretch", fnt_kindasmall, c_black, c_gray, c_black, 1, 1, 1));
-stretch = createCheckbox(5 + 60 + 83, 96, 18, 18, c_red, c_dkgray, c_black, 1, 1, 1);
-addSubmenu(submenus, id, stretch);
-
-// random checkbox
-addSubmenu(submenus, id, createTextRect(X + W - 3 - 60 - 18 - 4, 96, 60, 18, "Random", fnt_kindasmall, c_black, c_gray, c_black, 1, 1, 1));
-rand = createCheckbox(X + W - 3 - 18 - 4, 96, 18, 18, c_red, c_dkgray, c_black, 1, 1, 1);
-addSubmenu(submenus, id, rand);
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// shape index to string
-shapes = ds_list_create();
-shapes[| 0] = "Pixel";
-shapes[| 1] = "Circle";
-shapes[| 2] = "Square";
-shapes[| 3] = "Line";
-shapes[| 4] = "Star";
-shapes[| 5] = "Circle";
-shapes[| 6] = "Ring";
-shapes[| 7] = "Sphere";
-shapes[| 8] = "Flare";
-shapes[| 9] = "Spark";
-shapes[| 10] = "Explosion";
-shapes[| 11] = "Cloud";
-shapes[| 12] = "Smoke";
-shapes[| 13] = "Snow";
+handleR = 4;
 </string>
           </argument>
         </arguments>
@@ -121,32 +78,47 @@ shapes[| 13] = "Snow";
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// continuously scan for obj_shapeMenu feedback
-// if there's data
-if (menuOutput.shapeType != noone)
+            <string>/// move selection with mouse
+if (selected)
 {
-    // output it
-    if (menuOutput.shapeType == SHAPE_SHAPE)
+    var prevA = angleA;
+    angleB = modulo(angleB, 360);
+    angleA = point_direction(centerX, centerY, cursor_get_x(), cursor_get_y());
+    if (sgn)
     {
-        textbox.text = stringDotTruncate(shapes[| menuOutput.shapeIndex], 12);
-        imagebox.spr = spr_shapes;
-        imagebox.img = menuOutput.shapeIndex;
+        angleA = map_range_closed(angleA - angleB - angleB, 0, 360, angleB, angleB + 360);
     }
     else
     {
-        textbox.text = stringDotTruncate(sprite_get_name(menuOutput.shapeIndex), 12);
-        imagebox.spr = menuOutput.shapeIndex;
-        imagebox.img = 0;
+        angleA = map_range_closed(angleA - angleB - angleB, 0, 360, angleB - 360, angleB);
     }
-    menuOutput.shapeType = noone;
-    menuOutput.shapeIndex = noone;
+    if (!change &amp;&amp; abs(prevA - angleA) &gt; 180)
+    {
+        change = true;
+        sgn = -sgn;
+        if (sgn)
+        {
+            angleA = map_range_closed(angleA - angleB - angleB, 0, 360, angleB, angleB + 360);
+        }
+        else
+        {
+            angleA = map_range_closed(angleA - angleB - angleB, 0, 360, angleB - 360, angleB);
+        }
+    }
+    else if (change)
+    {
+        change = false;
+    }
 }
+// set center
+centerX = X + R;
+centerY = Y + R;
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="7" enumb="10">
+    <event eventtype="6" enumb="56">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -163,29 +135,54 @@ if (menuOutput.shapeType != noone)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// update sizes of this menu and children
-for (var i = 0; i &lt; ds_list_size(submenus); i++)
+            <string>/// unselect the handle
+selected = false;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="53">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// if within radius
+var posAX = centerX + lengthdir_x(R, angleA);
+var posAY = centerY + lengthdir_y(R, angleA);
+var posBX = centerX + lengthdir_x(R, angleB);
+var posBY = centerY + lengthdir_y(R, angleB);
+// check mouse on a handle
+if (checkFocus())
 {
-    var inst = submenus[| i];
-    with (inst)
+    if (mouse_in_circle(posAX, posAY, handleR))
     {
-        event_user(UPDATE_SIZES);
+        selected = true;
+    }
+    else if (mouse_in_circle(posBX, posBY, handleR))
+    {
+        // swap then continue as normal
+        var a = angleA;
+        angleA = angleB;
+        angleB = a;
+        sgn = -sgn;
+        change = true;
+        selected = true;
     }
 }
 
-// find max height of any element
-var maxH = 0;
-for (var i = 0; i &lt; ds_list_size(submenus); i++)
-{
-    var inst = submenus[| i];
-    if (inst.RelY + inst.H &gt; maxH)
-    {
-        maxH = inst.RelY + inst.H;
-    }
-}
-
-// surround that element with a border
-H = maxH + (2 * border);
 </string>
           </argument>
         </arguments>
@@ -208,13 +205,41 @@ H = maxH + (2 * border);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// draw the background
-draw_set_color(c_ltgray);
-draw_set_alpha(1);
-draw_rectangle(X, Y, X + W, Y + H, false);
-// draw the bottom separator
-draw_set_color(c_dkgray);
-draw_rectangle(X, Y + H - border, X + W, Y + H, false);
+            <string>/// draw the angle slider
+// draw fill
+draw_set_color(fillCol);
+draw_set_alpha(fillAlpha);
+draw_circle(centerX, centerY, R, false);
+// draw pie
+draw_set_color(pieCol);
+draw_set_alpha(pieAlpha);
+draw_pie(centerX + 1, centerY + 1, R, angleA, angleB, 100);
+// draw outline
+draw_set_color(outlineCol);
+draw_set_alpha(outlineAlpha);
+draw_circle(centerX, centerY, R, true);
+// draw handles
+var posAX = centerX + lengthdir_x(R, angleA);
+var posAY = centerY + lengthdir_y(R, angleA);
+var posBX = centerX + lengthdir_x(R, angleB);
+var posBY = centerY + lengthdir_y(R, angleB);
+draw_set_color(handleCol);
+draw_set_alpha(handleAlpha);
+draw_circle(posAX, posAY, handleR, false);
+draw_circle(posBX, posBY, handleR, false);
+var angA = angleA;
+var angB = angleB;
+with (obj_numbox)
+{
+    if (tag == "A")
+    {
+        text = string(round(min(angA, angB)));
+    }
+    if (tag == "B")
+    {
+        text = string(round(max(angA, angB)));
+    }
+}
 </string>
           </argument>
         </arguments>
