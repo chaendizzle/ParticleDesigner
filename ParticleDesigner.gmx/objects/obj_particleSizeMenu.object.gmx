@@ -42,63 +42,131 @@ addSubmenu(submenus, id, createTextRect(16, 32, 32, 18, "Scale", fnt_kindasmall,
 addSubmenu(submenus, id, createTextRect(0, 32 + 18, 18, 18, "X", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0));
 addSubmenu(submenus, id, createTextRect(0, 32 + 36, 18, 18, "Y", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0));
 
-addSubmenu(submenus, id, createNumBox(16, 32 + 18, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
-addSubmenu(submenus, id, createNumBox(16, 32 + 36, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+scaleX = addSubmenu(submenus, id, createNumBox(16, 32 + 18, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+scaleY = addSubmenu(submenus, id, createNumBox(16, 32 + 36, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
 
 // size
 addSubmenu(submenus, id, createTextRect(56 + 20, 32, 32, 18, "Size", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0));
 
 var textrect = noone;
-textrect = createTextRect(56, 32 + 18, 18, 18, "X", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
+textrect = createTextRect(64, 32 + 18, 18, 18, "Min", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
 textrect.halign = fa_right;
 addSubmenu(submenus, id, textrect);
-textrect = createTextRect(56, 32 + 36, 18, 18, "Y", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
+textrect = createTextRect(64, 32 + 36, 18, 18, "Max", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
 textrect.halign = fa_right;
 addSubmenu(submenus, id, textrect);
-textrect = createTextRect(56, 32 + 54, 18, 18, "Inc", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
+textrect = createTextRect(64, 32 + 54, 18, 18, "Inc", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
 textrect.halign = fa_right;
 addSubmenu(submenus, id, textrect);
-textrect = createTextRect(56, 32 + 72, 18, 18, "Wig", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
+textrect = createTextRect(64, 32 + 72, 18, 18, "Wig", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
 textrect.halign = fa_right;
 addSubmenu(submenus, id, textrect);
 
-addSubmenu(submenus, id, createNumBox(56 + 20, 32 + 18, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
-addSubmenu(submenus, id, createNumBox(56 + 20, 32 + 36, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
-addSubmenu(submenus, id, createNumBox(56 + 20, 32 + 54, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
-addSubmenu(submenus, id, createNumBox(56 + 20, 32 + 72, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+sizeMin = addSubmenu(submenus, id, createNumBox(64 + 20, 32 + 18, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+sizeMin = addSubmenu(submenus, id, createNumBox(64 + 20, 32 + 36, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+sizeMin = addSubmenu(submenus, id, createNumBox(64 + 20, 32 + 54, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+sizeMin = addSubmenu(submenus, id, createNumBox(64 + 20, 32 + 72, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
 
 // angle
-addSubmenu(submenus, id, createTextRect(68 + 56 + 20, 32, 32, 18, "Angle", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0));
+addSubmenu(submenus, id, createTextRect(68 + 64 + 20, 32, 32, 18, "Angle", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0));
 
 var textrect = noone;
-textrect = createTextRect(68 + 56, 32 + 18, 18, 18, "Min", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
+textrect = createTextRect(68 + 64, 32 + 18, 18, 18, "Min", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
 textrect.halign = fa_right;
 addSubmenu(submenus, id, textrect);
-textrect = createTextRect(68 + 56, 32 + 36, 18, 18, "Max", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
+textrect = createTextRect(68 + 64, 32 + 36, 18, 18, "Max", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
 textrect.halign = fa_right;
 addSubmenu(submenus, id, textrect);
-textrect = createTextRect(68 + 56, 32 + 54, 18, 18, "Inc", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
+textrect = createTextRect(68 + 64, 32 + 54, 18, 18, "Inc", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
 textrect.halign = fa_right;
 addSubmenu(submenus, id, textrect);
-textrect = createTextRect(68 + 56, 32 + 72, 18, 18, "Wig", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
+textrect = createTextRect(68 + 64, 32 + 72, 18, 18, "Wig", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
 textrect.halign = fa_right;
 addSubmenu(submenus, id, textrect);
 
-addSubmenu(submenus, id, createNumBox(68 + 56 + 20, 32 + 18, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
-submenus[| ds_list_size(submenus) - 1].tag = "A";
-addSubmenu(submenus, id, createNumBox(68 + 56 + 20, 32 + 36, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
-submenus[| ds_list_size(submenus) - 1].tag = "B";
-addSubmenu(submenus, id, createNumBox(68 + 56 + 20, 32 + 54, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
-addSubmenu(submenus, id, createNumBox(68 + 56 + 20, 32 + 72, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+angleMin = addSubmenu(submenus, id, createNumBox(68 + 64 + 20, 32 + 18, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+angleMax = addSubmenu(submenus, id, createNumBox(68 + 64 + 20, 32 + 36, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+angleInc = addSubmenu(submenus, id, createNumBox(68 + 64 + 20, 32 + 54, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+angleWig = addSubmenu(submenus, id, createNumBox(68 + 64 + 20, 32 + 72, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
 
 // angle spinner
-addSubmenu(submenus, id, createAngleSlider(68 + 68 + 56 + 20, 32 + 20 + 20, 20, true, c_black, c_white, c_dkgray, c_white, 1, 1, 1, 0.5));
+angleSpinner = addSubmenu(submenus, id, createAngleSlider(68 + 68 + 64 + 20, 32 + 20 + 20, 20, true, c_black, c_white, c_dkgray, c_white, 1, 1, 1, 0.5));
 
 // rel checkbox
-textrect = createTextRect(68 + 68 + 56, 32 + 72, 18, 18, "Rel", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
+textrect = createTextRect(68 + 68 + 64, 32 + 72, 18, 18, "Rel", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
 textrect.halign = fa_right;
 addSubmenu(submenus, id, textrect);
-addSubmenu(submenus, id, createCheckbox(68 + 68 + 56 + 20, 32 + 72, 18, 18, c_red, c_dkgray, c_black, 1, 1, 1));
+relative = addSubmenu(submenus, id, createCheckbox(68 + 68 + 64 + 20, 32 + 72, 18, 18, c_red, c_dkgray, c_black, 1, 1, 1));
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// sync angle
+if (!angleMin.selected &amp;&amp; !angleSpinner.selected)
+{
+    // if angleA &gt; angleB
+    if (angleSpinner.sgn)
+    {
+        // set angleB
+        angleSpinner.angleB = angleMin.value;
+    }
+    // if angleA &lt; angleB
+    else
+    {
+        // set angleA
+        angleSpinner.angleA = angleMin.value;
+    }
+}
+if (!angleMax.selected &amp;&amp; !angleSpinner.selected)
+{
+    // if angleA &gt; angleB
+    if (angleSpinner.sgn)
+    {
+        // set angleA
+        angleSpinner.angleA = angleMax.value;
+    }
+    // if angleA &lt; angleB
+    else
+    {
+        // set angleB
+        angleSpinner.angleB = angleMax.value;
+    }
+}
+if (!angleMin.selected &amp;&amp; !angleMax.selected)
+{
+    // if min &gt; max
+    if (angleMin.value &gt; angleMax.value)
+    {
+        // swap
+        var m = angleMin.text;
+        angleMin.text = angleMax.text;
+        angleMax.text = m;
+    }
+}
+// set both if spinner is selected
+if (angleSpinner.selected)
+{
+    angleMin.text = string(round(min(angleSpinner.angleA, angleSpinner.angleB)));
+    angleMax.text = string(round(max(angleSpinner.angleA, angleSpinner.angleB)));
+}
 </string>
           </argument>
         </arguments>

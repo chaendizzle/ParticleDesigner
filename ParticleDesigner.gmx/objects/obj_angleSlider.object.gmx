@@ -227,19 +227,6 @@ draw_set_color(handleCol);
 draw_set_alpha(handleAlpha);
 draw_circle(posAX, posAY, handleR, false);
 draw_circle(posBX, posBY, handleR, false);
-var angA = angleA;
-var angB = angleB;
-with (obj_numbox)
-{
-    if (tag == "A")
-    {
-        text = string(round(min(angA, angB)));
-    }
-    if (tag == "B")
-    {
-        text = string(round(max(angA, angB)));
-    }
-}
 </string>
           </argument>
         </arguments>

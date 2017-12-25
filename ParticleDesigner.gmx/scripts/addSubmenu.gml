@@ -5,3 +5,4 @@ var submenu = argument2;
 
 ds_list_add(list, submenu);
 submenu.parent = parent;
+return submenu;
