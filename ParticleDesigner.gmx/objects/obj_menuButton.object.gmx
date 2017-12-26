@@ -60,7 +60,7 @@ menuTarget = noone;
           <argument>
             <kind>1</kind>
             <string>/// if clicked while base menu is in focus
-if (checkFocus() &amp;&amp; mouse_in_rect(X, Y, W, H))
+if (checkFocus(popup) &amp;&amp; mouse_in_rect(X, Y, W, H))
 {
     /// open the menu
     if (instance_exists(menuTarget))
@@ -108,7 +108,7 @@ draw_set_color(textCol);
 draw_set_alpha(textAlpha);
 draw_text(X + (0.5 * W), Y + (0.5 * H), text);
 // draw the highlight on mouseover
-if (checkFocus() &amp;&amp; mouse_in_rect(X, Y, W, H))
+if (checkFocus(popup) &amp;&amp; mouse_in_rect(X, Y, W, H))
 {
     draw_set_color(c_white);
     draw_set_alpha(0.5);

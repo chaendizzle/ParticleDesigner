@@ -3,9 +3,9 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>10</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_menuElement</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,31 +25,26 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// parent object of all menuElements.
+            <string>/// add submenus
+event_inherited();
 
-// have a list of submenus. If a leaf element (e.g. textbox), it's set to noone
-submenus = noone;
+W = getTypeMenuW();
+border = 4;
 
-// active or not
-active = false;
+submenus = ds_list_create();
 
-// position relative to parent
-RelX = 0;
-RelY = 0;
+// top bar
+addSubmenu(submenus, id, createTextRect(0, 0, W, 30, "Color", fnt_subtitle, c_black, c_ltgray, c_black, 1, 1, 0));
 
-// size
-W = 0;
-H = 0;
-
-// index of supermenu
-parent = noone;
-
-// absolute position, set by updateAbsolutePositions(root)
-X = 0;
-Y = 0;
-
-// if this belongs to a popup or the base
-popup = noone;
+// color type
+colorOptions = ds_list_create();
+ds_list_add(colorOptions, "1-color");
+ds_list_add(colorOptions, "2-color fade");
+ds_list_add(colorOptions, "3-color fade");
+ds_list_add(colorOptions, "2-color mix");
+ds_list_add(colorOptions, "RGB mix");
+ds_list_add(colorOptions, "HSV mix");
+addSubmenu(submenus, id, createDropdown(2, 32, 120, 24, colorOptions, fnt_kindasmall, c_black, c_gray, c_black, 1, 1, 1));
 </string>
           </argument>
         </arguments>
@@ -72,14 +67,35 @@ popup = noone;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// update sizes of this menu and children if needed
+            <string>/// update sizes of this menu and children
+for (var i = 0; i &lt; ds_list_size(submenus); i++)
+{
+    var inst = submenus[| i];
+    with (inst)
+    {
+        event_user(UPDATE_SIZES);
+    }
+}
 
+// find max height of any element
+var maxH = 0;
+for (var i = 0; i &lt; ds_list_size(submenus); i++)
+{
+    var inst = submenus[| i];
+    if (inst.RelY + inst.H &gt; maxH)
+    {
+        maxH = inst.RelY + inst.H;
+    }
+}
+
+// surround that element with a border
+H = maxH + (2 * border);
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="0">
+    <event eventtype="8" enumb="64">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -96,7 +112,13 @@ popup = noone;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// no draw event, look at draw GUI
+            <string>/// draw the background
+draw_set_color(c_ltgray);
+draw_set_alpha(1);
+draw_rectangle(X, Y, X + W, Y + H, false);
+// draw the bottom separator
+draw_set_color(c_dkgray);
+draw_rectangle(X, Y + H - border, X + W, Y + H, false);
 </string>
           </argument>
         </arguments>

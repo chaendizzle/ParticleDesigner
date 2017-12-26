@@ -97,7 +97,7 @@ gridW = 8;
 capacity = 50;
 
 // 3 sprites used by system, not to be used as particles
-excludedSprites = 3;
+excludedSprites = 4;
 
 // scroll bar size
 scrollBarWidth = 20;
@@ -249,7 +249,7 @@ if (active)
             draw_rectangle(surfX + (s * cellW), surfY + (t * cellH),
             surfX + (s * cellW) + cellW - (2 * surfB), surfY + (t * cellH) + cellH - (2 * surfB), false);
         }
-        if (obj_focus.focus == id &amp;&amp; mouse_in_rect(surfX + (s * cellW), surfY + (t * cellH), cellW, cellH))
+        if (checkFocus(id) &amp;&amp; mouse_in_rect(surfX + (s * cellW), surfY + (t * cellH), cellW, cellH))
         {
             // if hover, highlight
             draw_set_color(c_white);

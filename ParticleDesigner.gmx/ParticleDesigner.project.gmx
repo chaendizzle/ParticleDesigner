@@ -9,6 +9,7 @@
     <sprite>sprites\spr_file</sprite>
     <sprite>sprites\spr_newtab</sprite>
     <sprite>sprites\spr_shapes</sprite>
+    <sprite>sprites\spr_colors</sprite>
     <sprite>sprites\spr_particle</sprite>
   </sprites>
   <backgrounds name="background"/>
@@ -35,6 +36,7 @@
     <script>scripts\checkFocus.gml</script>
     <script>scripts\getTypeMenuW.gml</script>
     <script>scripts\createTextRect.gml</script>
+    <script>scripts\createDropdown.gml</script>
     <script>scripts\createSpriteRect.gml</script>
     <script>scripts\createCheckbox.gml</script>
     <script>scripts\createMenuButton.gml</script>
@@ -66,19 +68,24 @@
     <object>objects\obj_particleTypeTest</object>
     <object>objects\obj_particleShapeMenu</object>
     <object>objects\obj_particleSizeMenu</object>
+    <object>objects\obj_particleColorMenu</object>
     <object>objects\obj_textrect</object>
     <object>objects\obj_spriterect</object>
     <object>objects\obj_menuButton</object>
     <object>objects\obj_numbox</object>
     <object>objects\obj_angleSlider</object>
+    <object>objects\obj_slider</object>
     <object>objects\obj_checkbox</object>
     <object>objects\obj_popupMenu</object>
     <object>objects\obj_shapeMenu</object>
+    <object>objects\obj_dropdown</object>
+    <object>objects\obj_popupDropdown</object>
+    <object>objects\obj_colorMenu</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_test</room>
   </rooms>
-  <constants number="12">
+  <constants number="14">
     <constant name="UPDATE_SIZES">0</constant>
     <constant name="TAB_MENU">0</constant>
     <constant name="TAB_NAME">1</constant>
@@ -91,6 +98,8 @@
     <constant name="vk_control2">162</constant>
     <constant name="SHAPE_SHAPE">0</constant>
     <constant name="SHAPE_SPRITE">1</constant>
+    <constant name="SLIDER_A">1</constant>
+    <constant name="SLIDER_B">2</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

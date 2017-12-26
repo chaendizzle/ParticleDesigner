@@ -52,7 +52,7 @@ checked = false;
           <argument>
             <kind>1</kind>
             <string>/// checkbox clicked, toggle
-if (checkFocus() &amp;&amp; mouse_in_rect(X, Y, W, H))
+if (checkFocus(popup) &amp;&amp; mouse_in_rect(X, Y, W, H))
 {
     checked = !checked;
 }
@@ -82,7 +82,7 @@ if (checkFocus() &amp;&amp; mouse_in_rect(X, Y, W, H))
 
 // draw box
 drawOutlineRectExt(X, Y, W, H, 2, fillCol, outlineCol, fillAlpha, outlineAlpha);
-if (checkFocus() &amp;&amp; mouse_in_rect(X, Y, W, H))
+if (checkFocus(popup) &amp;&amp; mouse_in_rect(X, Y, W, H))
 {
     draw_set_color(c_white);
     draw_set_alpha(0.5);

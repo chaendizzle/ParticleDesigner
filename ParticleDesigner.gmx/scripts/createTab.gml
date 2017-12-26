@@ -16,7 +16,7 @@ var tabMenus = ds_list_create();
     // sliders or numbers
 
 // speed
-    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleTypeTest));
+    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleColorMenu));
     // slider or number
 
 // direction

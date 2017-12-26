@@ -323,7 +323,7 @@ selection = false;
           <argument>
             <kind>1</kind>
             <string>/// click on textbox
-if (checkFocus() &amp;&amp; mouse_in_rect(X, Y, W, H))
+if (checkFocus(popup) &amp;&amp; mouse_in_rect(X, Y, W, H))
 {
     // if unselected previously
     if (!selected)
@@ -433,7 +433,7 @@ draw_set_valign(fa_center);
 draw_set_font(textFont);
 draw_set_color(textCol);
 draw_set_alpha(textAlpha);
-draw_text(-scrollPos, 0.5 * H, text);
+draw_text(-scrollPos + 2, 0.5 * H, text);
 surface_reset_target();
 // draw highlighting
 surface_set_target(surfHighlight);
@@ -448,7 +448,7 @@ if (selected &amp;&amp; selectStart != noone &amp;&amp; selectEnd != noone)
         // draw the blinky cursor
         if (blink)
         {
-            draw_line(posA, (0.5 * H) - (0.5 * lineH), posA, (0.5 * H) + (0.5 * lineH));
+            draw_line(posA + 2, (0.5 * H) - (0.5 * lineH), posA, (0.5 * H) + (0.5 * lineH));
         }
     }
     else
@@ -456,7 +456,7 @@ if (selected &amp;&amp; selectStart != noone &amp;&amp; selectEnd != noone)
         // draw highlighting
         draw_set_color(highlightCol);
         draw_set_alpha(highlightAlpha);
-        draw_rectangle(posA, (0.5 * H) - (0.5 * lineH), posB, (0.5 * H) + (0.5 * lineH), false);
+        draw_rectangle(posA + 2, (0.5 * H) - (0.5 * lineH), posB + 2, (0.5 * H) + (0.5 * lineH), false);
     }
 }
 surface_reset_target();

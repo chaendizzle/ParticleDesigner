@@ -44,6 +44,8 @@ W = 256;
 // right side of the screen
 RelX = getDisplayRoomWidth() - W;
 RelY = 0;
+
+surf = noone;
 </string>
           </argument>
         </arguments>
@@ -134,30 +136,6 @@ tabBarW = W;
 tabBarH = 24;
 tabLeftSpace = 3;
 tabTopSpace = 0;
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// test
-createNumBox(100, 100, 100, 24, "12345", fnt_title, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5);
-createMenuButton(100, 200, 100, 24, "no", fnt_title, c_white, c_dkgray, c_black, 1, 1, 1, instance_create(0, 0, obj_shapeMenu));
-createCheckbox(100, 300, 24, 24, c_red, c_dkgray, c_black, 1, 1, 1);
 </string>
           </argument>
         </arguments>
@@ -286,7 +264,7 @@ draw_rectangle(nowX, nowY, nowX + buttonBarW, nowY + buttonBarH, false);
 for (var i = 0; i &lt; 4; i++)
 {
     // highlight if mouse is there
-    if (checkFocus() &amp;&amp; mouse_in_rect(nowX + (i * buttonW), nowY, buttonW, buttonH))
+    if (checkFocus(popup) &amp;&amp; mouse_in_rect(nowX + (i * buttonW), nowY, buttonW, buttonH))
     {
         draw_set_color(c_white);
         draw_set_alpha(0.4);
@@ -359,7 +337,7 @@ for (var i = 0; i &lt; ds_list_size(tabs); i++)
     draw_set_alpha(1);
     draw_rectangle(counterX, nowTabY, counterX + w, nowTabY + tabH, false);
     // highlight if mouse is there
-    if (checkFocus() &amp;&amp; mouse_in_rect(counterX, nowY, w, tabH))
+    if (checkFocus(popup) &amp;&amp; mouse_in_rect(counterX, nowY, w, tabH))
     {
         draw_set_color(c_white);
         draw_set_alpha(0.4);
@@ -378,7 +356,7 @@ for (var i = 0; i &lt; ds_list_size(tabs); i++)
 // draw the new tab button
 var w = tabH;
 // highlight if mouse is there
-if (checkFocus() &amp;&amp; mouse_in_rect(counterX, nowY, w, tabH))
+if (checkFocus(popup) &amp;&amp; mouse_in_rect(counterX, nowY, w, tabH))
 {
     draw_set_color(c_white);
     draw_set_alpha(0.4);
@@ -389,6 +367,53 @@ if (checkFocus() &amp;&amp; mouse_in_rect(counterX, nowY, w, tabH))
 draw_set_alpha(1);
 draw_sprite_stretched(spr_newtab, 0, counterX, nowY, w, tabH);
 counterX += w;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// draw the really slow color thing
+exit;
+var rX = 10;
+var rY = 10;
+var rW = 400;
+var rH = 400;
+
+if (!surface_exists(surf))
+{
+    surf = surface_create(rW, rH);
+    surface_set_target(surf);
+    draw_set_alpha(1);
+    for (var i = 0; i &lt; rW; i++)
+    {
+        for (var j = 0; j &lt; rH; j++)
+        {
+            var h = clamp(map_range(j, 0, rH, 0, 255), 0, 255);
+            var s = clamp(map_range(i, rW * 0.5, rW, 255, 0), 0, 255);
+            var v = clamp(map_range(i, 0, rW * 0.5, 0, 255), 0, 255);
+            draw_set_color(make_colour_hsv(h, s, v));
+            draw_point(i, j);
+        }
+    }
+    surface_reset_target();
+    surface_save(surf, "lel.png");
+}
+draw_surface(surf, rX, rY)
 </string>
           </argument>
         </arguments>

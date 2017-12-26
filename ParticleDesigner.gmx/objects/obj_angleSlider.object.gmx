@@ -165,7 +165,7 @@ var posAY = centerY + lengthdir_y(R, angleA);
 var posBX = centerX + lengthdir_x(R, angleB);
 var posBY = centerY + lengthdir_y(R, angleB);
 // check mouse on a handle
-if (checkFocus())
+if (checkFocus(popup))
 {
     if (mouse_in_circle(posAX, posAY, handleR))
     {

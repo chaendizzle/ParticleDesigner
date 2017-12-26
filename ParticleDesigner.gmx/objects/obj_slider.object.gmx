@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_menuElement</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,37 +25,23 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// parent object of all menuElements.
+            <string>/// two handled slider init
+event_inherited();
+// slider values
+valueMax = 0;
+valueMax = 1;
+valueA = 0;
+valueB = 1;
+twoHandled = true;
 
-// have a list of submenus. If a leaf element (e.g. textbox), it's set to noone
-submenus = noone;
-
-// active or not
-active = false;
-
-// position relative to parent
-RelX = 0;
-RelY = 0;
-
-// size
-W = 0;
-H = 0;
-
-// index of supermenu
-parent = noone;
-
-// absolute position, set by updateAbsolutePositions(root)
-X = 0;
-Y = 0;
-
-// if this belongs to a popup or the base
-popup = noone;
+selected = noone;
+handleW = 4;
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="7" enumb="10">
+    <event eventtype="6" enumb="56">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -72,14 +58,14 @@ popup = noone;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// update sizes of this menu and children if needed
-
+            <string>/// unselect
+selected = noone;
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="0">
+    <event eventtype="6" enumb="53">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -96,7 +82,43 @@ popup = noone;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// no draw event, look at draw GUI
+            <string>/// handle clicks on handles
+var AX = X + map_range(valueA, valueMin, valueMax, 0, W);
+var BX = X + map_range(valueB, valueMin, valueMax, 0, W);
+
+// check click
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// draw
+
+// inner bar is 0.25 of height
+
+// handles
+
+// text indicates min and max
+
+// text indicates current value
 </string>
           </argument>
         </arguments>
