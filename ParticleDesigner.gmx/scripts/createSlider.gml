@@ -10,6 +10,8 @@ menu.H = argument3;
 
 menu.valueMin = argument4;
 menu.valueMax = argument5;
+menu.valueA = menu.valueMin;
+menu.valueB = menu.valueMax;
 
 menu.twoHandled = argument6;
 

@@ -32,26 +32,20 @@ W = getTypeMenuW();
 border = 4;
 
 // top bar
-textrect = createTextRect(0, 0, W, 30, "Color", fnt_subtitle, c_black, c_ltgray, c_black, 1, 1, 0);
+textrect = createTextRect(0, 0, W, 30, "Alpha", fnt_subtitle, c_black, c_ltgray, c_black, 1, 1, 0);
 
 // color type
 colorOptions = ds_list_create();
-colorOptions[| COLOR_1] = "1-color";
-colorOptions[| COLOR_2] = "2-color fade";
-colorOptions[| COLOR_3] = "3-color fade";
-colorOptions[| COLOR_MIX] = "2-color mix";
-colorOptions[| COLOR_RGB] = "RGB mix";
-colorOptions[| COLOR_HSV] = "HSV mix";
+colorOptions[| ALPHA_1] = "1-alpha";
+colorOptions[| ALPHA_2] = "2-alpha fade";
+colorOptions[| ALPHA_3] = "3-alpha fade";
 dropdown = createDropdown(2, 32, 120, 24, colorOptions, fnt_kindasmall, c_black, c_gray, c_black, 1, 1, 1);
 
 // options menus
 optionMenus = ds_list_create();
-optionMenus[| COLOR_1] = ds_list_create();
-optionMenus[| COLOR_2] = ds_list_create();
-optionMenus[| COLOR_3] = ds_list_create();
-optionMenus[| COLOR_MIX] = ds_list_create();
-optionMenus[| COLOR_RGB] = ds_list_create();
-optionMenus[| COLOR_HSV] = ds_list_create();
+optionMenus[| ALPHA_1] = ds_list_create();
+optionMenus[| ALPHA_2] = ds_list_create();
+optionMenus[| ALPHA_3] = ds_list_create();
 // all of the menus have the dropdown
 for (var i = 0; i &lt; ds_list_size(optionMenus); i++)
 {
@@ -59,7 +53,7 @@ for (var i = 0; i &lt; ds_list_size(optionMenus); i++)
     addSubmenu(optionMenus[| i], id, dropdown);
 }
 
-selected = COLOR_1;
+selected = ALPHA_1;
 </string>
           </argument>
         </arguments>
@@ -80,123 +74,12 @@ selected = COLOR_1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// 1-color, optionMenus[| COLOR_1]
-(addSubmenu(optionMenus[| COLOR_1], id, createTextRect(2, 64, 0, 24, "Color: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_1], id, createColorButton(64, 64, 24, 24));
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// 2-color fade, optionMenus[| COLOR_2]
-(addSubmenu(optionMenus[| COLOR_2], id, createTextRect(2, 64, 0, 24, "Start color: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_2], id, createColorButton(100, 64, 24, 24));
-
-(addSubmenu(optionMenus[| COLOR_2], id, createTextRect(2, 96, 0, 24, "End color: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_2], id, createColorButton(100, 96, 24, 24));
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// 3-color fade, optionMenus[| COLOR_3]
-(addSubmenu(optionMenus[| COLOR_3], id, createTextRect(2, 64, 0, 24, "Start color: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_3], id, createColorButton(120, 64, 24, 24));
-
-(addSubmenu(optionMenus[| COLOR_3], id, createTextRect(2, 96, 0, 24, "Middle color: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_3], id, createColorButton(120, 96, 24, 24));
-
-(addSubmenu(optionMenus[| COLOR_3], id, createTextRect(2, 128, 0, 24, "End color: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_3], id, createColorButton(120, 128, 24, 24));
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// 2-color mix, optionMenus[| COLOR_MIX]
-(addSubmenu(optionMenus[| COLOR_MIX], id, createTextRect(2, 64, 0, 24, "Color 1: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_MIX], id, createColorButton(76, 64, 24, 24));
-
-(addSubmenu(optionMenus[| COLOR_MIX], id, createTextRect(2, 96, 0, 24, "Color 2: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_MIX], id, createColorButton(76, 96, 24, 24));
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// RGB mix, optionMenus[| COLOR_RGB]
-(addSubmenu(optionMenus[| COLOR_RGB], id, createTextRect(4, 64, 0, 32, "R: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_RGB], id, createSlider(32, 64, 195, 24, 0, 255, true, c_black, c_red, noone, 1));
-
-(addSubmenu(optionMenus[| COLOR_RGB], id, createTextRect(4, 112, 0, 32, "G: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_RGB], id, createSlider(32, 112, 195, 24, 0, 255, true, c_black, c_green, noone, 1));
-
-(addSubmenu(optionMenus[| COLOR_RGB], id, createTextRect(4, 160, 0, 32, "B: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_RGB], id, createSlider(32, 160, 195, 24, 0, 255, true, c_black, c_blue, noone, 1));
+            <string>/// 1-alpha, optionMenus[| ALPHA_1]
+(addSubmenu(optionMenus[| ALPHA_1], id, createTextRect(4, 64, 0, 32, "Alpha: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+addSubmenu(optionMenus[| ALPHA_1], id, createSlider(80, 64, 150, 24, 0, 1, true, c_ltgray, c_black, noone, 100));
 
 // pad space
-(addSubmenu(optionMenus[| COLOR_RGB], id, createTextRect(0, 200, 0, 0, "", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+(addSubmenu(optionMenus[| ALPHA_1], id, createTextRect(0, 104, 0, 0, "", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
 </string>
           </argument>
         </arguments>
@@ -217,18 +100,47 @@ addSubmenu(optionMenus[| COLOR_RGB], id, createSlider(32, 160, 195, 24, 0, 255, 
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// HSV mix, optionMenus[| COLOR_HSV]
-(addSubmenu(optionMenus[| COLOR_HSV], id, createTextRect(4, 64, 0, 32, "H: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_HSV], id, createSlider(32, 64, 195, 24, 0, 255, true, c_ltgray, c_ltgray, spr_hue, 1));
+            <string>/// 2-alpha, optionMenus[| ALPHA_2]
+(addSubmenu(optionMenus[| ALPHA_2], id, createTextRect(4, 64, 0, 32, "Start: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+addSubmenu(optionMenus[| ALPHA_2], id, createSlider(80, 64, 150, 24, 0, 1, true, c_ltgray, c_black, noone, 100));
 
-(addSubmenu(optionMenus[| COLOR_HSV], id, createTextRect(4, 112, 0, 32, "S: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_HSV], id, createSlider(32, 112, 195, 24, 0, 255, true, c_black, c_black, noone, 1));
-
-(addSubmenu(optionMenus[| COLOR_HSV], id, createTextRect(4, 160, 0, 32, "V: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_HSV], id, createSlider(32, 160, 195, 24, 0, 255, true, c_black, c_white, noone, 1));
+(addSubmenu(optionMenus[| ALPHA_2], id, createTextRect(4, 112, 0, 32, "End: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+addSubmenu(optionMenus[| ALPHA_2], id, createSlider(80, 112, 150, 24, 0, 1, true, c_ltgray, c_black, noone, 100));
 
 // pad space
-(addSubmenu(optionMenus[| COLOR_HSV], id, createTextRect(0, 200, 0, 0, "", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+(addSubmenu(optionMenus[| ALPHA_2], id, createTextRect(0, 152, 0, 0, "", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// 3-alpha, optionMenus[| ALPHA_3]
+(addSubmenu(optionMenus[| ALPHA_3], id, createTextRect(4, 64, 0, 32, "Start: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+addSubmenu(optionMenus[| ALPHA_3], id, createSlider(80, 64, 150, 24, 0, 1, true, c_ltgray, c_black, noone, 100));
+
+(addSubmenu(optionMenus[| ALPHA_3], id, createTextRect(4, 112, 0, 32, "Middle: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+addSubmenu(optionMenus[| ALPHA_3], id, createSlider(80, 112, 150, 24, 0, 1, true, c_ltgray, c_black, noone, 100));
+
+(addSubmenu(optionMenus[| ALPHA_3], id, createTextRect(4, 160, 0, 32, "End: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+addSubmenu(optionMenus[| ALPHA_3], id, createSlider(80, 160, 150, 24, 0, 1, true, c_ltgray, c_black, noone, 100));
+
+// pad space
+(addSubmenu(optionMenus[| ALPHA_3], id, createTextRect(0, 200, 0, 0, "", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
 </string>
           </argument>
         </arguments>
@@ -254,24 +166,6 @@ addSubmenu(optionMenus[| COLOR_HSV], id, createSlider(32, 160, 195, 24, 0, 255, 
             <string>/// select option
 selectColorOption(dropdown.selected);
 updateAbsolutePositions(id);
-
-// update HSV colors
-if (selected == COLOR_HSV)
-{
-    var hsvMenu = optionMenus[| COLOR_HSV];
-    // hue slider
-    var hueSlider = hsvMenu[| 3];
-    // sat slider
-    var satSlider = hsvMenu[| 5];
-    // val slider
-    var valSlider = hsvMenu[| 7];
-    // set colors
-    var hueCol = mean(hueSlider.valueA, hueSlider.valueB);
-    satSlider.leftCol = make_colour_hsv(hueCol, 0, 255);
-    satSlider.rightCol = make_colour_hsv(hueCol, 255, 255);
-    valSlider.leftCol = make_colour_hsv(hueCol, 255, 0);
-    valSlider.rightCol = make_colour_hsv(hueCol, 255, 255);
-}
 </string>
           </argument>
         </arguments>

@@ -20,7 +20,7 @@ var tabMenus = ds_list_create();
     // slider or number
 
 // direction
-    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleTypeTest));
+    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleAlphaMenu));
     // angle spinner
 
 // gravity

@@ -56,7 +56,7 @@ ignoreClick = false;
           <argument>
             <kind>1</kind>
             <string>/// handle mouse click on option or mouse click on nothing
-if (obj_focus.focus != id)
+if (!checkFocus(id))
 {
     exit;
 }

@@ -78,6 +78,7 @@
     <object>objects\obj_particleShapeMenu</object>
     <object>objects\obj_particleSizeMenu</object>
     <object>objects\obj_particleColorMenu</object>
+    <object>objects\obj_particleAlphaMenu</object>
     <object>objects\obj_textrect</object>
     <object>objects\obj_spriterect</object>
     <object>objects\obj_menuButton</object>
@@ -95,7 +96,7 @@
   <rooms name="rooms">
     <room>rooms\rm_test</room>
   </rooms>
-  <constants number="34">
+  <constants number="37">
     <constant name="UPDATE_SIZES">0</constant>
     <constant name="TAB_MENU">0</constant>
     <constant name="TAB_NAME">1</constant>
@@ -130,6 +131,9 @@
     <constant name="COLOR_MIX">3</constant>
     <constant name="COLOR_RGB">4</constant>
     <constant name="COLOR_HSV">5</constant>
+    <constant name="ALPHA_1">0</constant>
+    <constant name="ALPHA_2">1</constant>
+    <constant name="ALPHA_3">2</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>
