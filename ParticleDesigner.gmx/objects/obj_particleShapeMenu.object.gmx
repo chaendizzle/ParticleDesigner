@@ -63,6 +63,10 @@ addSubmenu(submenus, id, stretch);
 addSubmenu(submenus, id, createTextRect(X + W - 3 - 60 - 18 - 4, 96, 60, 18, "Random", fnt_kindasmall, c_black, c_gray, c_black, 1, 1, 1));
 rand = createCheckbox(X + W - 3 - 18 - 4, 96, 18, 18, c_red, c_dkgray, c_black, 1, 1, 1);
 addSubmenu(submenus, id, rand);
+
+// store shape
+shapeType = noone;
+shapeIndex = noone
 </string>
           </argument>
         </arguments>
@@ -138,8 +142,60 @@ if (menuOutput.shapeType != noone)
         imagebox.spr = menuOutput.shapeIndex;
         imagebox.img = 0;
     }
+    // update own version
+    shapeType = menuOutput.shapeType;
+    shapeIndex = menuOutput.shapeIndex;
+    // reset menu input channel (the menu button)
     menuOutput.shapeType = noone;
     menuOutput.shapeIndex = noone;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="11">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// add to map:
+// shape
+//     type
+//     index
+//     animate
+//     stretch
+//     random
+
+var shape = ds_map_create();
+ds_map_add_map(info, "shape", shape);
+if (shapeType == SHAPE_SHAPE)
+{
+    shape[? "type"] = SHAPE_SHAPE;
+    shape[? "index"] = shapeIndex;
+    shape[? "animate"] = false;
+    shape[? "stretch"] = false;
+    shape[? "random"] = false;
+}
+else
+{
+    shape[? "type"] = SHAPE_SPRITE;
+    shape[? "index"] = shapeIndex;
+    shape[? "animate"] = anim.checked;
+    shape[? "stretch"] = stretch.checked;
+    shape[? "random"] = rand.checked;
 }
 </string>
           </argument>

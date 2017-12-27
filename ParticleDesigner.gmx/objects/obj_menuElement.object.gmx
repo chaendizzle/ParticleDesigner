@@ -50,6 +50,49 @@ Y = 0;
 
 // if this belongs to a popup or the base
 popup = noone;
+
+// map to store info in before calling event_user(WRITE_INFO)
+info = noone;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="11">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// writes out info into the map called info
+if (ds_exists(info, ds_type_map))
+{
+    if (ds_exists(submenus, ds_type_map))
+    {
+        for (var i = 0; i &lt; ds_list_size(submenus); i++)
+        {
+            var sub = submenus[| i];
+            sub.info = info;
+            with (sub)
+            {
+                event_user(WRITE_INFO);
+            }
+            sub.info = noone;
+        }
+    }
+}
+info = noone;
 </string>
           </argument>
         </arguments>

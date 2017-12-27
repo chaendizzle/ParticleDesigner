@@ -182,6 +182,61 @@ else
         </arguments>
       </action>
     </event>
+    <event eventtype="7" enumb="11">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// add to map:
+// speed
+//     min
+//     max
+//     inc
+//     wig
+// dir
+//     min
+//     max
+//     inc
+//     wig
+// grav
+//     amt
+//     dir
+
+var spd = ds_map_create();
+ds_map_add_map(info, "speed", spd);
+spd[? "min"] = spdMin.value;
+spd[? "max"] = spdMax.value;
+spd[? "inc"] = spdInc.value;
+spd[? "wig"] = spdWig.value;
+
+var dir = ds_map_create();
+ds_map_add_map(info, "dir", dir);
+dir[? "min"] = angleMin.value;
+dir[? "max"] = angleMax.value;
+dir[? "inc"] = angleInc.value;
+dir[? "wig"] = angleWig.value;
+
+var grav = ds_map_create();
+ds_map_add_map(info, "grav", grav);
+grav[? "amt"] = gravAmt.value;
+grav[? "dir"] = gravDir.value;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="7" enumb="10">
       <action>
         <libid>1</libid>

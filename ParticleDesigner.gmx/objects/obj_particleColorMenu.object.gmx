@@ -87,7 +87,7 @@ selected = COLOR_1;
             <kind>1</kind>
             <string>/// 1-color, optionMenus[| COLOR_1]
 (addSubmenu(optionMenus[| COLOR_1], id, createTextRect(2, 64, 0, 24, "Color: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_1], id, createColorButton(64, 64, 24, 24));
+oneColor = addSubmenu(optionMenus[| COLOR_1], id, createColorButton(64, 64, 24, 24));
 
 </string>
           </argument>
@@ -111,10 +111,10 @@ addSubmenu(optionMenus[| COLOR_1], id, createColorButton(64, 64, 24, 24));
             <kind>1</kind>
             <string>/// 2-color fade, optionMenus[| COLOR_2]
 (addSubmenu(optionMenus[| COLOR_2], id, createTextRect(2, 64, 0, 24, "Start color: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_2], id, createColorButton(100, 64, 24, 24));
+twoColorA = addSubmenu(optionMenus[| COLOR_2], id, createColorButton(100, 64, 24, 24));
 
 (addSubmenu(optionMenus[| COLOR_2], id, createTextRect(2, 96, 0, 24, "End color: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_2], id, createColorButton(100, 96, 24, 24));
+twoColorB = addSubmenu(optionMenus[| COLOR_2], id, createColorButton(100, 96, 24, 24));
 </string>
           </argument>
         </arguments>
@@ -137,13 +137,13 @@ addSubmenu(optionMenus[| COLOR_2], id, createColorButton(100, 96, 24, 24));
             <kind>1</kind>
             <string>/// 3-color fade, optionMenus[| COLOR_3]
 (addSubmenu(optionMenus[| COLOR_3], id, createTextRect(2, 64, 0, 24, "Start color: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_3], id, createColorButton(120, 64, 24, 24));
+threeColorA = addSubmenu(optionMenus[| COLOR_3], id, createColorButton(120, 64, 24, 24));
 
 (addSubmenu(optionMenus[| COLOR_3], id, createTextRect(2, 96, 0, 24, "Middle color: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_3], id, createColorButton(120, 96, 24, 24));
+threeColorB = addSubmenu(optionMenus[| COLOR_3], id, createColorButton(120, 96, 24, 24));
 
 (addSubmenu(optionMenus[| COLOR_3], id, createTextRect(2, 128, 0, 24, "End color: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_3], id, createColorButton(120, 128, 24, 24));
+threeColorC = addSubmenu(optionMenus[| COLOR_3], id, createColorButton(120, 128, 24, 24));
 </string>
           </argument>
         </arguments>
@@ -166,10 +166,10 @@ addSubmenu(optionMenus[| COLOR_3], id, createColorButton(120, 128, 24, 24));
             <kind>1</kind>
             <string>/// 2-color mix, optionMenus[| COLOR_MIX]
 (addSubmenu(optionMenus[| COLOR_MIX], id, createTextRect(2, 64, 0, 24, "Color 1: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_MIX], id, createColorButton(76, 64, 24, 24));
+mixColorA = addSubmenu(optionMenus[| COLOR_MIX], id, createColorButton(76, 64, 24, 24));
 
 (addSubmenu(optionMenus[| COLOR_MIX], id, createTextRect(2, 96, 0, 24, "Color 2: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_MIX], id, createColorButton(76, 96, 24, 24));
+mixColorB = addSubmenu(optionMenus[| COLOR_MIX], id, createColorButton(76, 96, 24, 24));
 </string>
           </argument>
         </arguments>
@@ -192,13 +192,13 @@ addSubmenu(optionMenus[| COLOR_MIX], id, createColorButton(76, 96, 24, 24));
             <kind>1</kind>
             <string>/// RGB mix, optionMenus[| COLOR_RGB]
 (addSubmenu(optionMenus[| COLOR_RGB], id, createTextRect(4, 64, 0, 32, "R: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_RGB], id, createSlider(32, 64, 195, 24, 0, 255, true, c_black, c_red, noone, 1));
+colorRGBR = addSubmenu(optionMenus[| COLOR_RGB], id, createSlider(32, 64, 195, 24, 0, 255, true, c_black, c_red, noone, 1));
 
 (addSubmenu(optionMenus[| COLOR_RGB], id, createTextRect(4, 112, 0, 32, "G: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_RGB], id, createSlider(32, 112, 195, 24, 0, 255, true, c_black, c_green, noone, 1));
+colorRGBG = addSubmenu(optionMenus[| COLOR_RGB], id, createSlider(32, 112, 195, 24, 0, 255, true, c_black, c_green, noone, 1));
 
 (addSubmenu(optionMenus[| COLOR_RGB], id, createTextRect(4, 160, 0, 32, "B: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_RGB], id, createSlider(32, 160, 195, 24, 0, 255, true, c_black, c_blue, noone, 1));
+colorRGBB = addSubmenu(optionMenus[| COLOR_RGB], id, createSlider(32, 160, 195, 24, 0, 255, true, c_black, c_blue, noone, 1));
 
 // pad space
 (addSubmenu(optionMenus[| COLOR_RGB], id, createTextRect(0, 200, 0, 0, "", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
@@ -224,13 +224,13 @@ addSubmenu(optionMenus[| COLOR_RGB], id, createSlider(32, 160, 195, 24, 0, 255, 
             <kind>1</kind>
             <string>/// HSV mix, optionMenus[| COLOR_HSV]
 (addSubmenu(optionMenus[| COLOR_HSV], id, createTextRect(4, 64, 0, 32, "H: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_HSV], id, createSlider(32, 64, 195, 24, 0, 255, true, c_ltgray, c_ltgray, spr_hue, 1));
+colorHSVH = addSubmenu(optionMenus[| COLOR_HSV], id, createSlider(32, 64, 195, 24, 0, 255, true, c_ltgray, c_ltgray, spr_hue, 1));
 
 (addSubmenu(optionMenus[| COLOR_HSV], id, createTextRect(4, 112, 0, 32, "S: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_HSV], id, createSlider(32, 112, 195, 24, 0, 255, true, c_black, c_black, noone, 1));
+colorHSVS = addSubmenu(optionMenus[| COLOR_HSV], id, createSlider(32, 112, 195, 24, 0, 255, true, c_black, c_black, noone, 1));
 
 (addSubmenu(optionMenus[| COLOR_HSV], id, createTextRect(4, 160, 0, 32, "V: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| COLOR_HSV], id, createSlider(32, 160, 195, 24, 0, 255, true, c_black, c_white, noone, 1));
+colorHSVV = addSubmenu(optionMenus[| COLOR_HSV], id, createSlider(32, 160, 195, 24, 0, 255, true, c_black, c_white, noone, 1));
 
 // pad space
 (addSubmenu(optionMenus[| COLOR_HSV], id, createTextRect(0, 200, 0, 0, "", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
@@ -276,6 +276,73 @@ if (selected == COLOR_HSV)
     satSlider.rightCol = make_colour_hsv(hueCol, 255, 255);
     valSlider.leftCol = make_colour_hsv(hueCol, 255, 0);
     valSlider.rightCol = make_colour_hsv(hueCol, 255, 255);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="11">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// add to map:
+// color
+//     type
+//     color1/rmin-&gt;rmax/hmin-&gt;hmax
+//     color2/gmin-&gt;gmax/smin-&gt;smax
+//     color3/bmin-&gt;gmax/vmin-&gt;vmax
+
+var color = ds_map_create();
+ds_map_add_map(info, "color", color);
+color[? "type"] = selected;
+switch(selected)
+{
+    case COLOR_1:
+        color[? "color1"] = oneColor.color;
+        break;
+    case COLOR_2:
+        color[? "color1"] = twoColorA.color;
+        color[? "color2"] = twoColorB.color;
+        break;
+    case COLOR_3:
+        color[? "color1"] = threeColorA.color;
+        color[? "color2"] = threeColorB.color;
+        color[? "color3"] = threeColorC.color;
+        break;
+    case COLOR_MIX:
+        color[? "color1"] = mixColorA.color;
+        color[? "color2"] = mixColorB.color;
+        break;
+    case COLOR_RGB:
+        color[? "rmin"] = colorRGBR.valueA;
+        color[? "rmax"] = colorRGBR.valueB;
+        color[? "gmin"] = colorRGBG.valueA;
+        color[? "gmax"] = colorRGBG.valueB;
+        color[? "bmin"] = colorRGBB.valueA;
+        color[? "bmax"] = colorRGBB.valueB;
+        break;
+    case COLOR_HSV:
+        color[? "hmin"] = colorHSVH.valueA;
+        color[? "hmax"] = colorHSVH.valueB;
+        color[? "smin"] = colorHSVS.valueA;
+        color[? "smax"] = colorHSVS.valueB;
+        color[? "vmin"] = colorHSVV.valueA;
+        color[? "vmax"] = colorHSVV.valueB;
+        break;
 }
 </string>
           </argument>

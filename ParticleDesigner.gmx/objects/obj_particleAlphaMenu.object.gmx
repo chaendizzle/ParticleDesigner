@@ -81,11 +81,11 @@ selected = ALPHA_1;
             <kind>1</kind>
             <string>/// 1-alpha, optionMenus[| ALPHA_1]
 (addSubmenu(optionMenus[| ALPHA_1], id, createTextRect(4, 64, 0, 32, "Alpha: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| ALPHA_1], id, createSlider(80, 64, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
+oneAlpha = addSubmenu(optionMenus[| ALPHA_1], id, createSlider(80, 64, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
 
 // blend brightness
 (addSubmenu(optionMenus[| ALPHA_1], id, createTextRect(4, 108, 0, 20, "Blend Brightness: ", fnt_kindabig, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| ALPHA_1], id, createCheckbox(150, 108, 20, 20, c_red, c_dkgray, c_black, 1, 1, 1));
+blendBrightness1 = addSubmenu(optionMenus[| ALPHA_1], id, createCheckbox(150, 108, 20, 20, c_red, c_dkgray, c_black, 1, 1, 1));
 </string>
           </argument>
         </arguments>
@@ -108,14 +108,14 @@ addSubmenu(optionMenus[| ALPHA_1], id, createCheckbox(150, 108, 20, 20, c_red, c
             <kind>1</kind>
             <string>/// 2-alpha, optionMenus[| ALPHA_2]
 (addSubmenu(optionMenus[| ALPHA_2], id, createTextRect(4, 64, 0, 32, "Start: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| ALPHA_2], id, createSlider(80, 64, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
+twoAlphaA = addSubmenu(optionMenus[| ALPHA_2], id, createSlider(80, 64, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
 
 (addSubmenu(optionMenus[| ALPHA_2], id, createTextRect(4, 112, 0, 32, "End: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| ALPHA_2], id, createSlider(80, 112, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
+twoAlphaB = addSubmenu(optionMenus[| ALPHA_2], id, createSlider(80, 112, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
 
 // blend brightness
 (addSubmenu(optionMenus[| ALPHA_2], id, createTextRect(4, 156, 0, 20, "Blend Brightness: ", fnt_kindabig, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| ALPHA_2], id, createCheckbox(150, 156, 20, 20, c_red, c_dkgray, c_black, 1, 1, 1));
+blendBrightness2 = addSubmenu(optionMenus[| ALPHA_2], id, createCheckbox(150, 156, 20, 20, c_red, c_dkgray, c_black, 1, 1, 1));
 </string>
           </argument>
         </arguments>
@@ -138,17 +138,17 @@ addSubmenu(optionMenus[| ALPHA_2], id, createCheckbox(150, 156, 20, 20, c_red, c
             <kind>1</kind>
             <string>/// 3-alpha, optionMenus[| ALPHA_3]
 (addSubmenu(optionMenus[| ALPHA_3], id, createTextRect(4, 64, 0, 32, "Start: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| ALPHA_3], id, createSlider(80, 64, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
+threeAlphaA = addSubmenu(optionMenus[| ALPHA_3], id, createSlider(80, 64, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
 
 (addSubmenu(optionMenus[| ALPHA_3], id, createTextRect(4, 112, 0, 32, "Middle: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| ALPHA_3], id, createSlider(80, 112, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
+threeAlphaB = addSubmenu(optionMenus[| ALPHA_3], id, createSlider(80, 112, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
 
 (addSubmenu(optionMenus[| ALPHA_3], id, createTextRect(4, 160, 0, 32, "End: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| ALPHA_3], id, createSlider(80, 160, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
+threeAlphaC = addSubmenu(optionMenus[| ALPHA_3], id, createSlider(80, 160, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
 
 // blend brightness
 (addSubmenu(optionMenus[| ALPHA_3], id, createTextRect(4, 204, 0, 20, "Blend Brightness: ", fnt_kindabig, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| ALPHA_3], id, createCheckbox(150, 204, 20, 20, c_red, c_dkgray, c_black, 1, 1, 1));
+blendBrightness3 = addSubmenu(optionMenus[| ALPHA_3], id, createCheckbox(150, 204, 20, 20, c_red, c_dkgray, c_black, 1, 1, 1));
 </string>
           </argument>
         </arguments>
@@ -174,6 +174,57 @@ addSubmenu(optionMenus[| ALPHA_3], id, createCheckbox(150, 204, 20, 20, c_red, c
             <string>/// select option
 selectColorOption(dropdown.selected);
 updateAbsolutePositions(id);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="11">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// add to map:
+// alpha
+//     type
+//     alpha1
+//     alpha2
+//     alpha3
+// blend
+
+var alpha = ds_map_create();
+ds_map_add_map(info, "alpha", alpha);
+alpha[? "type"] = selected;
+switch(selected)
+{
+    case ALPHA_1:
+        alpha[? "alpha1"] = oneAlpha.valueA;
+        info[? "blend"] = blendBrightness1.checked;
+        break;
+    case ALPHA_2:
+        alpha[? "alpha1"] = twoAlphaA.valueA;
+        alpha[? "alpha2"] = twoAlphaB.valueA;
+        info[? "blend"] = blendBrightness2.checked;
+        break;
+    case ALPHA_3:
+        alpha[? "alpha1"] = threeAlphaA.valueA;
+        alpha[? "alpha2"] = threeAlphaB.valueA;
+        alpha[? "alpha3"] = threeAlphaC.valueA;
+        info[? "blend"] = blendBrightness3.checked;
+        break;
+}
 </string>
           </argument>
         </arguments>

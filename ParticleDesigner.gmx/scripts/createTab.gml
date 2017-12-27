@@ -30,5 +30,9 @@ var tab = ds_list_create();
 tab[| TAB_MENU] = tabMenus;
 tab[| TAB_NAME] = argument0;
 tab[| TAB_SURF] = noone;
+// when done, info is stored here
+tab[| TAB_INFO] = noone;
+// then when created, particle type is stored here
+tab[| TAB_PARTICLE] = noone;
 
 return tab;

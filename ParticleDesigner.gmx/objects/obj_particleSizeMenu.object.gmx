@@ -63,9 +63,9 @@ textrect.halign = fa_right;
 addSubmenu(submenus, id, textrect);
 
 sizeMin = addSubmenu(submenus, id, createNumBox(64 + 20, 32 + 18, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
-sizeMin = addSubmenu(submenus, id, createNumBox(64 + 20, 32 + 36, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
-sizeMin = addSubmenu(submenus, id, createNumBox(64 + 20, 32 + 54, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
-sizeMin = addSubmenu(submenus, id, createNumBox(64 + 20, 32 + 72, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+sizeMax = addSubmenu(submenus, id, createNumBox(64 + 20, 32 + 36, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+sizeInc = addSubmenu(submenus, id, createNumBox(64 + 20, 32 + 54, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+sizeWig = addSubmenu(submenus, id, createNumBox(64 + 20, 32 + 72, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
 
 // angle
 addSubmenu(submenus, id, createTextRect(68 + 64 + 20, 32, 32, 18, "Angle", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0));
@@ -167,6 +167,61 @@ if (angleSpinner.selected)
     angleMin.text = string(round(min(angleSpinner.angleA, angleSpinner.angleB)));
     angleMax.text = string(round(max(angleSpinner.angleA, angleSpinner.angleB)));
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="11">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// add to map:
+// scale
+//     x
+//     y
+// size
+//     min
+//     max
+//     inc
+//     wig
+// orientation
+//     min
+//     max
+//     inc
+//     wig
+
+var scale = ds_map_create();
+ds_map_add_map(info, "scale", scale);
+scale[? "x"] = scaleX.value;
+scale[? "y"] = scaleY.value;
+
+var size = ds_map_create();
+ds_map_add_map(info, "size", size);
+size[? "min"] = sizeMin.value;
+size[? "max"] = sizeMax.value;
+size[? "inc"] = sizeInc.value;
+size[? "wig"] = sizeWig.value;
+
+var angle = ds_map_create();
+ds_map_add_map(info, "orientation", angle);
+angle[? "min"] = angleMin.value;
+angle[? "max"] = angleMax.value;
+angle[? "inc"] = angleInc.value;
+angle[? "wig"] = angleWig.value;
 </string>
           </argument>
         </arguments>

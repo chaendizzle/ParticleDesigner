@@ -62,6 +62,7 @@
     <script>scripts\selectColorOption.gml</script>
     <script>scripts\printList.gml</script>
     <script>scripts\setFocus.gml</script>
+    <script>scripts\createTypeInfoMap.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_tab</font>
@@ -75,7 +76,6 @@
     <object>objects\obj_menuElement</object>
     <object>objects\obj_focus</object>
     <object>objects\obj_particleTypeMenu</object>
-    <object>objects\obj_particleTypeTest</object>
     <object>objects\obj_particleShapeMenu</object>
     <object>objects\obj_particleSizeMenu</object>
     <object>objects\obj_particleColorMenu</object>
@@ -95,15 +95,19 @@
     <object>objects\obj_popupDropdown</object>
     <object>objects\obj_colorMenu</object>
     <object>objects\obj_colorButton</object>
+    <object>objects\obj_system</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_test</room>
   </rooms>
-  <constants number="37">
+  <constants number="40">
     <constant name="UPDATE_SIZES">0</constant>
+    <constant name="WRITE_INFO">1</constant>
     <constant name="TAB_MENU">0</constant>
     <constant name="TAB_NAME">1</constant>
     <constant name="TAB_SURF">2</constant>
+    <constant name="TAB_INFO">3</constant>
+    <constant name="TAB_PARTICLE">4</constant>
     <constant name="BUTTON_NEW">0</constant>
     <constant name="BUTTON_SAVE">1</constant>
     <constant name="BUTTON_LOAD">2</constant>

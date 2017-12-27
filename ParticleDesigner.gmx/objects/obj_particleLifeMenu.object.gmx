@@ -94,6 +94,61 @@ for (var i = 0; i &lt; ds_list_size(parent.tabs); i++)
         </arguments>
       </action>
     </event>
+    <event eventtype="7" enumb="11">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// add to map:
+// life
+//     min
+//     max
+// step
+//     amt
+//     tabList
+// death
+//     amt
+//     tabList
+
+var life = ds_map_create();
+ds_map_add_map(info, "life", life);
+life[? "min"] = lifeMin.value;
+life[? "max"] = lifeMax.value;
+
+var step = ds_map_create();
+ds_map_add_map(info, "step", step);
+step[? "amt"] = stepAmt.value;
+step[? "tabList"] = noone;
+if (stepDropdown.selected &gt;= 1)
+{
+    step[? "tabList"] = parent.tabs[| stepDropdown.selected - 1];
+}
+
+var death = ds_map_create();
+ds_map_add_map(info, "death", death);;
+death[? "amt"] = deathAmt.value;
+death[? "tabList"] = noone;
+if (deathDropdown.selected &gt;= 1)
+{
+    death[? "tabList"] = parent.tabs[| deathDropdown.selected - 1];
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="7" enumb="10">
       <action>
         <libid>1</libid>
