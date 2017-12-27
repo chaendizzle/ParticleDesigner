@@ -256,6 +256,7 @@ ds_list_add(preselects, make_colour_rgb(127, 63, 91));
 setActive(id, active);
 if (!active)
 {
+    ignoreClick = true;
     exit;
 }
 switch (selecting)
@@ -458,7 +459,7 @@ selecting = noone;
             <string>/// handle left click select
 // select color if applicable
 // if on the color rectangle
-if (active &amp;&amp; checkFocus(id))
+if (!ignoreClick &amp;&amp; active &amp;&amp; checkFocus(id))
 {
     if (mouse_in_rect(colorRectX, colorRectY, colorRectW, colorRectH))
     {
@@ -659,14 +660,17 @@ if (active)
         draw_set_alpha(0.5);
         draw_rectangle(confirmX, confirmY, confirmX + confirmW, confirmY + confirmH, false);
         // if click on confirm button, do something
-        if (mouse_check_button_pressed(mb_left))
+        if (!ignoreClick &amp;&amp; mouse_check_button_pressed(mb_left))
         {
             if (instance_exists(target))
             {
-                selectedColor = selected;
+                target.color = selected;
+                setFocus(noone);
+                active = false;
             }
         }
     }
+    ignoreClick = false;
 }
 </string>
           </argument>

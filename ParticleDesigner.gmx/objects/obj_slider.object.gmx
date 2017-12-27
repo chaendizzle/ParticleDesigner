@@ -28,14 +28,76 @@
             <string>/// two handled slider init
 event_inherited();
 // slider values
-valueMax = 0;
+valueMin = 0;
 valueMax = 1;
 valueA = 0;
 valueB = 1;
 twoHandled = true;
 
 selected = noone;
-handleW = 4;
+handleWR = 2;
+
+leftCol = c_black;
+rightCol = c_black;
+spr = noone;
+
+rnd = 100;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// calculate draw numbers
+centerY = Y + (0.5 * H);
+handleHR = 0.5 * H;
+handleIR = 0.25 * 0.5 * H;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// handle mouse drag handle
+switch (selected)
+{
+    case SLIDER_A:
+        valueA = clamp(map_range(cursor_get_x(), X, X + W, valueMin, valueMax), 0, valueB);
+        break;
+    case SLIDER_B:
+        valueB = clamp(map_range(cursor_get_x(), X, X + W, valueMin, valueMax), valueA, valueMax);
+        break;
+}
 </string>
           </argument>
         </arguments>
@@ -137,7 +199,14 @@ var AX = X + map_range(valueA, valueMin, valueMax, 0, W);
 var BX = X + map_range(valueB, valueMin, valueMax, 0, W);
 
 // check click
-
+if (mouse_in_rect(AX - handleWR, centerY - handleHR, AX + handleWR, centerY - handleHR))
+{
+    selected = SLIDER_A;
+}
+else if (mouse_in_rect(BX - handleWR, centerY - handleHR, BX + handleWR, centerY - handleHR))
+{
+    selected = SLIDER_B;
+}
 </string>
           </argument>
         </arguments>
@@ -187,13 +256,78 @@ if(!active)
             <kind>1</kind>
             <string>/// draw
 
+var AX = X + map_range(valueA, valueMin, valueMax, 0, W);
+var BX = X + map_range(valueB, valueMin, valueMax, 0, W);
+
 // inner bar is 0.25 of height
+draw_set_alpha(1);
+draw_rectangle_colour(X, centerY - handleIR, X + W, centerY + handleIR, leftCol, rightCol, rightCol, leftCol, false);
+if (sprite_exists(spr))
+{
+    draw_sprite_stretched(spr, 0, X, centerY - handleIR, W, handleIR * 2);
+}
 
 // handles
+draw_set_alpha(1);
+draw_set_color(c_black);
+draw_rectangle(AX - handleWR, centerY - handleHR, AX + handleWR, centerY - handleHR, false);
+draw_rectangle(BX - handleWR, centerY - handleHR, BX + handleWR, centerY - handleHR, false);
+draw_set_color(c_blue);
+if (selected == SLIDER_A)
+{
+    draw_rectangle(AX - handleWR, centerY - handleHR, AX + handleWR, centerY - handleHR, false);
+}
+if (selected == SLIDER_B)
+{
+    draw_rectangle(BX - handleWR, centerY - handleHR, BX + handleWR, centerY - handleHR, false);
+}
+draw_set_color(c_white);
+draw_rectangle(AX - handleWR, centerY - handleHR, AX + handleWR, centerY - handleHR, true);
+draw_rectangle(BX - handleWR, centerY - handleHR, BX + handleWR, centerY - handleHR, true);
 
-// text indicates min and max
-
-// text indicates current value
+// text indicates current values
+draw_set_alpha(1);
+draw_set_color(c_black);
+draw_set_font(fnt_kindasmall);
+// draw texts
+var textBorder = 2;
+var valueAStr = round(valueA * rnd) / rnd;
+var valueBStr = round(valueB * rnd) / rnd;
+var posA = AX + (0.5 * string_width(valueAStr));
+var widthA = string_width(valueAStr) + (2 * textBorder);
+posA = clamp(posA, X + widthA * 0.5, X + W - widthA * 0.5);
+var posB = BX + (0.5 * string_width(valueBStr));
+var widthB = string_width(valueBStr) + (2 * textBorder);
+posB = clamp(posB, X + widthB * 0.5, X + W - widthB * 0.5);
+// look at overlap
+var overlap = max(0, (posA + (0.5 * widthA)) - (posB + (05 * widthB)));
+// if there is overlap
+if (overlap &gt; 0)
+{
+    // shift them out equally
+    posA -= overlap * 0.5;
+    posB -= overlap * 0.5;
+    // if left unclamped
+    if (posA &lt; X + widthA * 0.5)
+    {
+        var shift = (X + widthA * 0.5) - posA;
+        posA += shift;
+        posB += shift;
+    }
+    // if right unclamped
+    if (posB &gt; X + W - widthB * 0.5)
+    {
+        var shift = posB - (X + W - widthB * 0.5);
+        posA -= shift;
+        posB -= shift;
+    }
+}
+draw_set_halign(fa_center);
+draw_set_valign(fa_center);
+draw_rectangle(posA - (0.5 * widthA), Y + H + textBorder, posA + (0.5 * widthA), Y + H + textBorder + 24, true);
+draw_text(posA, Y + H + textBorder + 12, valueAStr);
+draw_rectangle(posB - (0.5 * widthB), Y + H + textBorder, posB + (0.5 * widthB), Y + H + textBorder + 24, true);
+draw_text(posB, Y + H + textBorder + 12, valueBStr);
 </string>
           </argument>
         </arguments>

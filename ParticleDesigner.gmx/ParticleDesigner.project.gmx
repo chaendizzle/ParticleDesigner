@@ -43,6 +43,8 @@
     <script>scripts\createMenuButton.gml</script>
     <script>scripts\createNumBox.gml</script>
     <script>scripts\createAngleSlider.gml</script>
+    <script>scripts\createSlider.gml</script>
+    <script>scripts\createColorButton.gml</script>
     <script>scripts\inrange.gml</script>
     <script>scripts\findStringPos.gml</script>
     <script>scripts\drawCheckmark.gml</script>
@@ -57,6 +59,9 @@
     <script>scripts\drawTriMarker.gml</script>
     <script>scripts\mouse_in_markerTri.gml</script>
     <script>scripts\mouse_in_triangle.gml</script>
+    <script>scripts\selectColorOption.gml</script>
+    <script>scripts\printList.gml</script>
+    <script>scripts\setFocus.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_tab</font>
@@ -85,11 +90,12 @@
     <object>objects\obj_dropdown</object>
     <object>objects\obj_popupDropdown</object>
     <object>objects\obj_colorMenu</object>
+    <object>objects\obj_colorButton</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_test</room>
   </rooms>
-  <constants number="28">
+  <constants number="34">
     <constant name="UPDATE_SIZES">0</constant>
     <constant name="TAB_MENU">0</constant>
     <constant name="TAB_NAME">1</constant>
@@ -118,6 +124,12 @@
     <constant name="COLORMENU_HBOX">12</constant>
     <constant name="COLORMENU_SBOX">13</constant>
     <constant name="COLORMENU_VBOX">14</constant>
+    <constant name="COLOR_1">0</constant>
+    <constant name="COLOR_2">1</constant>
+    <constant name="COLOR_3">2</constant>
+    <constant name="COLOR_MIX">3</constant>
+    <constant name="COLOR_RGB">4</constant>
+    <constant name="COLOR_HSV">5</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

@@ -368,7 +368,7 @@ if (active)
                 }
             }
             active = false;
-            obj_focus.focus = noone;
+            setFocus(noone);
         }
     }
 }

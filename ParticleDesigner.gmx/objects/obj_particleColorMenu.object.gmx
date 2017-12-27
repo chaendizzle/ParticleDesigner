@@ -31,20 +31,193 @@ event_inherited();
 W = getTypeMenuW();
 border = 4;
 
-submenus = ds_list_create();
-
 // top bar
-addSubmenu(submenus, id, createTextRect(0, 0, W, 30, "Color", fnt_subtitle, c_black, c_ltgray, c_black, 1, 1, 0));
+textrect = createTextRect(0, 0, W, 30, "Color", fnt_subtitle, c_black, c_ltgray, c_black, 1, 1, 0);
 
 // color type
 colorOptions = ds_list_create();
-ds_list_add(colorOptions, "1-color");
-ds_list_add(colorOptions, "2-color fade");
-ds_list_add(colorOptions, "3-color fade");
-ds_list_add(colorOptions, "2-color mix");
-ds_list_add(colorOptions, "RGB mix");
-ds_list_add(colorOptions, "HSV mix");
-addSubmenu(submenus, id, createDropdown(2, 32, 120, 24, colorOptions, fnt_kindasmall, c_black, c_gray, c_black, 1, 1, 1));
+colorOptions[| COLOR_1] = "1-color";
+colorOptions[| COLOR_2] = "2-color fade";
+colorOptions[| COLOR_3] = "3-color fade";
+colorOptions[| COLOR_MIX] = "2-color mix";
+colorOptions[| COLOR_RGB] = "RGB mix";
+colorOptions[| COLOR_HSV] = "HSV mix";
+dropdown = createDropdown(2, 32, 120, 24, colorOptions, fnt_kindasmall, c_black, c_gray, c_black, 1, 1, 1);
+
+// options menus
+optionMenus = ds_list_create();
+optionMenus[| COLOR_1] = ds_list_create();
+optionMenus[| COLOR_2] = ds_list_create();
+optionMenus[| COLOR_3] = ds_list_create();
+optionMenus[| COLOR_MIX] = ds_list_create();
+optionMenus[| COLOR_RGB] = ds_list_create();
+optionMenus[| COLOR_HSV] = ds_list_create();
+// all of the menus have the dropdown
+for (var i = 0; i &lt; ds_list_size(optionMenus); i++)
+{
+    addSubmenu(optionMenus[| i], id, textrect);
+    addSubmenu(optionMenus[| i], id, dropdown);
+}
+
+selected = COLOR_1;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// 1-color, optionMenus[| COLOR_1]
+(addSubmenu(optionMenus[| COLOR_1], id, createTextRect(2, 64, 0, 24, "Color: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+addSubmenu(optionMenus[| COLOR_1], id, createColorButton(64, 64, 24, 24));
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// 2-color, optionMenus[| COLOR_2]
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// 3-color, optionMenus[| COLOR_3]
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// 2-color mix, optionMenus[| COLOR_MIX]
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// RGB mix, optionMenus[| COLOR_RGB]
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// HSV mix, optionMenus[| COLOR_HSV]
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// select option
+selectColorOption(dropdown.selected);
 </string>
           </argument>
         </arguments>
@@ -68,6 +241,11 @@ addSubmenu(submenus, id, createDropdown(2, 32, 120, 24, colorOptions, fnt_kindas
           <argument>
             <kind>1</kind>
             <string>/// update sizes of this menu and children
+if (!ds_exists(submenus, ds_type_list))
+{
+    exit;
+}
+
 for (var i = 0; i &lt; ds_list_size(submenus); i++)
 {
     var inst = submenus[| i];

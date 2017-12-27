@@ -73,7 +73,7 @@ if (checkFocus(popup) &amp;&amp; mouse_in_rect(X, Y, W, H))
     menuTarget.selected = selected;
     menuTarget.ignoreClick = true;
     // set focus
-    obj_focus.focus = menuTarget;
+    setFocus(menuTarget);
 }
 </string>
           </argument>

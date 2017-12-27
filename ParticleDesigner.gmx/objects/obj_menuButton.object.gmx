@@ -92,7 +92,7 @@ if (checkFocus(popup) &amp;&amp; mouse_in_rect(X, Y, W, H))
     {
         menuTarget.active = true;
         menuTarget.target = id;
-        obj_focus.focus = menuTarget;
+        setFocus(menuTarget);
     }
 }
 </string>

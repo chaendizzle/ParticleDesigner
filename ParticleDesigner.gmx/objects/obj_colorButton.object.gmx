@@ -3,9 +3,9 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>-1000</depth>
+  <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>obj_popupMenu</parentName>
+  <parentName>obj_menuElement</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,14 +25,11 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// init popup dropdown menu
-active = false;
-textB = 2;
-target = noone;
-selected = 0;
+            <string>/// opens the color menu when pressed
+event_inherited();
 
-// prevent close click registering in same step as open
-ignoreClick = false;
+color = c_white;
+menuTarget = instance_create(0, 0, obj_colorMenu);
 </string>
           </argument>
         </arguments>
@@ -55,24 +52,42 @@ ignoreClick = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// handle mouse click on option or mouse click on nothing
-if (obj_focus.focus != id)
+            <string>/// needs to be active to act
+if(!active)
 {
     exit;
 }
-
-if (ignoreClick)
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// if clicked while base menu is in focus
+if (checkFocus(popup) &amp;&amp; mouse_in_rect(X, Y, W, H))
 {
-    exit;
+    /// open the menu
+    if (instance_exists(menuTarget))
+    {
+        menuTarget.active = true;
+        menuTarget.target = id;
+        setFocus(menuTarget);
+    }
 }
-
-// cement the currently selected option as the one
-if (instance_exists(target))
-{
-    target.selected = selected;
-}
-active = false;
-setFocus(noone);
 </string>
           </argument>
         </arguments>
@@ -95,37 +110,11 @@ setFocus(noone);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// if active, calculate draw coords
-ignoreClick = false;
-if (!active)
+            <string>/// needs to be active to act
+if(!active)
 {
     exit;
 }
-
-var targetX = X;
-var targetY = Y;
-var targetW = W;
-
-// find height
-draw_set_font(fnt_kindasmall);
-var cellH = string_height("|") + (2 * textB);
-H = cellH * ds_list_size(options);
-
-// find width
-for (var i = 0; i &lt; ds_list_size(options); i++)
-{
-    var linew = string_height(options[| i]) + (2 * textB);
-    if (linew &gt; W)
-    {
-        W = linew;
-    }
-}
-
-// find X and Y
-// must be onscreen
-X = clamp(X, 2, getDisplayRoomWidth() - W - 2);
-Y = clamp(Y, 2, getDisplayRoomHeight() - H - 2);
-
 </string>
           </argument>
         </arguments>
@@ -146,30 +135,14 @@ Y = clamp(Y, 2, getDisplayRoomHeight() - H - 2);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// draw
-drawOutlineRectExt(X, Y, W, H, 1, c_gray, c_black, 1, 1);
-for (var i = 0; i &lt; ds_list_size(options); i++)
-{
-    // outline rect between choices
-    draw_set_color(c_black);
-    draw_set_alpha(1);
-    draw_rectangle(X, Y + (i * cellH), X + W, Y + ((i + 1) * cellH), true);
-    // draw text
-    draw_set_halign(fa_left);
-    draw_set_valign(fa_center);
-    draw_text(X + 4, Y + ((i + 0.5) * cellH), options[| i]);
-    // draw mouse outline
-    if (checkFocus(id) &amp;&amp; mouse_in_rect(X, Y + (i * cellH), W, cellH))
-    {
-        selected = i;
-    }
-    if (i == selected)
-    {
-        draw_set_color(c_white);
-        draw_set_alpha(0.4);
-        draw_rectangle(X, Y + (i * cellH), X + W, Y + ((i + 1) * cellH), false);
-    }
-}
+            <string>/// draw the color
+// draw the rect
+draw_set_color(color);
+draw_set_alpha(1);
+draw_rectangle(X, Y, X + W, Y + H, false);
+draw_set_color(c_black);
+draw_set_alpha(1);
+draw_rectangle(X, Y, X + W, Y + H, true);
 </string>
           </argument>
         </arguments>
