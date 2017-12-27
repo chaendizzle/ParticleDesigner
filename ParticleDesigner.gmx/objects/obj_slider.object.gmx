@@ -89,6 +89,10 @@ handleIR = 0.25 * 0.5 * H;
           <argument>
             <kind>1</kind>
             <string>/// handle mouse drag handle
+if (!twoHandled)
+{
+    valueB = valueMax;
+}
 switch (selected)
 {
     case SLIDER_A:
@@ -203,12 +207,12 @@ var toPx = W / (valueMax - valueMin);
 if (mouse_in_rect(AX - handleWR - 2, centerY - handleHR, 4 + handleWR * 2, handleHR * 2))
 {
     selected = SLIDER_A;
-    if (abs(valueA - valueB) * toPx &lt; 2 &amp;&amp; abs(valueB - valueMin) * toPx &lt; 2)
+    if (twoHandled &amp;&amp; abs(valueA - valueB) * toPx &lt; 2 &amp;&amp; abs(valueB - valueMin) * toPx &lt; 2)
     {
         selected = SLIDER_B;
     }
 }
-else if (mouse_in_rect(BX - handleWR - 2, centerY - handleHR, 4 + handleWR * 2, handleHR * 2))
+else if (twoHandled &amp;&amp; mouse_in_rect(BX - handleWR - 2, centerY - handleHR, 4 + handleWR * 2, handleHR * 2))
 {
     selected = SLIDER_B;
     if (abs(valueA - valueB) * toPx &lt; 2 &amp;&amp; abs(valueA - valueMax) * toPx &lt; 2)
@@ -280,20 +284,26 @@ if (sprite_exists(spr))
 draw_set_alpha(1);
 draw_set_color(c_black);
 draw_rectangle(AX - handleWR, centerY - handleHR, AX + handleWR, centerY + handleHR, false);
-draw_rectangle(BX - handleWR, centerY - handleHR, BX + handleWR, centerY + handleHR, false);
+if (twoHandled)
+{
+    draw_rectangle(BX - handleWR, centerY - handleHR, BX + handleWR, centerY + handleHR, false);
+}
 draw_set_color(c_blue);
 if (selected == SLIDER_A)
 {
     draw_rectangle(AX - handleWR, centerY - handleHR, AX + handleWR, centerY + handleHR, false);
 }
-if (selected == SLIDER_B)
+if (twoHandled &amp;&amp; selected == SLIDER_B)
 {
     draw_rectangle(BX - handleWR, centerY - handleHR, BX + handleWR, centerY + handleHR, false);
 }
 draw_set_color(c_white);
 draw_rectangle(AX - handleWR, centerY - handleHR, AX + handleWR, centerY + handleHR, true);
-draw_rectangle(BX - handleWR, centerY - handleHR, BX + handleWR, centerY + handleHR, true);
-
+if (twoHandled)
+{
+    draw_rectangle(BX - handleWR, centerY - handleHR, BX + handleWR, centerY + handleHR, true);
+}
+    
 // text indicates current values
 draw_set_alpha(1);
 draw_set_color(c_black);
@@ -311,7 +321,7 @@ posB = clamp(posB, X + (widthB * 0.0), X + W - (widthB * 0.0));
 // look at overlap
 var overlap = max(0, (posA + (0.5 * widthA)) - (posB - (0.5 * widthB)));
 // if there is overlap
-if (overlap &gt; 0)
+if (twoHandled &amp;&amp; overlap &gt; 0)
 {
     // shift them out equally
     posA -= overlap * 0.5;
@@ -324,11 +334,14 @@ draw_set_color(c_gray);
 draw_set_color(c_black);
 //draw_rectangle(posA - (0.5 * widthA), Y + H + textBorder, posA + (0.5 * widthA), Y + H + textBorder + 24, true);
 draw_text(posA, Y + H + textBorder + 6, valueAStr);
-draw_set_color(c_gray);
-//draw_rectangle(posB - (0.5 * widthB), Y + H + textBorder, posB + (0.5 * widthB), Y + H + textBorder + 24, false);
-draw_set_color(c_black);
-//draw_rectangle(posB - (0.5 * widthB), Y + H + textBorder, posB + (0.5 * widthB), Y + H + textBorder + 24, true);
-draw_text(posB, Y + H + textBorder + 6, valueBStr);
+if (twoHandled)
+{
+    draw_set_color(c_gray);
+    //draw_rectangle(posB - (0.5 * widthB), Y + H + textBorder, posB + (0.5 * widthB), Y + H + textBorder + 24, false);
+    draw_set_color(c_black);
+    //draw_rectangle(posB - (0.5 * widthB), Y + H + textBorder, posB + (0.5 * widthB), Y + H + textBorder + 24, true);
+    draw_text(posB, Y + H + textBorder + 6, valueBStr);
+}
 </string>
           </argument>
         </arguments>

@@ -76,10 +76,11 @@ selected = ALPHA_1;
             <kind>1</kind>
             <string>/// 1-alpha, optionMenus[| ALPHA_1]
 (addSubmenu(optionMenus[| ALPHA_1], id, createTextRect(4, 64, 0, 32, "Alpha: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| ALPHA_1], id, createSlider(80, 64, 150, 24, 0, 1, true, c_ltgray, c_black, noone, 100));
+addSubmenu(optionMenus[| ALPHA_1], id, createSlider(80, 64, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
 
-// pad space
-(addSubmenu(optionMenus[| ALPHA_1], id, createTextRect(0, 104, 0, 0, "", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+// blend brightness
+(addSubmenu(optionMenus[| ALPHA_1], id, createTextRect(4, 108, 0, 20, "Blend Brightness: ", fnt_kindabig, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+addSubmenu(optionMenus[| ALPHA_1], id, createCheckbox(150, 108, 20, 20, c_red, c_dkgray, c_black, 1, 1, 1));
 </string>
           </argument>
         </arguments>
@@ -102,13 +103,14 @@ addSubmenu(optionMenus[| ALPHA_1], id, createSlider(80, 64, 150, 24, 0, 1, true,
             <kind>1</kind>
             <string>/// 2-alpha, optionMenus[| ALPHA_2]
 (addSubmenu(optionMenus[| ALPHA_2], id, createTextRect(4, 64, 0, 32, "Start: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| ALPHA_2], id, createSlider(80, 64, 150, 24, 0, 1, true, c_ltgray, c_black, noone, 100));
+addSubmenu(optionMenus[| ALPHA_2], id, createSlider(80, 64, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
 
 (addSubmenu(optionMenus[| ALPHA_2], id, createTextRect(4, 112, 0, 32, "End: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| ALPHA_2], id, createSlider(80, 112, 150, 24, 0, 1, true, c_ltgray, c_black, noone, 100));
+addSubmenu(optionMenus[| ALPHA_2], id, createSlider(80, 112, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
 
-// pad space
-(addSubmenu(optionMenus[| ALPHA_2], id, createTextRect(0, 152, 0, 0, "", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+// blend brightness
+(addSubmenu(optionMenus[| ALPHA_2], id, createTextRect(4, 156, 0, 20, "Blend Brightness: ", fnt_kindabig, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+addSubmenu(optionMenus[| ALPHA_2], id, createCheckbox(150, 156, 20, 20, c_red, c_dkgray, c_black, 1, 1, 1));
 </string>
           </argument>
         </arguments>
@@ -131,16 +133,17 @@ addSubmenu(optionMenus[| ALPHA_2], id, createSlider(80, 112, 150, 24, 0, 1, true
             <kind>1</kind>
             <string>/// 3-alpha, optionMenus[| ALPHA_3]
 (addSubmenu(optionMenus[| ALPHA_3], id, createTextRect(4, 64, 0, 32, "Start: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| ALPHA_3], id, createSlider(80, 64, 150, 24, 0, 1, true, c_ltgray, c_black, noone, 100));
+addSubmenu(optionMenus[| ALPHA_3], id, createSlider(80, 64, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
 
 (addSubmenu(optionMenus[| ALPHA_3], id, createTextRect(4, 112, 0, 32, "Middle: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| ALPHA_3], id, createSlider(80, 112, 150, 24, 0, 1, true, c_ltgray, c_black, noone, 100));
+addSubmenu(optionMenus[| ALPHA_3], id, createSlider(80, 112, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
 
 (addSubmenu(optionMenus[| ALPHA_3], id, createTextRect(4, 160, 0, 32, "End: ", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
-addSubmenu(optionMenus[| ALPHA_3], id, createSlider(80, 160, 150, 24, 0, 1, true, c_ltgray, c_black, noone, 100));
+addSubmenu(optionMenus[| ALPHA_3], id, createSlider(80, 160, 150, 24, 0, 1, false, c_ltgray, c_black, noone, 100));
 
-// pad space
-(addSubmenu(optionMenus[| ALPHA_3], id, createTextRect(0, 200, 0, 0, "", fnt_subtitle, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+// blend brightness
+(addSubmenu(optionMenus[| ALPHA_3], id, createTextRect(4, 204, 0, 20, "Blend Brightness: ", fnt_kindabig, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+addSubmenu(optionMenus[| ALPHA_3], id, createCheckbox(150, 204, 20, 20, c_red, c_dkgray, c_black, 1, 1, 1));
 </string>
           </argument>
         </arguments>

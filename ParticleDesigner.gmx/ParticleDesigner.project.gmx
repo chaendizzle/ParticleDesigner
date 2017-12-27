@@ -69,6 +69,7 @@
     <font>fonts\fnt_subtitle</font>
     <font>fonts\fnt_small</font>
     <font>fonts\fnt_kindasmall</font>
+    <font>fonts\fnt_kindabig</font>
   </fonts>
   <objects name="objects">
     <object>objects\obj_menuElement</object>
