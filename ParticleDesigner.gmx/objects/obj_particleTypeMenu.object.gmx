@@ -140,6 +140,27 @@ tabTopSpace = 0;
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>instance_create(0, 0, obj_colorMenu);
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="3" enumb="0">
       <action>
@@ -392,7 +413,7 @@ exit;
 var rX = 10;
 var rY = 10;
 var rW = 400;
-var rH = 400;
+var rH = 100;
 
 if (!surface_exists(surf))
 {
@@ -403,10 +424,10 @@ if (!surface_exists(surf))
     {
         for (var j = 0; j &lt; rH; j++)
         {
-            var h = clamp(map_range(j, 0, rH, 0, 255), 0, 255);
-            var s = clamp(map_range(i, rW * 0.5, rW, 255, 0), 0, 255);
-            var v = clamp(map_range(i, 0, rW * 0.5, 0, 255), 0, 255);
-            draw_set_color(make_colour_hsv(h, s, v));
+            var h = clamp(map_range(i, 0, rW, 0, 255), 0, 255);
+            //var s = clamp(map_range(i, rW * 0.5, rW, 255, 0), 0, 255);
+            //var v = clamp(map_range(i, 0, rW * 0.5, 0, 255), 0, 255);
+            draw_set_color(make_colour_hsv(h, 255, 255));
             draw_point(i, j);
         }
     }

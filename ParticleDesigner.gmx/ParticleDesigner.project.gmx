@@ -10,6 +10,7 @@
     <sprite>sprites\spr_newtab</sprite>
     <sprite>sprites\spr_shapes</sprite>
     <sprite>sprites\spr_colors</sprite>
+    <sprite>sprites\spr_hue</sprite>
     <sprite>sprites\spr_particle</sprite>
   </sprites>
   <backgrounds name="background"/>
@@ -53,6 +54,9 @@
     <script>scripts\draw_pie.gml</script>
     <script>scripts\map_range.gml</script>
     <script>scripts\map_range_closed.gml</script>
+    <script>scripts\drawTriMarker.gml</script>
+    <script>scripts\mouse_in_markerTri.gml</script>
+    <script>scripts\mouse_in_triangle.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_tab</font>
@@ -85,7 +89,7 @@
   <rooms name="rooms">
     <room>rooms\rm_test</room>
   </rooms>
-  <constants number="14">
+  <constants number="22">
     <constant name="UPDATE_SIZES">0</constant>
     <constant name="TAB_MENU">0</constant>
     <constant name="TAB_NAME">1</constant>
@@ -100,6 +104,14 @@
     <constant name="SHAPE_SPRITE">1</constant>
     <constant name="SLIDER_A">1</constant>
     <constant name="SLIDER_B">2</constant>
+    <constant name="COLORMENU_RECT">1</constant>
+    <constant name="COLORMENU_PRESELECT">2</constant>
+    <constant name="COLORMENU_R">3</constant>
+    <constant name="COLORMENU_G">4</constant>
+    <constant name="COLORMENU_B">5</constant>
+    <constant name="COLORMENU_H">6</constant>
+    <constant name="COLORMENU_S">7</constant>
+    <constant name="COLORMENU_V">8</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-100</depth>
   <persistent>0</persistent>
   <parentName>obj_popupMenu</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -28,6 +28,13 @@
             <string>/// not an actual menu element, since it's a popup
 active = false;
 target = noone;
+selected = noone;
+
+selecting = noone;
+
+// despite not being a menuElement, knows how to do the menuElement rodeo
+submenus = ds_list_create();
+parent = noone;
 </string>
           </argument>
         </arguments>
@@ -50,38 +57,72 @@ target = noone;
             <kind>1</kind>
             <string>/// draw parameters
 
-W = 500;
+W = 450;
 H = 350;
 X = 0.5 * (getDisplayRoomWidth() - W);
 Y = 0.5 * (getDisplayRoomHeight() - H);
-B = 6;
+RelX = X;
+RelY = Y;
+B = 5;
 
 // color rectangle, containing only full S or full V
-colorRectX = 5;
-colorRectY = 5;
-colorRectW = 100;
-colorRectH = 100;
+colorRectX = X + B;
+colorRectY = Y + B;
+colorRectW = 200;
+colorRectH = 200;
 
 // preselected colors
-preselectX = 5;
-preselectY = 110;
+preselectX = X + B;
+preselectY = colorRectY + colorRectH + B;
 preselectGridW = 16;
 preselectGridH = 4;
+preselectCellW = colorRectW / preselectGridW;
+preselectCellH = preselectCellW;
+preselectW = preselectCellW * preselectGridW;
+preselectH = preselectCellH * preselectGridH;
 preselects = ds_list_create();
 
+sliderTextX = 215;
+sliderX = X + 240;
+sliderW = 200;
+sliderH = 24;
+sliderSep = 10;
 // colored RGB sliders
 // RGB text
+(addSubmenu(submenus, id, createTextRect(sliderTextX, 0 + B, 0, sliderH, "RGB", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
 // R slider and numbox
+rSliderY = Y + B + sliderH;
+(addSubmenu(submenus, id, createTextRect(sliderTextX, rSliderY - Y, 0, sliderH, "R: ", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
+r = 0;
 // G slider and numbox
+gSliderY = rSliderY + sliderSep + sliderH;
+(addSubmenu(submenus, id, createTextRect(sliderTextX, gSliderY - Y, 0, sliderH, "G: ", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
+g = 0;
 // B slider and numbox
+bSliderY = gSliderY + sliderSep + sliderH;
+(addSubmenu(submenus, id, createTextRect(sliderTextX, bSliderY - Y, 0, sliderH, "B: ", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
+b = 0;
 
+hsvSliderY = bSliderY + sliderSep + sliderH;
 // colored HSV sliders
 // HSV text
+(addSubmenu(submenus, id, createTextRect(sliderTextX, hsvSliderY + B - Y, 0, sliderH, "HSV", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;;
 // H slider and numbox
+hSliderY = hsvSliderY + B + sliderH;
+(addSubmenu(submenus, id, createTextRect(sliderTextX, hSliderY - Y, 0, sliderH, "H: ", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
+h = 0;
 // S slider and numbox
+sSliderY = hSliderY + sliderSep + sliderH;
+(addSubmenu(submenus, id, createTextRect(sliderTextX, sSliderY - Y, 0, sliderH, "S: ", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
+s = 0;
 // V slider and numbox
+vSliderY = sSliderY + sliderSep + sliderH;
+(addSubmenu(submenus, id, createTextRect(sliderTextX, vSliderY - Y, 0, sliderH, "V: ", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
+v = 0;
 
 // currently selected color
+// textbox
+// color
 
 
 // confirm button
@@ -109,6 +150,7 @@ preselects = ds_list_create();
             <string>/// preselected colors
 ds_list_add(preselects, make_colour_rgb(0, 0, 0));
 ds_list_add(preselects, make_colour_rgb(64, 64, 64));
+ds_list_add(preselects, make_colour_rgb(255, 0, 0));
 ds_list_add(preselects, make_colour_rgb(255, 106, 0));
 ds_list_add(preselects, make_colour_rgb(255, 216, 0));
 ds_list_add(preselects, make_colour_rgb(182, 255, 0));
@@ -173,6 +215,348 @@ ds_list_add(preselects, make_colour_rgb(80, 63, 127));
 ds_list_add(preselects, make_colour_rgb(107, 63, 127));
 ds_list_add(preselects, make_colour_rgb(127, 63, 118));
 ds_list_add(preselects, make_colour_rgb(127, 63, 91));
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// control selection
+switch (selecting)
+{
+    case COLORMENU_RECT:
+        var rectX = clamp(cursor_get_x(), colorRectX, colorRectX + colorRectW);
+        var rectY = clamp(cursor_get_y(), colorRectY, colorRectY + colorRectH);
+        // y is hue
+        var hue = map_range(rectY, colorRectY, colorRectY + colorRectH, 0, 255);
+        // left is value
+        var value = clamp(map_range(rectX, colorRectX, colorRectX + (0.5 * colorRectW), 0, 255), 0, 255);
+        // right is saturation
+        var sat = clamp(map_range(rectX, colorRectX + (0.5 * colorRectW), colorRectX + colorRectW, 255, 0), 0, 255);
+        selected = make_color_hsv(hue, sat, value);
+        break;
+    case COLORMENU_PRESELECT:
+        for (var i = 0; i &lt; ds_list_size(preselects); i++)
+        {
+            var preX = preselectX + map_range(i mod preselectGridW, 0, preselectGridW, 0, preselectW);
+            var preY = preselectY + map_range(floor(i / preselectGridW), 0, preselectGridH, 0, preselectH);
+            if (mouse_in_rect(preX, preY, preselectCellW, preselectCellH))
+            {
+                selected = preselects[| i];
+                selecting = COLORMENU_PRESELECT;
+            }
+        }
+        break;
+    case COLORMENU_R:
+        var rectX = clamp(cursor_get_x(), sliderX, sliderX + sliderW);
+        r = map_range(rectX, sliderX, sliderX + sliderW, 0, 255);
+        selected = make_color_rgb(r, g, b);
+        break;
+    case COLORMENU_G:
+        var rectX = clamp(cursor_get_x(), sliderX, sliderX + sliderW);
+        g = map_range(rectX, sliderX, sliderX + sliderW, 0, 255);
+        selected = make_color_rgb(r, g, b);
+        break;
+    case COLORMENU_B:
+        var rectX = clamp(cursor_get_x(), sliderX, sliderX + sliderW);
+        b = map_range(rectX, sliderX, sliderX + sliderW, 0, 255);
+        selected = make_color_rgb(r, g, b);
+        break;
+    case COLORMENU_H:
+        var rectX = clamp(cursor_get_x(), sliderX, sliderX + sliderW);
+        h = map_range(rectX, sliderX, sliderX + sliderW, 0, 255);
+        selected = make_color_hsv(h, s, v);
+        break;
+    case COLORMENU_S:
+        var rectX = clamp(cursor_get_x(), sliderX, sliderX + sliderW);
+        s = map_range(rectX, sliderX, sliderX + sliderW, 0, 255);
+        selected = make_color_hsv(h, s, v);
+        break;
+    case COLORMENU_V:
+        var rectX = clamp(cursor_get_x(), sliderX, sliderX + sliderW);
+        v = map_range(rectX, sliderX, sliderX + sliderW, 0, 255);
+        selected = make_color_hsv(h, s, v);
+        break;
+}
+// update all other things
+if (selected &gt;= 0 &amp;&amp; selecting)
+{
+    r = colour_get_red(selected);
+    g = colour_get_green(selected);
+    b = colour_get_blue(selected);
+    h = colour_get_hue(selected);
+    s = colour_get_saturation(selected);
+    v = colour_get_value(selected);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// update sizes of this and children
+event_user(UPDATE_SIZES);
+updateAbsolutePositions(id);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="56">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// no longer selecting
+selecting = noone;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="53">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// handle left click select
+// select color if applicable
+// if on the color rectangle
+if (checkFocus(id) || true)
+{
+    if (mouse_in_rect(colorRectX, colorRectY, colorRectW, colorRectH))
+    {
+        // y is hue
+        var hue = map_range(cursor_get_y(), colorRectY, colorRectY + colorRectH, 0, 255);
+        // left is value
+        var value = clamp(map_range(cursor_get_x(), colorRectX, colorRectX + (0.5 * colorRectW), 0, 255), 0, 255);
+        // right is saturation
+        var sat = clamp(map_range(cursor_get_x(), colorRectX + (0.5 * colorRectW), colorRectX + colorRectW, 255, 0), 0, 255);
+        selected = make_color_hsv(hue, sat, value);
+        selecting = COLORMENU_RECT;
+    }
+    else if (mouse_in_rect(preselectX, preselectY, preselectW, preselectH))
+    {
+        for (var i = 0; i &lt; ds_list_size(preselects); i++)
+        {
+            var preX = preselectX + map_range(i mod preselectGridW, 0, preselectGridW, 0, preselectW);
+            var preY = preselectY + map_range(floor(i / preselectGridW), 0, preselectGridH, 0, preselectH);
+            if (mouse_in_rect(preX, preY, preselectCellW, preselectCellH))
+            {
+                selected = preselects[| i];
+                selecting = COLORMENU_PRESELECT;
+            }
+        }
+    }
+    else if (mouse_in_markerTri(map_range(r, 0, 255, sliderX, sliderX + sliderW), rSliderY + sliderH))
+    {
+        selecting = COLORMENU_R;
+    }
+    else if (mouse_in_markerTri(map_range(g, 0, 255, sliderX, sliderX + sliderW), gSliderY + sliderH))
+    {
+        selecting = COLORMENU_G;
+    }
+    else if (mouse_in_markerTri(map_range(b, 0, 255, sliderX, sliderX + sliderW), bSliderY + sliderH))
+    {
+        selecting = COLORMENU_B;
+    }
+    else if (mouse_in_markerTri(map_range(h, 0, 255, sliderX, sliderX + sliderW), hSliderY + sliderH))
+    {
+        selecting = COLORMENU_H;
+    }
+    else if (mouse_in_markerTri(map_range(s, 0, 255, sliderX, sliderX + sliderW), sSliderY + sliderH))
+    {
+        selecting = COLORMENU_S;
+    }
+    else if (mouse_in_markerTri(map_range(v, 0, 255, sliderX, sliderX + sliderW), vSliderY + sliderH))
+    {
+        selecting = COLORMENU_V;
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// update sizes of this menu and children
+for (var i = 0; i &lt; ds_list_size(submenus); i++)
+{
+    var inst = submenus[| i];
+    with (inst)
+    {
+        event_user(UPDATE_SIZES);
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// draw
+// draw background
+drawOutlineRectExt(X, Y, W, H, 2, c_gray, c_black, 1, 1);
+
+// draw color rectangle
+draw_set_alpha(1);
+draw_sprite_stretched(spr_colors, 0, colorRectX, colorRectY, colorRectW, colorRectH);
+
+// draw preselects
+for (var i = 0; i &lt; ds_list_size(preselects); i++)
+{
+    var preX = preselectX + map_range(i mod preselectGridW, 0, preselectGridW, 0, preselectW);
+    var preY = preselectY + map_range(floor(i / preselectGridW), 0, preselectGridH, 0, preselectH);
+    draw_set_color(preselects[| i]);
+    draw_rectangle(preX, preY, preX + preselectCellW, preY + preselectCellH, false);
+}
+
+// draw sliders
+// red
+var c1 = make_colour_rgb(0, g, b);
+var c2 = make_colour_rgb(255, g, b);
+draw_rectangle_colour(sliderX, rSliderY, sliderX + sliderW, rSliderY + sliderH, c1, c2, c2, c1, false);
+drawTriMarker(map_range(r, 0, 255, sliderX, sliderX + sliderW), rSliderY + sliderH, c_black, c_white);
+if (selecting == COLORMENU_R)
+{
+    drawTriMarker(map_range(r, 0, 255, sliderX, sliderX + sliderW), rSliderY + sliderH, c_blue, c_white);
+}
+// green
+var c1 = make_colour_rgb(r, 0, b);
+var c2 = make_colour_rgb(r, 255, b);
+draw_rectangle_colour(sliderX, gSliderY, sliderX + sliderW, gSliderY + sliderH, c1, c2, c2, c1, false);
+drawTriMarker(map_range(g, 0, 255, sliderX, sliderX + sliderW), gSliderY + sliderH, c_black, c_white);
+if (selecting == COLORMENU_G)
+{
+    drawTriMarker(map_range(g, 0, 255, sliderX, sliderX + sliderW), gSliderY + sliderH, c_blue, c_white);
+}
+// red
+var c1 = make_colour_rgb(r, g, 0);
+var c2 = make_colour_rgb(r, g, 255);
+draw_rectangle_colour(sliderX, bSliderY, sliderX + sliderW, bSliderY + sliderH, c1, c2, c2, c1, false);
+drawTriMarker(map_range(b, 0, 255, sliderX, sliderX + sliderW), bSliderY + sliderH, c_black, c_white);
+if (selecting == COLORMENU_B)
+{
+    drawTriMarker(map_range(b, 0, 255, sliderX, sliderX + sliderW), bSliderY + sliderH, c_blue, c_white);
+}
+// hue
+draw_sprite_stretched(spr_hue, 0, sliderX, hSliderY, sliderW, sliderH);
+drawTriMarker(map_range(h, 0, 255, sliderX, sliderX + sliderW), hSliderY + sliderH, c_black, c_white);
+if (selecting == COLORMENU_H)
+{
+    drawTriMarker(map_range(h, 0, 255, sliderX, sliderX + sliderW), hSliderY + sliderH, c_blue, c_white);
+}
+// sat
+var c1 = make_colour_hsv(h, 0, v);
+var c2 = make_colour_hsv(h, 255, v);
+draw_rectangle_colour(sliderX, sSliderY, sliderX + sliderW, sSliderY + sliderH, c1, c2, c2, c1, false);
+drawTriMarker(map_range(s, 0, 255, sliderX, sliderX + sliderW), sSliderY + sliderH, c_black, c_white);
+if (selecting == COLORMENU_S)
+{
+    drawTriMarker(map_range(s, 0, 255, sliderX, sliderX + sliderW), sSliderY + sliderH, c_blue, c_white);
+}
+// val
+var c1 = make_colour_hsv(h, s, 0);
+var c2 = make_colour_hsv(h, s, 255);
+draw_rectangle_colour(sliderX, vSliderY, sliderX + sliderW, vSliderY + sliderH, c1, c2, c2, c1, false);
+drawTriMarker(map_range(v, 0, 255, sliderX, sliderX + sliderW), vSliderY + sliderH, c_black, c_white);
+if (selecting == COLORMENU_V)
+{
+    drawTriMarker(map_range(v, 0, 255, sliderX, sliderX + sliderW), vSliderY + sliderH, c_black, c_white);
+}
+
+// draw selected color
+if (selected &gt;= 0)
+{
+    draw_set_color(selected);
+    draw_rectangle(X, Y + (0.8 * H), X + (0.2 * W), Y + H, false);
+}
 </string>
           </argument>
         </arguments>

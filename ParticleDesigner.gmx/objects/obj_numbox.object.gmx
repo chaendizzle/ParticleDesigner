@@ -266,6 +266,7 @@ if (!selected)
     text = t;
     // get value
     value = real(text);
+    text = string(value);
 }
 
 if (selected)
