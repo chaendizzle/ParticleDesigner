@@ -57,7 +57,7 @@ parent = noone;
             <kind>1</kind>
             <string>/// draw parameters
 
-W = 450;
+W = 500;
 H = 350;
 X = 0.5 * (getDisplayRoomWidth() - W);
 Y = 0.5 * (getDisplayRoomHeight() - H);
@@ -85,22 +85,27 @@ preselects = ds_list_create();
 sliderTextX = 215;
 sliderX = X + 240;
 sliderW = 200;
+sliderNumboxX = sliderX - X + sliderW + 3;
 sliderH = 24;
 sliderSep = 10;
+sliderNumboxW = 40;
 // colored RGB sliders
 // RGB text
 (addSubmenu(submenus, id, createTextRect(sliderTextX, 0 + B, 0, sliderH, "RGB", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
 // R slider and numbox
 rSliderY = Y + B + sliderH;
 (addSubmenu(submenus, id, createTextRect(sliderTextX, rSliderY - Y, 0, sliderH, "R: ", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
+rNumbox = addSubmenu(submenus, id, createNumBox(sliderNumboxX, rSliderY - Y, sliderNumboxW, sliderH, "0", fnt_subtitle, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.4));
 r = 0;
 // G slider and numbox
 gSliderY = rSliderY + sliderSep + sliderH;
 (addSubmenu(submenus, id, createTextRect(sliderTextX, gSliderY - Y, 0, sliderH, "G: ", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
+gNumbox = addSubmenu(submenus, id, createNumBox(sliderNumboxX, gSliderY - Y, sliderNumboxW, sliderH, "0", fnt_subtitle, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.4));
 g = 0;
 // B slider and numbox
 bSliderY = gSliderY + sliderSep + sliderH;
 (addSubmenu(submenus, id, createTextRect(sliderTextX, bSliderY - Y, 0, sliderH, "B: ", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
+bNumbox = addSubmenu(submenus, id, createNumBox(sliderNumboxX, bSliderY - Y, sliderNumboxW, sliderH, "0", fnt_subtitle, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.4));
 b = 0;
 
 hsvSliderY = bSliderY + sliderSep + sliderH;
@@ -110,14 +115,17 @@ hsvSliderY = bSliderY + sliderSep + sliderH;
 // H slider and numbox
 hSliderY = hsvSliderY + B + sliderH;
 (addSubmenu(submenus, id, createTextRect(sliderTextX, hSliderY - Y, 0, sliderH, "H: ", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
+hNumbox = addSubmenu(submenus, id, createNumBox(sliderNumboxX, hSliderY - Y, sliderNumboxW, sliderH, "0", fnt_subtitle, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.4));
 h = 0;
 // S slider and numbox
 sSliderY = hSliderY + sliderSep + sliderH;
 (addSubmenu(submenus, id, createTextRect(sliderTextX, sSliderY - Y, 0, sliderH, "S: ", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
+sNumbox = addSubmenu(submenus, id, createNumBox(sliderNumboxX, sSliderY - Y, sliderNumboxW, sliderH, "0", fnt_subtitle, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.4));
 s = 0;
 // V slider and numbox
 vSliderY = sSliderY + sliderSep + sliderH;
 (addSubmenu(submenus, id, createTextRect(sliderTextX, vSliderY - Y, 0, sliderH, "V: ", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
+vNumbox = addSubmenu(submenus, id, createNumBox(sliderNumboxX, vSliderY - Y, sliderNumboxW, sliderH, "0", fnt_subtitle, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.4));
 v = 0;
 
 // currently selected color
@@ -294,8 +302,45 @@ switch (selecting)
         selected = make_color_hsv(h, s, v);
         break;
 }
+// update from numboxes
+if (rNumbox.finished)
+{
+    r = clamp(round(real(rNumbox.text)), 0, 255);
+    selected = make_color_rgb(r, g, b);
+    rNumbox.finished = false;
+}
+if (gNumbox.finished)
+{
+    g = clamp(round(real(gNumbox.text)), 0, 255);
+    selected = make_color_rgb(r, g, b);
+    gNumbox.finished = false;
+}
+if (bNumbox.finished)
+{
+    b = clamp(round(real(bNumbox.text)), 0, 255);
+    selected = make_color_rgb(r, g, b);
+    bNumbox.finished = false;
+}
+if (hNumbox.finished)
+{
+    h = clamp(round(real(hNumbox.text)), 0, 255);
+    selected = make_color_hsv(h, s, v);
+    hNumbox.finished = false;
+}
+if (sNumbox.finished)
+{
+    s = clamp(round(real(sNumbox.text)), 0, 255);
+    selected = make_color_hsv(h, s, v);
+    sNumbox.finished = false;
+}
+if (vNumbox.finished)
+{
+    v = clamp(round(real(vNumbox.text)), 0, 255);
+    selected = make_color_hsv(h, s, v);
+    vNumbox.finished = false;
+}
 // update all other things
-if (selected &gt;= 0 &amp;&amp; selecting)
+if (selected &gt;= 0)
 {
     r = colour_get_red(selected);
     g = colour_get_green(selected);
@@ -303,6 +348,31 @@ if (selected &gt;= 0 &amp;&amp; selecting)
     h = colour_get_hue(selected);
     s = colour_get_saturation(selected);
     v = colour_get_value(selected);
+}
+// clamp all numboxes
+if (!rNumbox.selected)
+{
+    rNumbox.text = string(round(clamp(r, 0, 255)));
+}
+if (!gNumbox.selected)
+{
+    gNumbox.text = string(round(clamp(g, 0, 255)));
+}
+if (!bNumbox.selected)
+{
+    bNumbox.text = string(round(clamp(b, 0, 255)));
+}
+if (!hNumbox.selected)
+{
+    hNumbox.text = string(round(clamp(h, 0, 255)));
+}
+if (!sNumbox.selected)
+{
+    sNumbox.text = string(round(clamp(s, 0, 255)));
+}
+if (!vNumbox.selected)
+{
+    vNumbox.text = string(round(clamp(v, 0, 255)));
 }
 </string>
           </argument>

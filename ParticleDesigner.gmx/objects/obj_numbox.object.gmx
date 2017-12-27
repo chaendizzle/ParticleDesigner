@@ -52,6 +52,8 @@ blinkDur = 20;
 alarm[0] = blinkDur;
 
 value = 0;
+
+finished = false;
 </string>
           </argument>
         </arguments>
@@ -347,6 +349,7 @@ if (checkFocus(popup) &amp;&amp; mouse_in_rect(X, Y, W, H))
 }
 else
 {
+    finished = true;
     selected = false;
     selectStart = noone;
     selectEnd = noone;
@@ -565,6 +568,7 @@ else if (selectStart &gt; 0)
             <kind>1</kind>
             <string>/// confirm
 selected = false;
+finished = true;
 </string>
           </argument>
         </arguments>
