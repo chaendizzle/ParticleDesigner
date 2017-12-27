@@ -78,7 +78,7 @@ info = noone;
             <string>/// writes out info into the map called info
 if (ds_exists(info, ds_type_map))
 {
-    if (ds_exists(submenus, ds_type_map))
+    if (ds_exists(submenus, ds_type_list))
     {
         for (var i = 0; i &lt; ds_list_size(submenus); i++)
         {

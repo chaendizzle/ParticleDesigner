@@ -16,53 +16,68 @@
   <backgrounds name="background"/>
   <paths name="paths"/>
   <scripts name="scripts">
-    <script>scripts\setActive.gml</script>
-    <script>scripts\updateAbsolutePositions.gml</script>
     <scripts name="menuElement">
       <script>scripts\nextTabName.gml</script>
       <script>scripts\addSubmenu.gml</script>
       <script>scripts\selectTab.gml</script>
       <script>scripts\createTab.gml</script>
+      <script>scripts\setActive.gml</script>
+      <script>scripts\updateAbsolutePositions.gml</script>
+      <script>scripts\getTypeMenuW.gml</script>
+      <script>scripts\selectColorOption.gml</script>
+      <script>scripts\createTypeInfoMap.gml</script>
     </scripts>
-    <script>scripts\getDisplayRoomHeight.gml</script>
-    <script>scripts\getDisplayRoomWidth.gml</script>
-    <script>scripts\cursor_get_x.gml</script>
-    <script>scripts\cursor_get_y.gml</script>
-    <script>scripts\GUIToRoomX.gml</script>
-    <script>scripts\GUIToRoomY.gml</script>
-    <script>scripts\roomToGUIX.gml</script>
-    <script>scripts\roomToGUIY.gml</script>
-    <script>scripts\mouse_in_rect.gml</script>
-    <script>scripts\mouse_in_circle.gml</script>
-    <script>scripts\checkFocus.gml</script>
-    <script>scripts\getTypeMenuW.gml</script>
-    <script>scripts\createTextRect.gml</script>
-    <script>scripts\createDropdown.gml</script>
-    <script>scripts\createSpriteRect.gml</script>
-    <script>scripts\createCheckbox.gml</script>
-    <script>scripts\createMenuButton.gml</script>
-    <script>scripts\createNumBox.gml</script>
-    <script>scripts\createAngleSlider.gml</script>
-    <script>scripts\createSlider.gml</script>
-    <script>scripts\createColorButton.gml</script>
-    <script>scripts\inrange.gml</script>
-    <script>scripts\findStringPos.gml</script>
-    <script>scripts\drawCheckmark.gml</script>
-    <script>scripts\drawOutlineRectExt.gml</script>
-    <script>scripts\modulo.gml</script>
-    <script>scripts\draw_linestrip_width.gml</script>
-    <script>scripts\draw_linestrip_width_point.gml</script>
-    <script>scripts\stringDotTruncate.gml</script>
-    <script>scripts\draw_pie.gml</script>
-    <script>scripts\map_range.gml</script>
-    <script>scripts\map_range_closed.gml</script>
-    <script>scripts\drawTriMarker.gml</script>
-    <script>scripts\mouse_in_markerTri.gml</script>
-    <script>scripts\mouse_in_triangle.gml</script>
-    <script>scripts\selectColorOption.gml</script>
-    <script>scripts\printList.gml</script>
-    <script>scripts\setFocus.gml</script>
-    <script>scripts\createTypeInfoMap.gml</script>
+    <scripts name="draw">
+      <script>scripts\drawCheckmark.gml</script>
+      <script>scripts\drawOutlineRectExt.gml</script>
+      <script>scripts\draw_linestrip_width.gml</script>
+      <script>scripts\draw_linestrip_width_point.gml</script>
+      <script>scripts\draw_pie.gml</script>
+      <script>scripts\drawTriMarker.gml</script>
+    </scripts>
+    <scripts name="createMenuElement">
+      <script>scripts\createTextRect.gml</script>
+      <script>scripts\createDropdown.gml</script>
+      <script>scripts\createSpriteRect.gml</script>
+      <script>scripts\createCheckbox.gml</script>
+      <script>scripts\createMenuButton.gml</script>
+      <script>scripts\createNumBox.gml</script>
+      <script>scripts\createAngleSlider.gml</script>
+      <script>scripts\createSlider.gml</script>
+      <script>scripts\createColorButton.gml</script>
+    </scripts>
+    <scripts name="screenPosition">
+      <script>scripts\getDisplayRoomHeight.gml</script>
+      <script>scripts\getDisplayRoomWidth.gml</script>
+      <script>scripts\cursor_get_x.gml</script>
+      <script>scripts\cursor_get_y.gml</script>
+      <script>scripts\GUIToRoomX.gml</script>
+      <script>scripts\GUIToRoomY.gml</script>
+      <script>scripts\roomToGUIX.gml</script>
+      <script>scripts\roomToGUIY.gml</script>
+      <script>scripts\mouse_in_rect.gml</script>
+      <script>scripts\mouse_in_circle.gml</script>
+      <script>scripts\mouse_in_markerTri.gml</script>
+      <script>scripts\mouse_in_triangle.gml</script>
+    </scripts>
+    <scripts name="utility">
+      <script>scripts\map_range.gml</script>
+      <script>scripts\map_range_closed.gml</script>
+      <script>scripts\inrange.gml</script>
+      <script>scripts\modulo.gml</script>
+      <script>scripts\findStringPos.gml</script>
+      <script>scripts\stringDotTruncate.gml</script>
+      <script>scripts\printList.gml</script>
+      <script>scripts\newline.gml</script>
+    </scripts>
+    <scripts name="popupFocus">
+      <script>scripts\setFocus.gml</script>
+      <script>scripts\checkFocus.gml</script>
+    </scripts>
+    <scripts name="particles">
+      <script>scripts\setParticleType.gml</script>
+      <script>scripts\generateParticleTypeCode.gml</script>
+    </scripts>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_tab</font>
@@ -73,28 +88,32 @@
     <font>fonts\fnt_kindabig</font>
   </fonts>
   <objects name="objects">
-    <object>objects\obj_menuElement</object>
     <object>objects\obj_focus</object>
-    <object>objects\obj_particleTypeMenu</object>
-    <object>objects\obj_particleShapeMenu</object>
-    <object>objects\obj_particleSizeMenu</object>
-    <object>objects\obj_particleColorMenu</object>
-    <object>objects\obj_particleAlphaMenu</object>
-    <object>objects\obj_particleMoveMenu</object>
-    <object>objects\obj_particleLifeMenu</object>
-    <object>objects\obj_textrect</object>
-    <object>objects\obj_spriterect</object>
-    <object>objects\obj_menuButton</object>
-    <object>objects\obj_numbox</object>
-    <object>objects\obj_angleSlider</object>
-    <object>objects\obj_slider</object>
-    <object>objects\obj_checkbox</object>
-    <object>objects\obj_popupMenu</object>
-    <object>objects\obj_shapeMenu</object>
-    <object>objects\obj_dropdown</object>
-    <object>objects\obj_popupDropdown</object>
-    <object>objects\obj_colorMenu</object>
-    <object>objects\obj_colorButton</object>
+    <objects name="subMenu">
+      <object>objects\obj_particleTypeMenu</object>
+      <object>objects\obj_particleShapeMenu</object>
+      <object>objects\obj_particleSizeMenu</object>
+      <object>objects\obj_particleColorMenu</object>
+      <object>objects\obj_particleAlphaMenu</object>
+      <object>objects\obj_particleMoveMenu</object>
+      <object>objects\obj_particleLifeMenu</object>
+    </objects>
+    <objects name="menuComponents">
+      <object>objects\obj_menuElement</object>
+      <object>objects\obj_textrect</object>
+      <object>objects\obj_spriterect</object>
+      <object>objects\obj_menuButton</object>
+      <object>objects\obj_numbox</object>
+      <object>objects\obj_angleSlider</object>
+      <object>objects\obj_slider</object>
+      <object>objects\obj_checkbox</object>
+      <object>objects\obj_popupMenu</object>
+      <object>objects\obj_shapeMenu</object>
+      <object>objects\obj_dropdown</object>
+      <object>objects\obj_popupDropdown</object>
+      <object>objects\obj_colorMenu</object>
+      <object>objects\obj_colorButton</object>
+    </objects>
     <object>objects\obj_system</object>
   </objects>
   <rooms name="rooms">

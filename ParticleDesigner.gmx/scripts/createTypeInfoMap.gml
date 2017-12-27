@@ -33,6 +33,7 @@
 //     max
 //     inc
 //     wig
+//     rel
 // color
 //     type
 //     color1/rmin->rmax/hmin->hmax

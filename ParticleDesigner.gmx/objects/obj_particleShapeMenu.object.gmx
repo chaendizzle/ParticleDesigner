@@ -189,7 +189,7 @@ if (shapeType == SHAPE_SHAPE)
     shape[? "stretch"] = false;
     shape[? "random"] = false;
 }
-else
+else if (shapeType == SHAPE_SPRITE)
 {
     shape[? "type"] = SHAPE_SPRITE;
     shape[? "index"] = shapeIndex;

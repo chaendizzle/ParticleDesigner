@@ -222,6 +222,7 @@ angle[? "min"] = angleMin.value;
 angle[? "max"] = angleMax.value;
 angle[? "inc"] = angleInc.value;
 angle[? "wig"] = angleWig.value;
+angle[? "rel"] = relative.checked;
 </string>
           </argument>
         </arguments>
