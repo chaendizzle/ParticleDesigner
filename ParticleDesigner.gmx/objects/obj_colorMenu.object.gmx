@@ -28,7 +28,7 @@
             <string>/// not an actual menu element, since it's a popup
 active = false;
 target = noone;
-selected = noone;
+selected = c_white;
 
 selecting = noone;
 
@@ -58,12 +58,12 @@ parent = noone;
             <string>/// draw parameters
 
 W = 500;
-H = 350;
+H = 330;
 X = 0.5 * (getDisplayRoomWidth() - W);
 Y = 0.5 * (getDisplayRoomHeight() - H);
 RelX = X;
 RelY = Y;
-B = 5;
+B = 10;
 
 // color rectangle, containing only full S or full V
 colorRectX = X + B;
@@ -82,10 +82,10 @@ preselectW = preselectCellW * preselectGridW;
 preselectH = preselectCellH * preselectGridH;
 preselects = ds_list_create();
 
-sliderTextX = 215;
-sliderX = X + 240;
+sliderTextX = 220;
+sliderX = X + 245;
 sliderW = 200;
-sliderNumboxX = sliderX - X + sliderW + 3;
+sliderNumboxX = sliderX - X + sliderW + 7;
 sliderH = 24;
 sliderSep = 10;
 sliderNumboxW = 40;
@@ -111,7 +111,7 @@ b = 0;
 hsvSliderY = bSliderY + sliderSep + sliderH;
 // colored HSV sliders
 // HSV text
-(addSubmenu(submenus, id, createTextRect(sliderTextX, hsvSliderY + B - Y, 0, sliderH, "HSV", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;;
+(addSubmenu(submenus, id, createTextRect(sliderTextX, hsvSliderY + B - Y, 0, sliderH, "HSV", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
 // H slider and numbox
 hSliderY = hsvSliderY + B + sliderH;
 (addSubmenu(submenus, id, createTextRect(sliderTextX, hSliderY - Y, 0, sliderH, "H: ", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
@@ -130,11 +130,18 @@ v = 0;
 
 // currently selected color
 // textbox
+(addSubmenu(submenus, id, createTextRect(B, H - 24 - B, 0, 24, "Selected color: ", fnt_subtitle, c_black, c_gray, c_black, 1, 0, 0))).halign = fa_left;
 // color
-
+colorX = X + B + 128;
+colorY = Y + H - 24 - B;
+colorW = 24;
+colorH = 24;
 
 // confirm button
-
+confirmX = X + W - B - 96;
+confirmY = Y + H - 24 - B;
+confirmW = 96;
+confirmH = 24;
 </string>
           </argument>
         </arguments>
@@ -246,6 +253,11 @@ ds_list_add(preselects, make_colour_rgb(127, 63, 91));
           <argument>
             <kind>1</kind>
             <string>/// control selection
+setActive(id, active);
+if (!active)
+{
+    exit;
+}
 switch (selecting)
 {
     case COLORMENU_RECT:
@@ -446,7 +458,7 @@ selecting = noone;
             <string>/// handle left click select
 // select color if applicable
 // if on the color rectangle
-if (checkFocus(id) || true)
+if (active &amp;&amp; checkFocus(id))
 {
     if (mouse_in_rect(colorRectX, colorRectY, colorRectW, colorRectH))
     {
@@ -551,81 +563,110 @@ for (var i = 0; i &lt; ds_list_size(submenus); i++)
           <argument>
             <kind>1</kind>
             <string>/// draw
-// draw background
-drawOutlineRectExt(X, Y, W, H, 2, c_gray, c_black, 1, 1);
-
-// draw color rectangle
-draw_set_alpha(1);
-draw_sprite_stretched(spr_colors, 0, colorRectX, colorRectY, colorRectW, colorRectH);
-
-// draw preselects
-for (var i = 0; i &lt; ds_list_size(preselects); i++)
+if (active)
 {
-    var preX = preselectX + map_range(i mod preselectGridW, 0, preselectGridW, 0, preselectW);
-    var preY = preselectY + map_range(floor(i / preselectGridW), 0, preselectGridH, 0, preselectH);
-    draw_set_color(preselects[| i]);
-    draw_rectangle(preX, preY, preX + preselectCellW, preY + preselectCellH, false);
-}
-
-// draw sliders
-// red
-var c1 = make_colour_rgb(0, g, b);
-var c2 = make_colour_rgb(255, g, b);
-draw_rectangle_colour(sliderX, rSliderY, sliderX + sliderW, rSliderY + sliderH, c1, c2, c2, c1, false);
-drawTriMarker(map_range(r, 0, 255, sliderX, sliderX + sliderW), rSliderY + sliderH, c_black, c_white);
-if (selecting == COLORMENU_R)
-{
-    drawTriMarker(map_range(r, 0, 255, sliderX, sliderX + sliderW), rSliderY + sliderH, c_blue, c_white);
-}
-// green
-var c1 = make_colour_rgb(r, 0, b);
-var c2 = make_colour_rgb(r, 255, b);
-draw_rectangle_colour(sliderX, gSliderY, sliderX + sliderW, gSliderY + sliderH, c1, c2, c2, c1, false);
-drawTriMarker(map_range(g, 0, 255, sliderX, sliderX + sliderW), gSliderY + sliderH, c_black, c_white);
-if (selecting == COLORMENU_G)
-{
-    drawTriMarker(map_range(g, 0, 255, sliderX, sliderX + sliderW), gSliderY + sliderH, c_blue, c_white);
-}
-// red
-var c1 = make_colour_rgb(r, g, 0);
-var c2 = make_colour_rgb(r, g, 255);
-draw_rectangle_colour(sliderX, bSliderY, sliderX + sliderW, bSliderY + sliderH, c1, c2, c2, c1, false);
-drawTriMarker(map_range(b, 0, 255, sliderX, sliderX + sliderW), bSliderY + sliderH, c_black, c_white);
-if (selecting == COLORMENU_B)
-{
-    drawTriMarker(map_range(b, 0, 255, sliderX, sliderX + sliderW), bSliderY + sliderH, c_blue, c_white);
-}
-// hue
-draw_sprite_stretched(spr_hue, 0, sliderX, hSliderY, sliderW, sliderH);
-drawTriMarker(map_range(h, 0, 255, sliderX, sliderX + sliderW), hSliderY + sliderH, c_black, c_white);
-if (selecting == COLORMENU_H)
-{
-    drawTriMarker(map_range(h, 0, 255, sliderX, sliderX + sliderW), hSliderY + sliderH, c_blue, c_white);
-}
-// sat
-var c1 = make_colour_hsv(h, 0, v);
-var c2 = make_colour_hsv(h, 255, v);
-draw_rectangle_colour(sliderX, sSliderY, sliderX + sliderW, sSliderY + sliderH, c1, c2, c2, c1, false);
-drawTriMarker(map_range(s, 0, 255, sliderX, sliderX + sliderW), sSliderY + sliderH, c_black, c_white);
-if (selecting == COLORMENU_S)
-{
-    drawTriMarker(map_range(s, 0, 255, sliderX, sliderX + sliderW), sSliderY + sliderH, c_blue, c_white);
-}
-// val
-var c1 = make_colour_hsv(h, s, 0);
-var c2 = make_colour_hsv(h, s, 255);
-draw_rectangle_colour(sliderX, vSliderY, sliderX + sliderW, vSliderY + sliderH, c1, c2, c2, c1, false);
-drawTriMarker(map_range(v, 0, 255, sliderX, sliderX + sliderW), vSliderY + sliderH, c_black, c_white);
-if (selecting == COLORMENU_V)
-{
+    // draw background
+    drawOutlineRectExt(X, Y, W, H, 2, c_gray, c_black, 1, 1);
+    
+    // draw color rectangle
+    draw_set_alpha(1);
+    draw_sprite_stretched(spr_colors, 0, colorRectX, colorRectY, colorRectW, colorRectH);
+    
+    // draw preselects
+    for (var i = 0; i &lt; ds_list_size(preselects); i++)
+    {
+        var preX = preselectX + map_range(i mod preselectGridW, 0, preselectGridW, 0, preselectW);
+        var preY = preselectY + map_range(floor(i / preselectGridW), 0, preselectGridH, 0, preselectH);
+        draw_set_color(preselects[| i]);
+        draw_rectangle(preX, preY, preX + preselectCellW, preY + preselectCellH, false);
+    }
+    
+    // draw sliders
+    // red
+    var c1 = make_colour_rgb(0, g, b);
+    var c2 = make_colour_rgb(255, g, b);
+    draw_rectangle_colour(sliderX, rSliderY, sliderX + sliderW, rSliderY + sliderH, c1, c2, c2, c1, false);
+    drawTriMarker(map_range(r, 0, 255, sliderX, sliderX + sliderW), rSliderY + sliderH, c_black, c_white);
+    if (selecting == COLORMENU_R)
+    {
+        drawTriMarker(map_range(r, 0, 255, sliderX, sliderX + sliderW), rSliderY + sliderH, c_blue, c_white);
+    }
+    // green
+    var c1 = make_colour_rgb(r, 0, b);
+    var c2 = make_colour_rgb(r, 255, b);
+    draw_rectangle_colour(sliderX, gSliderY, sliderX + sliderW, gSliderY + sliderH, c1, c2, c2, c1, false);
+    drawTriMarker(map_range(g, 0, 255, sliderX, sliderX + sliderW), gSliderY + sliderH, c_black, c_white);
+    if (selecting == COLORMENU_G)
+    {
+        drawTriMarker(map_range(g, 0, 255, sliderX, sliderX + sliderW), gSliderY + sliderH, c_blue, c_white);
+    }
+    // red
+    var c1 = make_colour_rgb(r, g, 0);
+    var c2 = make_colour_rgb(r, g, 255);
+    draw_rectangle_colour(sliderX, bSliderY, sliderX + sliderW, bSliderY + sliderH, c1, c2, c2, c1, false);
+    drawTriMarker(map_range(b, 0, 255, sliderX, sliderX + sliderW), bSliderY + sliderH, c_black, c_white);
+    if (selecting == COLORMENU_B)
+    {
+        drawTriMarker(map_range(b, 0, 255, sliderX, sliderX + sliderW), bSliderY + sliderH, c_blue, c_white);
+    }
+    // hue
+    draw_sprite_stretched(spr_hue, 0, sliderX, hSliderY, sliderW, sliderH);
+    drawTriMarker(map_range(h, 0, 255, sliderX, sliderX + sliderW), hSliderY + sliderH, c_black, c_white);
+    if (selecting == COLORMENU_H)
+    {
+        drawTriMarker(map_range(h, 0, 255, sliderX, sliderX + sliderW), hSliderY + sliderH, c_blue, c_white);
+    }
+    // sat
+    var c1 = make_colour_hsv(h, 0, v);
+    var c2 = make_colour_hsv(h, 255, v);
+    draw_rectangle_colour(sliderX, sSliderY, sliderX + sliderW, sSliderY + sliderH, c1, c2, c2, c1, false);
+    drawTriMarker(map_range(s, 0, 255, sliderX, sliderX + sliderW), sSliderY + sliderH, c_black, c_white);
+    if (selecting == COLORMENU_S)
+    {
+        drawTriMarker(map_range(s, 0, 255, sliderX, sliderX + sliderW), sSliderY + sliderH, c_blue, c_white);
+    }
+    // val
+    var c1 = make_colour_hsv(h, s, 0);
+    var c2 = make_colour_hsv(h, s, 255);
+    draw_rectangle_colour(sliderX, vSliderY, sliderX + sliderW, vSliderY + sliderH, c1, c2, c2, c1, false);
     drawTriMarker(map_range(v, 0, 255, sliderX, sliderX + sliderW), vSliderY + sliderH, c_black, c_white);
-}
-
-// draw selected color
-if (selected &gt;= 0)
-{
+    if (selecting == COLORMENU_V)
+    {
+        drawTriMarker(map_range(v, 0, 255, sliderX, sliderX + sliderW), vSliderY + sliderH, c_black, c_white);
+    }
+    
+    // draw selected color
+    draw_set_alpha(1);
     draw_set_color(selected);
-    draw_rectangle(X, Y + (0.8 * H), X + (0.2 * W), Y + H, false);
+    draw_rectangle(colorX, colorY, colorX + colorW, colorY + colorH, false);
+    draw_set_color(c_black);
+    draw_rectangle(colorX, colorY, colorX + colorW, colorY + colorH, true);
+    
+    // confirm button
+    draw_set_color(c_dkgray);
+    draw_set_alpha(1);
+    draw_rectangle(confirmX, confirmY, confirmX + confirmW, confirmY + confirmH, false);
+    draw_set_color(c_black);
+    draw_set_alpha(1);
+    draw_rectangle(confirmX, confirmY, confirmX + confirmW, confirmY + confirmH, true);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_center);
+    draw_text(confirmX + (0.5 * confirmW), confirmY + (0.5 * confirmH), "Confirm");
+    // mouse-over highlight
+    if (mouse_in_rect(confirmX, confirmY, confirmW, confirmH))
+    {
+        draw_set_color(c_white);
+        draw_set_alpha(0.5);
+        draw_rectangle(confirmX, confirmY, confirmX + confirmW, confirmY + confirmH, false);
+        // if click on confirm button, do something
+        if (mouse_check_button_pressed(mb_left))
+        {
+            if (instance_exists(target))
+            {
+                selectedColor = selected;
+            }
+        }
+    }
 }
 </string>
           </argument>
