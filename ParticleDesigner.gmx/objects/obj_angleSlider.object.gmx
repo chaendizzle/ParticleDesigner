@@ -106,21 +106,11 @@ if(!active)
             <string>/// move selection with mouse
 if (selected)
 {
-    var prevA = angleA;
-    angleB = modulo(angleB, 360);
-    angleA = point_direction(centerX, centerY, cursor_get_x(), cursor_get_y());
-    if (sgn)
+    if (twoHandled)
     {
-        angleA = map_range_closed(angleA - angleB - angleB, 0, 360, angleB, angleB + 360);
-    }
-    else
-    {
-        angleA = map_range_closed(angleA - angleB - angleB, 0, 360, angleB - 360, angleB);
-    }
-    if (!change &amp;&amp; abs(prevA - angleA) &gt; 180)
-    {
-        change = true;
-        sgn = -sgn;
+        var prevA = angleA;
+        angleB = modulo(angleB, 360);
+        angleA = point_direction(centerX, centerY, cursor_get_x(), cursor_get_y());
         if (sgn)
         {
             angleA = map_range_closed(angleA - angleB - angleB, 0, 360, angleB, angleB + 360);
@@ -129,10 +119,28 @@ if (selected)
         {
             angleA = map_range_closed(angleA - angleB - angleB, 0, 360, angleB - 360, angleB);
         }
+        if (!change &amp;&amp; abs(prevA - angleA) &gt; 180)
+        {
+            change = true;
+            sgn = -sgn;
+            if (sgn)
+            {
+                angleA = map_range_closed(angleA - angleB - angleB, 0, 360, angleB, angleB + 360);
+            }
+            else
+            {
+                angleA = map_range_closed(angleA - angleB - angleB, 0, 360, angleB - 360, angleB);
+            }
+        }
+        else if (change)
+        {
+            change = false;
+        }
     }
-    else if (change)
+    else
     {
-        change = false;
+        angleA = point_direction(centerX, centerY, cursor_get_x(), cursor_get_y());
+        angleB = angleA;
     }
 }
 // set center
@@ -306,6 +314,10 @@ if(!active)
           <argument>
             <kind>1</kind>
             <string>/// draw the angle slider
+if (!twoHandled)
+{
+    angleB = angleA;
+}
 // draw fill
 draw_set_color(fillCol);
 draw_set_alpha(fillAlpha);
