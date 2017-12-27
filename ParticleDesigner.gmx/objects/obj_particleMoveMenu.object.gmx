@@ -53,10 +53,10 @@ textrect = createTextRect(2, 32 + 72, 18, 18, "Wig", fnt_kindasmall, c_black, c_
 textrect.halign = fa_left;
 addSubmenu(submenus, id, textrect);
 
-spdMin = addSubmenu(submenus, id, createNumBox(32, 32 + 18, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
-spdMax = addSubmenu(submenus, id, createNumBox(32, 32 + 36, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
-spdInc = addSubmenu(submenus, id, createNumBox(32, 32 + 54, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
-spdWig = addSubmenu(submenus, id, createNumBox(32, 32 + 72, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+spdMin = addSubmenu(submenus, id, createNumBox(32, 32 + 18, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+spdMax = addSubmenu(submenus, id, createNumBox(32, 32 + 36, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+spdInc = addSubmenu(submenus, id, createNumBox(32, 32 + 54, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+spdWig = addSubmenu(submenus, id, createNumBox(32, 32 + 72, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
 
 // direction
 addSubmenu(submenus, id, createTextRect(83 + 20, 32, 32, 18, "Direction", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0));

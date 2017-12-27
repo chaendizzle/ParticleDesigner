@@ -34,12 +34,16 @@ border = 4;
 // top bar
 textrect = createTextRect(0, 0, W, 30, "Alpha", fnt_subtitle, c_black, c_ltgray, c_black, 1, 1, 0);
 
+// "Type:" textbox
+textrect2 = createTextRect(4, 32, 0, 24, "Type:", fnt_subtitle, c_black, c_ltgray, c_black, 1, 1, 0);
+textrect2.halign = fa_left;
+
 // color type
 colorOptions = ds_list_create();
 colorOptions[| ALPHA_1] = "1-alpha";
 colorOptions[| ALPHA_2] = "2-alpha fade";
 colorOptions[| ALPHA_3] = "3-alpha fade";
-dropdown = createDropdown(2, 32, 120, 24, colorOptions, fnt_kindasmall, c_black, c_gray, c_black, 1, 1, 1);
+dropdown = createDropdown(56, 32, 120, 24, colorOptions, fnt_kindasmall, c_black, c_gray, c_black, 1, 1, 1);
 
 // options menus
 optionMenus = ds_list_create();
@@ -50,6 +54,7 @@ optionMenus[| ALPHA_3] = ds_list_create();
 for (var i = 0; i &lt; ds_list_size(optionMenus); i++)
 {
     addSubmenu(optionMenus[| i], id, textrect);
+    addSubmenu(optionMenus[| i], id, textrect2);
     addSubmenu(optionMenus[| i], id, dropdown);
 }
 

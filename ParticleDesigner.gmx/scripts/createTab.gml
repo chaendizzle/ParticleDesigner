@@ -13,49 +13,18 @@ var tabMenus = ds_list_create();
 
 // scale, size
     addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleSizeMenu));
-    // sliders or numbers
-
-// speed
-    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleColorMenu));
-    // slider or number
-
-// direction
-    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleAlphaMenu));
-    // angle spinner
-
-// gravity
-    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleMoveMenu));
-    // slider or number
-
-// orientation
-    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleTypeTest));
-    // angle
 
 // color
-    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleTypeTest));
-    // color type
-    // color submenu for choosing color
+    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleColorMenu));
 
 // alpha
-    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleTypeTest));
-    // alpha type
-    // alpha sliders?
+    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleAlphaMenu));
 
-// blend
-    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleTypeTest));
-    // checkbox
+// movement
+    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleMoveMenu));
 
-// lifetime
-    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleTypeTest));
-    // slider or number
-
-// step
-    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleTypeTest));
-    // choose another particle type...
-
-// death
-    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleTypeTest));
-    // choose another particle type...
+// lifetime, step creation, death creation
+    addSubmenu(tabMenus, id, instance_create(0, 0, obj_particleLifeMenu));
 
 var tab = ds_list_create();
 tab[| TAB_MENU] = tabMenus;

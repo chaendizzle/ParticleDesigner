@@ -81,6 +81,7 @@
     <object>objects\obj_particleColorMenu</object>
     <object>objects\obj_particleAlphaMenu</object>
     <object>objects\obj_particleMoveMenu</object>
+    <object>objects\obj_particleLifeMenu</object>
     <object>objects\obj_textrect</object>
     <object>objects\obj_spriterect</object>
     <object>objects\obj_menuButton</object>

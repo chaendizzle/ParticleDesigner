@@ -34,6 +34,10 @@ border = 4;
 // top bar
 textrect = createTextRect(0, 0, W, 30, "Color", fnt_subtitle, c_black, c_ltgray, c_black, 1, 1, 0);
 
+// "Type:" textbox
+textrect2 = createTextRect(4, 32, 0, 24, "Type:", fnt_subtitle, c_black, c_ltgray, c_black, 1, 1, 0);
+textrect2.halign = fa_left;
+
 // color type
 colorOptions = ds_list_create();
 colorOptions[| COLOR_1] = "1-color";
@@ -42,7 +46,7 @@ colorOptions[| COLOR_3] = "3-color fade";
 colorOptions[| COLOR_MIX] = "2-color mix";
 colorOptions[| COLOR_RGB] = "RGB mix";
 colorOptions[| COLOR_HSV] = "HSV mix";
-dropdown = createDropdown(2, 32, 120, 24, colorOptions, fnt_kindasmall, c_black, c_gray, c_black, 1, 1, 1);
+dropdown = createDropdown(56, 32, 120, 24, colorOptions, fnt_kindasmall, c_black, c_gray, c_black, 1, 1, 1);
 
 // options menus
 optionMenus = ds_list_create();
@@ -56,6 +60,7 @@ optionMenus[| COLOR_HSV] = ds_list_create();
 for (var i = 0; i &lt; ds_list_size(optionMenus); i++)
 {
     addSubmenu(optionMenus[| i], id, textrect);
+    addSubmenu(optionMenus[| i], id, textrect2);
     addSubmenu(optionMenus[| i], id, dropdown);
 }
 
@@ -260,11 +265,11 @@ if (selected == COLOR_HSV)
 {
     var hsvMenu = optionMenus[| COLOR_HSV];
     // hue slider
-    var hueSlider = hsvMenu[| 3];
+    var hueSlider = hsvMenu[| 4];
     // sat slider
-    var satSlider = hsvMenu[| 5];
+    var satSlider = hsvMenu[| 6];
     // val slider
-    var valSlider = hsvMenu[| 7];
+    var valSlider = hsvMenu[| 8];
     // set colors
     var hueCol = mean(hueSlider.valueA, hueSlider.valueB);
     satSlider.leftCol = make_colour_hsv(hueCol, 0, 255);
