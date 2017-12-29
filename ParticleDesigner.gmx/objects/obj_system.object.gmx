@@ -54,7 +54,7 @@ map = ds_map_create();
             <kind>1</kind>
             <string>/// update particle type
 createTypeInfoMap(map);
-clipboard_set_text(json_encode(map));
+//clipboard_set_text(json_encode(map));
 if (setParticleType(type, map))
 {
     cx = (getDisplayRoomWidth() - getTypeMenuW()) * 0.5;

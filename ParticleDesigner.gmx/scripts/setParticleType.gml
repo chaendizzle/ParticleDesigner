@@ -73,24 +73,31 @@ switch (alpha[? "type"])
         break;
 }
 
+part_type_blend(part, info[? "blend"]);
+
 var life = info[? "life"];
 part_type_life(part, life[? "min"], life[? "max"]);
 
-var step = info[? "grav"];
+var step = info[? "step"];
 var stepTab = step[? "tabList"];
-var stepPart = stepTab[| TAB_PARTICLE];
-if (part_type_exists(stepPart))
+if (ds_exists(stepTab, ds_type_list))
 {
-    part_type_step(part, step[? "amt"], stepPart);
+    var stepPart = stepTab[| TAB_PARTICLE];
+    if (part_type_exists(stepPart))
+    {
+        part_type_death(part, step[? "amt"], stepPart);
+    }
 }
 
-var death = info[? "grav"];
+var death = info[? "death"];
 var deathTab = death[? "tabList"];
-var deathPart = deathTab[| TAB_PARTICLE];
-if (part_type_exists(deathPart))
+if (ds_exists(deathTab, ds_type_list))
 {
-    part_type_step(part, death[? "amt"], deathPart);
+    var deathPart = deathTab[| TAB_PARTICLE];
+    if (part_type_exists(deathPart))
+    {
+        part_type_death(part, death[? "amt"], deathPart);
+    }
 }
 
 return true;
-

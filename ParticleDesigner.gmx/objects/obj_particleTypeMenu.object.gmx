@@ -191,6 +191,28 @@ scrollBarSelectY = 0;
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>/// adjust to fit screen
+RelX = getDisplayRoomWidth() - W;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>/// this is the root submenu, and layout is vertical
 // all submenus get their positions automatically set
 
@@ -363,8 +385,8 @@ if (totalH &gt; getDisplayRoomHeight())
     var scrollBarP = getDisplayRoomHeight() * (scrollBarPos / totalH);
     draw_set_alpha(0.6);
     draw_set_color(c_white);
-    draw_roundrect(originalX + W - scrollBarWidth + scrollBarB, originalY + scrollBarP,
-    originalX + W - scrollBarB, originalY + scrollBarP + scrollBarH, false);
+    draw_roundrect(RelX + W - scrollBarWidth + scrollBarB, originalY + scrollBarP,
+    RelX + W - scrollBarB, originalY + scrollBarP + scrollBarH, false);
 }
 </string>
           </argument>
@@ -599,29 +621,6 @@ if (!surface_exists(surf))
     surface_save(surf, "lel.png");
 }
 draw_surface(surf, rX, rY)
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="78">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>clipboard_set_text(json_encode(createTypeInfoMap()));
 </string>
           </argument>
         </arguments>

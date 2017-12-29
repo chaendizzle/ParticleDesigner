@@ -92,8 +92,8 @@ textrect = createTextRect(200 - 30, 32 + 36, 18, 18, "Dir", fnt_kindasmall, c_bl
 textrect.halign = fa_left;
 addSubmenu(submenus, id, textrect);
 
-gravDir = addSubmenu(submenus, id, createNumBox(200, 32 + 18, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
-gravAmt = addSubmenu(submenus, id, createNumBox(200, 32 + 36, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+gravAmt = addSubmenu(submenus, id, createNumBox(200, 32 + 18, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+gravDir = addSubmenu(submenus, id, createNumBox(200, 32 + 36, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
 
 // grav angle spinner
 gravAngleSpinner = addSubmenu(submenus, id, createAngleSlider(200 + 16, 32 + 20 + 20 + 20 + 20, 18, false, c_black, c_white, c_dkgray, c_white, 1, 1, 1, 0.5));
