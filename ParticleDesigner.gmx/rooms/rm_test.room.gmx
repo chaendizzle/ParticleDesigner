@@ -54,6 +54,7 @@
     <instance objName="obj_particleTypeMenu" x="0" y="0" name="inst_BC017E22" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_focus" x="32" y="0" name="inst_DDA7FD83" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_system" x="64" y="0" name="inst_854D7F63" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_rmbMenu" x="96" y="0" name="inst_8EE6A928" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

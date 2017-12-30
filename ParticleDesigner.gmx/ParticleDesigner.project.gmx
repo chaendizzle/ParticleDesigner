@@ -97,7 +97,9 @@
       <object>objects\obj_particleAlphaMenu</object>
       <object>objects\obj_particleMoveMenu</object>
       <object>objects\obj_particleLifeMenu</object>
-      <object>objects\obj_emitterMenu</object>
+      <object>objects\obj_rmbMenu</object>
+      <object>objects\obj_backMenu</object>
+      <object>objects\obj_emitter</object>
     </objects>
     <objects name="menuComponents">
       <object>objects\obj_menuElement</object>
