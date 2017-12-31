@@ -3,9 +3,9 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-100</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_popupMenu</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -26,7 +26,213 @@
           <argument>
             <kind>1</kind>
             <string>/// represents an emitter, and opens up its emitter menu when clicked
+XMin = 0;
+YMin = 0;
+XMax = 0;
+YMax = 0;
+centerX = 0;
+centerY = 0;
 
+shape = noone;
+distr = noone;
+
+emitter = part_emitter_create(obj_system.system);
+
+// created by mouse, and now has to follow the mouse.
+placing = noone;
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// clean up the emitter
+part_emitter_destroy(obj_system.system, emitter);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="53">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// click to place when placing
+
+if (checkFocus(id) &amp;&amp; placing &amp;&amp; !mouse_in_rect(obj_particleTypeMenu.X, 0, obj_particleTypeMenu.W, getDisplayRoomHeight()))
+{
+    switch(placing)
+    {
+        // place the first point
+        case PLACING_PT1:
+            AX = GUIToRoomX(cursor_get_x());
+            AY = GUIToRoomY(cursor_get_y());
+            BX = GUIToRoomX(cursor_get_x());
+            BY = GUIToRoomY(cursor_get_y());
+            placing = PLACING_PT2;
+            break;
+        // place the second point
+        case PLACING_PT2:
+            var mouseAX = AX;
+            var mouseAY = AY;
+            var mouseBX = GUIToRoomX(cursor_get_x());
+            var mouseBY = GUIToRoomY(cursor_get_y());
+            AX = min(mouseAX, mouseBX);
+            AY = min(mouseAY, mouseBY);
+            BX = max(mouseAX, mouseBX);
+            BY = max(mouseAY, mouseBY);
+            placing = noone;
+            setFocus(noone);
+            break;
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="75">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// blank out the right menu, since you can't place on it, and focus is on this
+if (placing)
+{
+    draw_set_color(c_black);
+    draw_set_alpha(0.5);
+    draw_rectangle(obj_particleTypeMenu.X, 0, obj_particleTypeMenu.X + obj_particleTypeMenu.W, getDisplayRoomHeight(), false);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// if this emitter is being placed
+if (checkFocus(id) &amp;&amp; placing)
+{
+    if (placing == PLACING_PT1)
+    {
+        AX = GUIToRoomX(cursor_get_x());
+        AY = GUIToRoomY(cursor_get_y());
+    }
+    BX = GUIToRoomX(cursor_get_x());
+    BY = GUIToRoomY(cursor_get_y());
+    if (max(BX - AX, BY - AY) &gt; 32)
+    {
+        draw_set_color(c_red);
+        draw_set_alpha(0.4);
+        draw_rectangle(AX, AY, BX, BY, false);
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// draw this emitter
+centerX = mean(AX, BX);
+centerY = mean(AY, BY);
+// draw the emitter image in the middle
+draw_sprite_ext(spr_emitter, 0, centerX, centerY, 1, 1, 0, c_black, 1);
+draw_set_color(c_black);
+draw_set_alpha(1);
+// draw the emitter range
+if (max(BX - AX, BY - AY) &gt; 32)
+{
+    switch (shape)
+    {
+        case ps_shape_rectangle:
+            draw_rectangle(AX, AY, BX, BY, true);
+            break;
+        case ps_shape_ellipse:
+            draw_ellipse(AX, AY, BX, BY, true);
+            break;
+        case ps_shape_line:
+            draw_line(AX, AY, BX, BY);
+            break;
+        case ps_shape_diamond:
+            draw_line(AX, centerY, centerX, BY);
+            draw_line(centerX, BY, BX, centerY);
+            draw_line(BX, centerY, centerX, AY);
+            draw_line(centerX, AY, AX, centerY);
+            break;
+    }
+}
 </string>
           </argument>
         </arguments>

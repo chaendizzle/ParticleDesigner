@@ -11,6 +11,7 @@
     <sprite>sprites\spr_shapes</sprite>
     <sprite>sprites\spr_colors</sprite>
     <sprite>sprites\spr_hue</sprite>
+    <sprite>sprites\spr_emitter</sprite>
     <sprite>sprites\spr_particle</sprite>
   </sprites>
   <backgrounds name="background"/>
@@ -78,6 +79,7 @@
       <script>scripts\setParticleType.gml</script>
       <script>scripts\generateParticleTypeCode.gml</script>
     </scripts>
+    <script>scripts\createEmitter.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_tab</font>
@@ -122,7 +124,7 @@
   <rooms name="rooms">
     <room>rooms\rm_test</room>
   </rooms>
-  <constants number="40">
+  <constants number="42">
     <constant name="UPDATE_SIZES">0</constant>
     <constant name="WRITE_INFO">1</constant>
     <constant name="TAB_MENU">0</constant>
@@ -163,6 +165,8 @@
     <constant name="ALPHA_1">0</constant>
     <constant name="ALPHA_2">1</constant>
     <constant name="ALPHA_3">2</constant>
+    <constant name="PLACING_PT1">1</constant>
+    <constant name="PLACING_PT2">2</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

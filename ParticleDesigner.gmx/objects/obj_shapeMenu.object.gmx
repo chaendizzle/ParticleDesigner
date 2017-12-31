@@ -97,7 +97,7 @@ gridW = 8;
 capacity = 50;
 
 // 3 sprites used by system, not to be used as particles
-excludedSprites = 5;
+excludedSprites = 6;
 
 // scroll bar size
 scrollBarWidth = 20;

@@ -104,6 +104,9 @@ buttonW = 32;
 buttonH = 32;
 buttonBarW = W;
 buttonBarH = 32;
+
+// New Emitter button here too
+
 </string>
           </argument>
         </arguments>
@@ -480,6 +483,41 @@ for (var i = 0; i &lt; 4; i++)
     }
     draw_sprite_stretched(spr_file, i, nowX + (i * buttonW), nowY, buttonW, buttonH);
 }
+
+// draw the new emitter button
+var b = 4;
+var emitterButtonX = nowX + (4 * buttonW) + b;
+var emitterButtonY = nowY + b;
+var emitterButtonW = buttonBarW - b - scrollBarWidth - (4 * buttonW);
+var emitterButtonH = buttonBarH - (2 * b);
+draw_set_alpha(1);
+draw_set_color(c_gray);
+draw_rectangle(emitterButtonX, emitterButtonY, emitterButtonX + emitterButtonW, emitterButtonY + emitterButtonH, false);
+draw_set_color(c_black);
+draw_rectangle(emitterButtonX, emitterButtonY, emitterButtonX + emitterButtonW, emitterButtonY + emitterButtonH, true);
+
+draw_set_alpha(1);
+draw_set_color(c_black);
+draw_set_font(fnt_kindasmall)
+draw_set_halign(fa_center);
+draw_set_valign(fa_center);
+draw_text(emitterButtonX + (0.5 * emitterButtonW), emitterButtonY + (0.5 * emitterButtonH), "New Emitter");
+
+// mouse over highlight
+if (checkFocus(noone) &amp;&amp; mouse_in_rect(emitterButtonX, emitterButtonY, emitterButtonW, emitterButtonH))
+{
+    draw_set_alpha(0.4);
+    draw_set_color(c_white);
+    draw_rectangle(emitterButtonX + 1, emitterButtonY + 1, emitterButtonX + emitterButtonW - 1, emitterButtonY + emitterButtonH - 1, false);
+    // if clicked
+    if (mouse_check_button_pressed(mb_left))
+    {
+        // create new emitter, popup edition
+        var emitter = createEmitter(cursor_get_x(), cursor_get_y(), cursor_get_x(), cursor_get_y(), ps_shape_rectangle, ps_distr_linear);
+        emitter.placing = PLACING_PT1;
+        setFocus(emitter);
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -526,7 +564,7 @@ for (var i = 0; i &lt; ds_list_size(tabs); i++)
         draw_set_valign(fa_top);
         draw_set_color(c_black);
         draw_set_alpha(1);
-        draw_set_font(fnt_tab);
+        draw_set_font(fnt_kindasmall);
         draw_text(tabTextBorder, tabTextBorder, tab[| TAB_NAME]);
         surface_reset_target();
     }
