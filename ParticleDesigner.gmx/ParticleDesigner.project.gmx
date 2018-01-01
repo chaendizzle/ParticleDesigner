@@ -74,6 +74,7 @@
       <script>scripts\stringDotTruncate.gml</script>
       <script>scripts\printList.gml</script>
       <script>scripts\newline.gml</script>
+      <script>scripts\stringb.gml</script>
     </scripts>
     <scripts name="popupFocus">
       <script>scripts\setFocus.gml</script>
@@ -82,9 +83,8 @@
     <scripts name="particles">
       <script>scripts\setParticleType.gml</script>
       <script>scripts\generateParticleTypeCode.gml</script>
+      <script>scripts\createEmitter.gml</script>
     </scripts>
-    <script>scripts\createEmitter.gml</script>
-    <script>scripts\stringb.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_tab</font>
