@@ -30,6 +30,7 @@
     </scripts>
     <scripts name="draw">
       <script>scripts\drawCheckmark.gml</script>
+      <script>scripts\drawAngleMark.gml</script>
       <script>scripts\drawOutlineRectExt.gml</script>
       <script>scripts\draw_linestrip_width.gml</script>
       <script>scripts\draw_linestrip_width_point.gml</script>

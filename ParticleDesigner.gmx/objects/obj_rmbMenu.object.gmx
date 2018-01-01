@@ -66,17 +66,20 @@ backgroundMenu = noone;
           <argument>
             <kind>1</kind>
             <string>/// set position to mouse and activate
-if (checkFocus(noone))
+if (mouse_in_rect(0, 0, obj_particleTypeMenu.X - 4, getDisplayRoomHeight()))
 {
-    X = cursor_get_x();
-    Y = cursor_get_y();
-    active = true;
-    setFocus(id);
-}
-else if (checkFocus(id))
-{
-    X = cursor_get_x();
-    Y = cursor_get_y();
+    if (checkFocus(noone))
+    {
+        X = cursor_get_x();
+        Y = cursor_get_y();
+        active = true;
+        setFocus(id);
+    }
+    else if (checkFocus(id))
+    {
+        X = cursor_get_x();
+        Y = cursor_get_y();
+    }
 }
 </string>
           </argument>

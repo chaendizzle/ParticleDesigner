@@ -142,6 +142,16 @@ tabBarW = W;
 tabBarH = 24;
 tabLeftSpace = 3;
 tabTopSpace = 0;
+
+// tab bar's surface
+tabSurf = noone;
+tabHighlight = noone;
+
+// tab bar scroll
+tabScroll = 0;
+tabScrollSpd = 8;
+tabBarTotalW = getTypeMenuW();
+
 </string>
           </argument>
         </arguments>
@@ -566,8 +576,25 @@ if (checkFocus(noone) &amp;&amp; mouse_in_rect(emitterButtonX, emitterButtonY, e
           <argument>
             <kind>1</kind>
             <string>/// draw the tabs
-nowX = X + tabBarX;
-nowY = Y + tabBarY;
+tabScroll = max(0, clamp(tabScroll, 0, tabBarTotalW - getTypeMenuW()));
+nowX = -tabScroll;
+nowY = 0;
+
+// draw to surface
+if (!surface_exists(tabHighlight))
+{
+    tabHighlight = surface_create(getTypeMenuW(), tabBarH);
+}
+surface_set_target(tabHighlight);
+draw_clear_alpha(c_white, 0);
+surface_reset_target();
+
+if (!surface_exists(tabSurf))
+{
+    tabSurf = surface_create(getTypeMenuW(), tabBarH);
+}
+surface_set_target(tabSurf);
+draw_clear_alpha(c_white, 0);
 
 // draw the bar
 draw_set_color(c_dkgray);
@@ -605,20 +632,44 @@ for (var i = 0; i &lt; ds_list_size(tabs); i++)
     var tab = tabs[| i];
     var w = surface_get_width(tab[| TAB_SURF]);
     // draw tab back
-    draw_set_color(c_ltgray);
-    draw_set_alpha(1);
-    draw_rectangle(counterX, nowTabY, counterX + w, nowTabY + tabH, false);
-    // highlight if mouse is there
-    if (checkFocus(popup) &amp;&amp; mouse_in_rect(counterX, nowY, w, tabH))
+    if (i == selected)
     {
+        draw_set_color(c_ltgray);
+        draw_set_alpha(1);
+        draw_rectangle(counterX, nowTabY, counterX + w, nowTabY + tabH, false);
+    }
+    else
+    {
+        draw_set_color(c_gray);
+        draw_set_alpha(1);
+        draw_rectangle(counterX, nowTabY, counterX + w, nowTabY + tabH, false);
+    }
+    // highlight if mouse is there
+    if (checkFocus(popup) &amp;&amp; mouse_in_rect(X + tabBarX + counterX, Y + tabBarY + nowY, w, tabH))
+    {
+        surface_set_target(tabHighlight);
         draw_set_color(c_white);
         draw_set_alpha(0.4);
         draw_rectangle(counterX, nowY, counterX + w, nowY + tabH, false);
         draw_set_alpha(1);
+        surface_reset_target();
+        if (checkFocus(noone) &amp;&amp; mouse_check_button_pressed(mb_left))
+        {
+            selectTab(i);
+        }
     }
-    draw_set_color(c_ltgray);
-    draw_set_alpha(1);
-    draw_rectangle(counterX, nowTabY, counterX + w, nowTabY + tabH, true);
+    if (i == selected)
+    {
+        draw_set_color(c_black);
+        draw_set_alpha(1);
+        draw_rectangle(counterX, nowTabY, counterX + w, nowTabY + tabH + 2, true);
+    }
+    else
+    {
+        draw_set_color(c_black);
+        draw_set_alpha(1);
+        draw_rectangle(counterX, nowTabY, counterX + w, nowTabY + tabH - 1, true);
+    }
     // draw tab surface (w/ text)
     draw_set_alpha(1);
     draw_surface(tab[| TAB_SURF], counterX, nowTabY);
@@ -628,17 +679,58 @@ for (var i = 0; i &lt; ds_list_size(tabs); i++)
 // draw the new tab button
 var w = tabH;
 // highlight if mouse is there
-if (checkFocus(popup) &amp;&amp; mouse_in_rect(counterX, nowY, w, tabH))
+if (checkFocus(popup) &amp;&amp; mouse_in_rect(X + tabBarX + counterX, Y + tabBarY + nowY, w, tabH))
 {
+    surface_set_target(tabHighlight);
     draw_set_color(c_white);
     draw_set_alpha(0.4);
     draw_rectangle(counterX, nowY, counterX + w, nowY + tabH, false);
     draw_set_alpha(1);
+    surface_reset_target();
+    if (checkFocus(noone) &amp;&amp; mouse_check_button_pressed(mb_left))
+    {
+        ds_list_add(tabs, createTab(nextTabName()));
+    }
 }
-// draw tab surface (w/ text)
+// draw new tab button
 draw_set_alpha(1);
 draw_sprite_stretched(spr_newtab, 0, counterX, nowY, w, tabH);
 counterX += w;
+tabBarTotalW = counterX + tabScroll;
+
+// done with the tab surface
+surface_reset_target();
+draw_surface(tabSurf, X + tabBarX, Y + tabBarY);
+draw_surface(tabHighlight, X + tabBarX, Y + tabBarY);
+
+// if tabs go beyond menu size, then draw the movey arrow
+if (tabBarTotalW &gt; getTypeMenuW())
+{
+    // if not fully scrolled to the left
+    if (tabScroll &gt; 0)
+    {
+        // draw the left movey arrow
+        drawOutlineRectExt(X + tabBarX, Y + tabBarY, tabBarH, tabBarH - 1, 1, c_gray, c_black, 1, 1);
+        drawAngleMark(X + tabBarX + (0.3 * tabBarH), Y + tabBarY + (0.5 * tabBarH), tabBarH * 0.5, tabBarH * 0.5, 45, 315, 5, c_black, 1);
+        if (mouse_in_rect(X + tabBarX, Y + tabBarY, tabBarH, tabBarH - 1))
+        {
+            drawOutlineRectExt(X + tabBarX, Y + tabBarY, tabBarH, tabBarH - 1, 1, c_white, c_white, 0.4, 0);
+            tabScroll -= tabScrollSpd;
+        }
+    }
+    // if not fully scrolled to the right
+    if (tabScroll &lt; tabBarTotalW - getTypeMenuW())
+    {
+        // draw the right movey arrow
+        drawOutlineRectExt(X + tabBarX + getTypeMenuW() - tabBarH, Y + tabBarY, tabBarH, tabBarH - 1, 1, c_gray, c_black, 1, 1);
+        drawAngleMark(X + tabBarX + getTypeMenuW() - tabBarH + (0.7 * tabBarH), Y + tabBarY + (0.5 * tabBarH), tabBarH * 0.5, tabBarH * 0.5, 135, 225, 5, c_black, 1);
+        if (mouse_in_rect(X + tabBarX + getTypeMenuW() - tabBarH, Y + tabBarY, tabBarH, tabBarH - 1))
+        {
+            drawOutlineRectExt(X + tabBarX + getTypeMenuW() - tabBarH, Y + tabBarY, tabBarH, tabBarH - 1, 1, c_white, c_white, 0.4, 0);
+            tabScroll += tabScrollSpd;
+        }
+    }
+}
 </string>
           </argument>
         </arguments>
