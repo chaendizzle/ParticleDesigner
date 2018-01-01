@@ -175,6 +175,26 @@ if (selected &amp;&amp; !keyboard_check(vk_control) &amp;&amp;
         selectStart++;
         selectEnd++;
     }
+    // - character
+    if (keyboard_check_pressed(vk_subtract) || keyboard_check_pressed(vk_minus) || keyboard_check_pressed(ord('-')))
+    {
+        // if something is selected...
+        if (selectStart != selectEnd)
+        {
+            // replace it
+            var start = min(selectStart, selectEnd);
+            var nd = max(selectStart, selectEnd);
+            var a = string_copy(text, 1, start);
+            var b = string_copy(text, nd + 1, string_length(text) - nd);
+            text = a + b;
+            selectEnd = start;
+            selectStart = start;
+        }
+        // insert character
+        text = string_insert('-', text, selectStart + 1);
+        selectStart++;
+        selectEnd++;
+    }
 }
 </string>
           </argument>
@@ -276,6 +296,7 @@ if (!selected)
     // remove any extra dots
     var t = "";
     var dot = false;
+    var minus = true;
     for (var i = 1; i &lt;= string_length(text); i++)
     {
         var c = ord(string_char_at(text, i));
@@ -289,6 +310,12 @@ if (!selected)
             t += chr(c);
             dot = true;
         }
+        if (c == ord('-') &amp;&amp; minus)
+        {
+            t += chr(c);
+        }
+        // minus sign can only be first character
+        minus = false;
     }
     text = t;
     // get value
@@ -482,7 +509,7 @@ for (var i = 1; i &lt;= string_length(text); i++)
 {
     var c = ord(string_char_at(text, i));
     // if it's a number or a .
-    if (inrange(c, ord('0'), ord('9') + 1) || c == ord('.'))
+    if (inrange(c, ord('0'), ord('9') + 1) || c == ord('.') || c == ord('-'))
     {
         t += chr(c);
     }
@@ -552,7 +579,7 @@ if (selected &amp;&amp; selectStart != noone &amp;&amp; selectEnd != noone)
         // draw the blinky cursor
         if (blink)
         {
-            draw_line(posA + 2, (0.5 * H) - (0.5 * lineH), posA, (0.5 * H) + (0.5 * lineH));
+            draw_line(posA + 2, (0.5 * H) - (0.5 * lineH), posA + 2, (0.5 * H) + (0.5 * lineH));
         }
     }
     else

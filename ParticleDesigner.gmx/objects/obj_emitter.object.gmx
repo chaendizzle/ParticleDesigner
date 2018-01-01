@@ -36,10 +36,149 @@ centerY = 0;
 shape = noone;
 distr = noone;
 
+stream = false;
+enabled = false;
+
+count = 1;
+
+typeIndex = noone;
+
 emitter = part_emitter_create(obj_system.system);
 
 // created by mouse, and now has to follow the mouse.
 placing = noone;
+
+// selected
+selected = false;
+
+// double click checker
+lastClick = 0;
+lastClickDur = 15;
+
+// menu active or not
+active = false;
+
+// draggable point selected
+draggablePoint = noone;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// create submenu
+
+X = 0;
+Y = 0;
+W = 204;
+H = 260;
+RelX = (getDisplayRoomWidth() - obj_particleTypeMenu.W - W) * 0.5;
+RelY = (getDisplayRoomHeight() - H) * 0.5;
+
+parent = noone;
+
+submenus = ds_list_create();
+
+addSubmenu(submenus, id, createTextRect(0, 0, W, 30, "Emitter Settings", fnt_subtitle, c_black, c_ltgray, c_black, 1, 0, 0));
+
+// type
+types = ds_list_create();
+typeTrans = ds_list_create();
+(addSubmenu(submenus, id, createTextRect(6, 32, 32, 24, "Type: ", fnt_kindabig, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+typeDropdown = addSubmenu(submenus, id, createDropdown(63, 32, 130, 24, types, fnt_kindasmall, c_black, c_gray, c_black, 1, 1, 1));
+
+// Min
+addSubmenu(submenus, id, createTextRect(22, 62, 32, 18, "Min", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0));
+
+var textrect = noone;
+textrect = createTextRect(10, 62 + 18, 18, 18, "X", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
+textrect.halign = fa_left;
+addSubmenu(submenus, id, textrect);
+textrect = createTextRect(10, 62 + 36, 18, 18, "Y", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
+textrect.halign = fa_left;
+addSubmenu(submenus, id, textrect);
+
+xMinBox = addSubmenu(submenus, id, createNumBox(22, 62 + 18, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+yMinBox = addSubmenu(submenus, id, createNumBox(22, 62 + 36, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+
+// Max
+addSubmenu(submenus, id, createTextRect(73 + 20, 62, 32, 18, "Max", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0));
+
+var textrect = noone;
+textrect = createTextRect(81, 62 + 18, 18, 18, "X", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
+textrect.halign = fa_left;
+addSubmenu(submenus, id, textrect);
+textrect = createTextRect(81, 62 + 36, 18, 18, "Y", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0);
+textrect.halign = fa_left;
+addSubmenu(submenus, id, textrect);
+
+xMaxBox = addSubmenu(submenus, id, createNumBox(73 + 20, 62 + 18, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+yMaxBox = addSubmenu(submenus, id, createNumBox(73 + 20, 62 + 36, 32, 18, "0", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+
+// Count
+addSubmenu(submenus, id, createTextRect(160, 62, 32, 18, "Count", fnt_kindasmall, c_black, c_white, c_white, 1, 0, 0));
+countBox = addSubmenu(submenus, id, createNumBox(160, 62 + 18, 32, 18, "1", fnt_kindasmall, c_white, c_dkgray, c_black, c_white, 1, 1, 1, 0.5));
+
+// shape
+shapes = ds_list_create();
+shapeTrans = ds_list_create();
+shapes[| 0] = "Rectangle";
+shapeTrans[| 0] = ps_shape_rectangle;
+shapes[| 1] = "Ellipse";
+shapeTrans[| 1] = ps_shape_ellipse;
+shapes[| 2] = "Line";
+shapeTrans[| 2] = ps_shape_line;
+shapes[| 3] = "Diamond";
+shapeTrans[| 3] = ps_shape_diamond;
+(addSubmenu(submenus, id, createTextRect(6, 130, 52, 24, "Shape: ", fnt_kindabig, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+shapeDropdown = addSubmenu(submenus, id, createDropdown(63, 130, 130, 24, shapes, fnt_kindasmall, c_black, c_gray, c_black, 1, 1, 1));
+
+// distr
+distrs = ds_list_create();
+distrTrans = ds_list_create();
+distrs[| 0] = "Linear";
+distrTrans[| 0] = ps_distr_linear;
+distrs[| 1] = "Gaussian";
+distrTrans[| 1] = ps_distr_gaussian;
+distrs[| 2] = "Inv. Gaussian";
+distrTrans[| 2] = ps_distr_invgaussian;
+(addSubmenu(submenus, id, createTextRect(6, 160, 32, 24, "Distr: ", fnt_kindabig, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+distrDropdown = addSubmenu(submenus, id, createDropdown(63, 160, 130, 24, distrs, fnt_kindasmall, c_black, c_gray, c_black, 1, 1, 1));
+
+// stream
+(addSubmenu(submenus, id, createTextRect(6, 190, 32, 24, "Stream: ", fnt_kindabig, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+streamCheckbox = addSubmenu(submenus, id, createCheckbox(70, 194, 18, 18, c_red, c_dkgray, c_black, 1, 1, 1));
+
+// enabled
+(addSubmenu(submenus, id, createTextRect(111, 190, 32, 24, "Enable: ", fnt_kindabig, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+enableCheckbox = addSubmenu(submenus, id, createCheckbox(175, 194, 18, 18, c_red, c_dkgray, c_black, 1, 1, 1));
+enableCheckbox.checked = true;
+
+// delete button (just a textbox, click is handled internally)
+deleteButton = addSubmenu(submenus, id, createTextRect(10, 226, 80, 24, "Delete", fnt_kindabig, c_black, c_gray, c_black, 1, 1, 1))
+
+// confirm button (just a textbox, click is handled internally)
+confirmButton = addSubmenu(submenus, id, createTextRect(97, 226, 96, 24, "Confirm", fnt_kindabig, c_black, c_gray, c_black, 1, 1, 1))
+
+// set submenus' focus
+for (var i = 0; i &lt; ds_list_size(submenus); i++)
+{
+    submenus[| i].popup = id;
+}
 
 </string>
           </argument>
@@ -63,8 +202,211 @@ placing = noone;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// clean up the emitter
+            <string>/// clean up
+show_debug_message("running");
+// clean up the emitter
 part_emitter_destroy(obj_system.system, emitter);
+// clean up lists
+ds_list_destroy(types);
+ds_list_destroy(typeTrans);
+ds_list_destroy(shapes);
+ds_list_destroy(shapeTrans);
+ds_list_destroy(distrs);
+ds_list_destroy(distrTrans);
+// clean up submenus
+for (var i = 0; i &lt; ds_list_size(submenus); i++)
+{
+    with (submenus[| i])
+    {
+        instance_destroy();
+    }
+}
+ds_list_destroy(submenus);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// this is the root submenu
+
+// update all positions
+updateAbsolutePositions(id);
+
+// set active of all submenus
+setActive(id, active);
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// sync
+// sync tabs to type list
+ds_list_clear(types);
+ds_list_clear(typeTrans);
+ds_list_add(types, "Nothing");
+ds_list_add(typeTrans, noone);
+for (var i = 0; i &lt; ds_list_size(obj_particleTypeMenu.tabs); i++)
+{
+    var type = obj_particleTypeMenu.tabs[| i];
+    ds_list_add(types, type[| TAB_NAME]);
+    ds_list_add(typeTrans, type);
+}
+// sync form boxes to variables
+if (active)
+{
+    // type
+    var tab = typeTrans[| typeDropdown.selected];
+    if (tab &gt;= 0)
+    {
+        typeIndex = tab[| TAB_PARTICLE];
+    }
+    else
+    {
+        typeIndex = noone;
+    }
+    // pos
+    // enforce min/max
+    if (shape != ps_shape_line &amp;&amp; !xMinBox.selected &amp;&amp; !xMaxBox.selected)
+    {
+        // swap if necessary
+        if (real(xMinBox.text) &gt; real(xMaxBox.text))
+        {
+            var val = xMinBox.text;
+            xMinBox.text = xMaxBox.text;
+            xMaxBox.text = val;
+            xMinBox.value = real(xMinBox.text);
+            xMaxBox.value = real(xMaxBox.text);
+        }
+    }
+    if (shape != ps_shape_line &amp;&amp; !yMinBox.selected &amp;&amp; !yMaxBox.selected)
+    {
+        // swap if necessary
+        if (real(yMinBox.text) &gt; real(yMaxBox.text))
+        {
+            var val = yMinBox.text;
+            yMinBox.text = yMaxBox.text;
+            yMaxBox.text = val;
+            yMinBox.value = real(yMinBox.text);
+            yMaxBox.value = real(yMaxBox.text);
+        }
+    }
+    // if menu is open, sync textboxes to variables
+    AX = xMinBox.value;
+    AY = yMinBox.value;
+    BX = xMaxBox.value;
+    BY = yMaxBox.value;
+    // count
+    count = countBox.value;
+    // shape
+    shape = shapeTrans[| shapeDropdown.selected];
+    // distr
+    distr = distrTrans[| distrDropdown.selected];
+    // stream
+    stream = streamCheckbox.checked;
+    // enable
+    enabled = enableCheckbox.checked;
+}
+else
+{
+    // if menu is closed, sync variables to textboxes
+    // pos
+    xMinBox.text = string(round(AX));
+    yMinBox.text = string(round(AY));
+    xMaxBox.text = string(round(BX));
+    yMaxBox.text = string(round(BY));
+    // count
+    countBox.text = string(count);
+}
+
+part_emitter_region(obj_system.system, emitter, AX, BX, AY, BY, shape, distr);
+if (enabled &amp;&amp; part_type_exists(typeIndex))
+{
+    if (stream)
+    {
+        part_emitter_stream(obj_system.system, emitter, typeIndex, count);
+    }
+    else
+    {
+        part_emitter_stream(obj_system.system, emitter, typeIndex, 0);
+        part_emitter_burst(obj_system.system, emitter, typeIndex, count);
+    }
+}
+else
+{
+    part_emitter_stream(obj_system.system, emitter, typeIndex, 0);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="56">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// release drag handle
+draggablePoint = noone;
+// enforce min/max, unless line
+if (shape != ps_shape_line)
+{
+    if (AX &gt; BX)
+    {
+        var temp = AX;
+        AX = BX;
+        BX = temp;
+    }
+    if (AY &gt; BY)
+    {
+        var temp = AY;
+        AY = BY;
+        BY = temp;
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -89,7 +431,7 @@ part_emitter_destroy(obj_system.system, emitter);
             <kind>1</kind>
             <string>/// click to place when placing
 
-if (checkFocus(id) &amp;&amp; placing &amp;&amp; !mouse_in_rect(obj_particleTypeMenu.X, 0, obj_particleTypeMenu.W, getDisplayRoomHeight()))
+if (checkFocus(id) &amp;&amp; !mouse_in_rect(obj_particleTypeMenu.X, 0, obj_particleTypeMenu.W, getDisplayRoomHeight()))
 {
     switch(placing)
     {
@@ -138,12 +480,93 @@ if (checkFocus(id) &amp;&amp; placing &amp;&amp; !mouse_in_rect(obj_particleType
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>/// mouse over highlight
+if (active &amp;&amp; checkFocus(id))
+{
+    if (mouse_in_rect(confirmButton.X, confirmButton.Y, confirmButton.W, confirmButton.H))
+    {
+        drawOutlineRectExt(confirmButton.X, confirmButton.Y, confirmButton.W, confirmButton.H, 1, c_white, c_black, 0.4, 0);
+        if (mouse_check_button_pressed(mb_left))
+        {
+            active = false;
+            setFocus(noone);
+            // deselect textboxes
+            for (var i = 0; i &lt; ds_list_size(submenus); i++)
+            {
+                with (submenus[| i])
+                {
+                    if (object_index == obj_numbox)
+                    {
+                        selected = false;
+                    }
+                }
+            }
+        }
+    }
+    if (mouse_in_rect(deleteButton.X, deleteButton.Y, deleteButton.W, deleteButton.H))
+    {
+        drawOutlineRectExt(deleteButton.X, deleteButton.Y, deleteButton.W, deleteButton.H, 1, c_white, c_black, 0.4, 0);
+        if (mouse_check_button_pressed(mb_left))
+        {
+            active = false;
+            setFocus(noone);
+            instance_destroy();
+        }
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>/// blank out the right menu, since you can't place on it, and focus is on this
 if (placing)
 {
     draw_set_color(c_black);
     draw_set_alpha(0.5);
     draw_rectangle(obj_particleTypeMenu.X, 0, obj_particleTypeMenu.X + obj_particleTypeMenu.W, getDisplayRoomHeight(), false);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// draw the popup menu back
+if (active)
+{
+    drawOutlineRectExt(X, Y, W, H, 2, c_ltgray, c_black, 1, 1);
 }
 </string>
           </argument>
@@ -168,6 +591,9 @@ if (placing)
           <argument>
             <kind>1</kind>
             <string>/// if this emitter is being placed
+centerX = round(mean(AX, BX));
+centerY = round(mean(AY, BY));
+
 if (checkFocus(id) &amp;&amp; placing)
 {
     if (placing == PLACING_PT1)
@@ -177,11 +603,36 @@ if (checkFocus(id) &amp;&amp; placing)
     }
     BX = GUIToRoomX(cursor_get_x());
     BY = GUIToRoomY(cursor_get_y());
+
+}
+if ((checkFocus(id) &amp;&amp; placing) || active)
+{
+    draw_set_color(c_red);
+    draw_set_alpha(0.4);
     if (max(BX - AX, BY - AY) &gt; 32)
     {
-        draw_set_color(c_red);
-        draw_set_alpha(0.4);
-        draw_rectangle(AX, AY, BX, BY, false);
+        switch (shape)
+        {
+            case ps_shape_rectangle:
+                draw_rectangle(AX, AY, BX, BY, false);
+                break;
+            case ps_shape_ellipse:
+                draw_ellipse(AX, AY, BX, BY, false);
+                break;
+            case ps_shape_line:
+                draw_line_width(AX, AY, BX, BY, 3);
+                break;
+            case ps_shape_diamond:
+                draw_triangle(AX, centerY, centerX, BY, centerX, centerY, false);
+                draw_triangle(centerX, BY, BX, centerY, centerX, centerY, false);
+                draw_triangle(BX, centerY, centerX, AY, centerX, centerY, false);
+                draw_triangle(centerX, AY, AX, centerY, centerX, centerY, false);
+                break;
+        }
+    }
+    else
+    {
+        draw_rectangle(centerX - 7, centerY - 7, centerX + 6, centerY + 6, false);
     }
 }
 </string>
@@ -205,14 +656,38 @@ if (checkFocus(id) &amp;&amp; placing)
           <argument>
             <kind>1</kind>
             <string>/// draw this emitter
-centerX = mean(AX, BX);
-centerY = mean(AY, BY);
 // draw the emitter image in the middle
-draw_sprite_ext(spr_emitter, 0, centerX, centerY, 1, 1, 0, c_black, 1);
+if (placing || obj_rmbMenu.showEmitters)
+{
+    draw_sprite_ext(spr_emitter, 0, centerX, centerY, 1, 1, 0, c_black, 1);
+}
+if (lastClick &gt; 0)
+{
+    lastClick--;
+}
+if ((placing || obj_rmbMenu.showEmitters) &amp;&amp; checkFocus(noone) &amp;&amp; mouse_in_rect(centerX - 8, centerY - 8, 16, 16))
+{
+    draw_set_color(c_white);
+    draw_set_alpha(0.4);
+    draw_rectangle(centerX - 7, centerY - 7, centerX + 6, centerY + 6, false);
+    // check for click one time
+    if (mouse_check_button_pressed(mb_left))
+    {
+        // check for dblclick
+        if (lastClick &gt; 0)
+        {
+            lastClick = 0;
+            // open the menu
+            active = true;
+            setFocus(id);
+        }
+        lastClick = lastClickDur;
+    }
+}
 draw_set_color(c_black);
 draw_set_alpha(1);
 // draw the emitter range
-if (max(BX - AX, BY - AY) &gt; 32)
+if ((placing || obj_rmbMenu.showEmitters) &amp;&amp; max(abs(BX - AX), abs(BY - AY)) &gt; 32)
 {
     switch (shape)
     {
@@ -232,6 +707,156 @@ if (max(BX - AX, BY - AY) &gt; 32)
             draw_line(centerX, AY, AX, centerY);
             break;
     }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// handle emitter resize handles
+if (!placing &amp;&amp; obj_rmbMenu.showEmitters &amp;&amp; checkFocus(noone))
+{
+    if (max(abs(BX - AX), abs(BY - AY)) &gt; 32 || (draggablePoint &gt;= 0 &amp;&amp; draggablePoint != RESIZE_POINT))
+    {
+        // if not dragging a point, maybe select one if necessary
+        switch (shape)
+        {
+            case ps_shape_rectangle:
+                drawEmitterHandle(AX, AY, RESIZE_RECT_LU);
+                drawEmitterHandle(BX, AY, RESIZE_RECT_RU);
+                drawEmitterHandle(BX, BY, RESIZE_RECT_RD);
+                drawEmitterHandle(AX, BY, RESIZE_RECT_LD);
+                break;
+            case ps_shape_ellipse:
+                drawEmitterHandle(AX, centerY, RESIZE_ELLIPSE_L);
+                drawEmitterHandle(BX, centerY, RESIZE_ELLIPSE_R);
+                drawEmitterHandle(centerX, AY, RESIZE_ELLIPSE_U);
+                drawEmitterHandle(centerX, BY, RESIZE_ELLIPSE_D);
+                break;
+            case ps_shape_line:
+                drawEmitterHandle(AX, AY, RESIZE_LINE_A);
+                drawEmitterHandle(BX, BY, RESIZE_LINE_B);
+                break;
+            case ps_shape_diamond:
+                drawEmitterHandle(AX, centerY, RESIZE_DIAMOND_L);
+                drawEmitterHandle(BX, centerY, RESIZE_DIAMOND_R);
+                drawEmitterHandle(centerX, AY, RESIZE_DIAMOND_U);
+                drawEmitterHandle(centerX, BY, RESIZE_DIAMOND_D);
+                break;
+        }
+        // if dragging a point right now, move points A and B
+        if (draggablePoint &gt;= 0)
+        {
+            switch (shape)
+            {
+                case ps_shape_rectangle:
+                    switch (draggablePoint)
+                    {
+                        case RESIZE_RECT_LU:
+                            AX = GUIToRoomX(cursor_get_x());
+                            AY = GUIToRoomY(cursor_get_y());
+                            break;
+                        case RESIZE_RECT_RU:
+                            BX = GUIToRoomX(cursor_get_x());
+                            AY = GUIToRoomY(cursor_get_y());
+                            break;
+                        case RESIZE_RECT_LD:
+                            AX = GUIToRoomX(cursor_get_x());
+                            BY = GUIToRoomY(cursor_get_y());
+                            break;
+                        case RESIZE_RECT_RD:
+                            BX = GUIToRoomX(cursor_get_x());
+                            BY = GUIToRoomY(cursor_get_y());
+                            break;
+                    }
+                    break;
+                case ps_shape_ellipse:
+                    switch (draggablePoint)
+                    {
+                        case RESIZE_ELLIPSE_L:
+                            AX = GUIToRoomX(cursor_get_x());
+                            break;
+                        case RESIZE_ELLIPSE_R:
+                            BX = GUIToRoomX(cursor_get_x());
+                            break;
+                        case RESIZE_ELLIPSE_U:
+                            AY = GUIToRoomY(cursor_get_y());
+                            break;
+                        case RESIZE_ELLIPSE_D:
+                            BY = GUIToRoomY(cursor_get_y());
+                            break;
+                    }
+                    break;
+                case ps_shape_line:
+                    switch (draggablePoint)
+                    {
+                        case RESIZE_LINE_A:
+                            AX = GUIToRoomX(cursor_get_x());
+                            AY = GUIToRoomY(cursor_get_y());
+                            break;
+                        case RESIZE_LINE_B:
+                            BX = GUIToRoomX(cursor_get_x());
+                            BY = GUIToRoomY(cursor_get_y());
+                            break;
+                    }
+                    break;
+                case ps_shape_diamond:
+                    switch (draggablePoint)
+                    {
+                        case RESIZE_DIAMOND_L:
+                            AX = GUIToRoomX(cursor_get_x());
+                            break;
+                        case RESIZE_DIAMOND_R:
+                            BX = GUIToRoomX(cursor_get_x());
+                            break;
+                        case RESIZE_DIAMOND_U:
+                            AY = GUIToRoomY(cursor_get_y());
+                            break;
+                        case RESIZE_DIAMOND_D:
+                            BY = GUIToRoomY(cursor_get_y());
+                            break;
+                    }
+                    break;
+            }
+        }
+    }
+    // if the emitter is just a point, then drag it around when clicked
+    else if (mouse_check_button(mb_left) &amp;&amp; lastClick &lt; lastClickDur - 4 &amp;&amp; (lastClick &gt; 0 || draggablePoint == RESIZE_POINT))
+    {
+        draw_set_color(c_red);
+        draw_set_alpha(0.4);
+        draw_rectangle(centerX - 7, centerY - 7, centerX + 6, centerY + 6, false);
+        AX = AX - centerX + GUIToRoomX(cursor_get_x());
+        AY = AY - centerY + GUIToRoomY(cursor_get_y());
+        BX = BX - centerX + GUIToRoomX(cursor_get_x());
+        BY = BY - centerY + GUIToRoomY(cursor_get_y());
+        centerX = round(mean(AX, BX));
+        centerY = round(mean(AY, BY));
+        draggablePoint = RESIZE_POINT;
+    }
+    else
+    {
+        draggablePoint = noone;
+    }
+}
+else
+{
+    draggablePoint = noone;
 }
 </string>
           </argument>

@@ -35,6 +35,7 @@
       <script>scripts\draw_linestrip_width_point.gml</script>
       <script>scripts\draw_pie.gml</script>
       <script>scripts\drawTriMarker.gml</script>
+      <script>scripts\drawEmitterHandle.gml</script>
     </scripts>
     <scripts name="createMenuElement">
       <script>scripts\createTextRect.gml</script>
@@ -124,7 +125,7 @@
   <rooms name="rooms">
     <room>rooms\rm_test</room>
   </rooms>
-  <constants number="42">
+  <constants number="58">
     <constant name="UPDATE_SIZES">0</constant>
     <constant name="WRITE_INFO">1</constant>
     <constant name="TAB_MENU">0</constant>
@@ -138,6 +139,7 @@
     <constant name="BUTTON_EXPORT">3</constant>
     <constant name="vk_period">190</constant>
     <constant name="vk_control2">162</constant>
+    <constant name="vk_minus">189</constant>
     <constant name="SHAPE_SHAPE">0</constant>
     <constant name="SHAPE_SPRITE">1</constant>
     <constant name="SLIDER_A">1</constant>
@@ -167,6 +169,21 @@
     <constant name="ALPHA_3">2</constant>
     <constant name="PLACING_PT1">1</constant>
     <constant name="PLACING_PT2">2</constant>
+    <constant name="RESIZE_RECT_LU">0</constant>
+    <constant name="RESIZE_RECT_RU">1</constant>
+    <constant name="RESIZE_RECT_LD">2</constant>
+    <constant name="RESIZE_RECT_RD">3</constant>
+    <constant name="RESIZE_ELLIPSE_L">0</constant>
+    <constant name="RESIZE_ELLIPSE_R">1</constant>
+    <constant name="RESIZE_ELLIPSE_U">2</constant>
+    <constant name="RESIZE_ELLIPSE_D">3</constant>
+    <constant name="RESIZE_LINE_A">0</constant>
+    <constant name="RESIZE_LINE_B">1</constant>
+    <constant name="RESIZE_DIAMOND_L">0</constant>
+    <constant name="RESIZE_DIAMOND_R">1</constant>
+    <constant name="RESIZE_DIAMOND_U">2</constant>
+    <constant name="RESIZE_DIAMOND_D">3</constant>
+    <constant name="RESIZE_POINT">4</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

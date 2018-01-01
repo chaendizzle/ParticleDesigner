@@ -157,7 +157,7 @@ for (var i = 0; i &lt; ds_list_size(options); i++)
     // draw text
     draw_set_halign(fa_left);
     draw_set_valign(fa_center);
-    draw_text(X + 4, Y + ((i + 0.5) * cellH), options[| i]);
+    draw_text(round(X + 4), round(Y + ((i + 0.5) * cellH)), options[| i]);
     // draw mouse outline
     if (checkFocus(id) &amp;&amp; mouse_in_rect(X, Y + (i * cellH), W, cellH))
     {

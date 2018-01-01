@@ -31,8 +31,8 @@ tab[| TAB_MENU] = tabMenus;
 tab[| TAB_NAME] = argument0;
 tab[| TAB_SURF] = noone;
 // when done, info is stored here
-tab[| TAB_INFO] = noone;
+tab[| TAB_INFO] = ds_map_create();
 // then when created, particle type is stored here
-tab[| TAB_PARTICLE] = noone;
+tab[| TAB_PARTICLE] = part_type_create();
 
 return tab;

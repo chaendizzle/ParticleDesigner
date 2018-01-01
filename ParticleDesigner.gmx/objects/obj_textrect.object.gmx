@@ -120,7 +120,7 @@ switch(valign)
 draw_set_font(textFont);
 draw_set_color(textCol);
 draw_set_alpha(textAlpha);
-draw_text(X + (xgain * W), Y + (ygain * H), text);
+draw_text(round(X + (xgain * W)), round(Y + (ygain * H)), text);
 </string>
           </argument>
         </arguments>

@@ -58,6 +58,40 @@ info = noone;
         </arguments>
       </action>
     </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// clean up submenus
+if (ds_exists(submenus, ds_type_list))
+{
+    for (var i = 0; i &lt; ds_list_size(submenus); i++)
+    {
+        with (submenus[| i])
+        {
+            instance_destroy();
+        }
+    }
+    ds_list_destroy(submenus);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="7" enumb="11">
       <action>
         <libid>1</libid>
