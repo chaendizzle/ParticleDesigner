@@ -42,7 +42,7 @@ Y = 0;
 // whether or not this is open
 active = false;
 
-backgroundMenu = noone;
+backgroundMenu = instance_create(0, 0, obj_backMenu);
 </string>
           </argument>
         </arguments>

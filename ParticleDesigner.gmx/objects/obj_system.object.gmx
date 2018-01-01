@@ -32,6 +32,43 @@ system = part_system_create();
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// translation maps
+shapes = ds_map_create();
+shapes[? pt_shape_circle] = "pt_shape_circle";
+shapes[? pt_shape_cloud] = "pt_shape_circle";
+shapes[? pt_shape_disk] = "pt_shape_circle";
+shapes[? pt_shape_explosion] = "pt_shape_circle";
+shapes[? pt_shape_flare] = "pt_shape_circle";
+shapes[? pt_shape_line] = "pt_shape_circle";
+shapes[? pt_shape_pixel] = "pt_shape_circle";
+shapes[? pt_shape_ring] = "pt_shape_circle";
+shapes[? pt_shape_smoke] = "pt_shape_circle";
+shapes[? pt_shape_snow] = "pt_shape_circle";
+shapes[? pt_shape_spark] = "pt_shape_circle";
+shapes[? pt_shape_sphere] = "pt_shape_circle";
+shapes[? pt_shape_square] = "pt_shape_circle";
+shapes[? pt_shape_star] = "pt_shape_circle";
+
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
   </events>
   <PhysicsObject>0</PhysicsObject>

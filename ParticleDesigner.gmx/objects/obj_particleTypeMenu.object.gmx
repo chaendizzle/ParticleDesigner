@@ -299,12 +299,15 @@ if (scrollBarSelected &amp;&amp; active &amp;&amp; checkFocus(noone))
           <argument>
             <kind>1</kind>
             <string>/// update tab info to particle type
+var oldSelected = selected;
 for (var i = 0; i &lt; ds_list_size(tabs); i++)
 {
     var tab = tabs[| i];
+    selectTab(i);
     createTypeInfoMap(tab[| TAB_INFO]);
     setParticleType(tab[| TAB_PARTICLE], tab[| TAB_INFO]);
 }
+selectTab(oldSelected);
 </string>
           </argument>
         </arguments>
@@ -517,6 +520,48 @@ for (var i = 0; i &lt; 4; i++)
         draw_set_alpha(0.4);
         draw_rectangle(nowX + (i * buttonW), nowY, nowX + (i * buttonW) + buttonW, nowY + buttonH, false);
         draw_set_alpha(1);
+        if (checkFocus(noone) &amp;&amp; mouse_check_button_pressed(mb_left))
+        {
+            switch(i)
+            {
+                case FILE_BUTTON_NEW:
+                    //game_restart();
+                    break;
+                case FILE_BUTTON_SAVE:
+                    var f = get_save_filename_ext("JSON File|*.json", "", working_directory + "/particles/", "Save this particle to json...");
+                    if (f != "")
+                    {
+                        var tab = tabs[| selected];
+                        var file = file_text_open_write(f);
+                        file_text_write_string(file, json_encode(tab[| TAB_INFO]));
+                        file_text_close(file);
+                    }
+                    break;
+                case FILE_BUTTON_LOAD:
+                    var f = get_open_filename_ext("JSON File|*.json", "", working_directory + "/particles/", "Load this particle from json...");
+                    if (f != "" &amp;&amp; file_exists(f))
+                    {
+                        var tab = tabs[| selected];
+                        var file = file_text_open_read(f);
+                        var map = json_decode(file_text_readln(file));
+                        file_text_close(file);
+                        // do something with the map to load it
+                        show_debug_message(json_encode(map));
+                        ds_map_destroy(map);
+                    }
+                    break;
+                case FILE_BUTTON_EXPORT:
+                    var f = get_save_filename_ext("GML Script File|*.gml", "", working_directory + "/scripts/", "Export this particle to GML code...");
+                    if (f != "")
+                    {
+                        var tab = tabs[| selected];
+                        var file = file_text_open_write(f);
+                        file_text_write_string(file, generateParticleTypeCode(tab[| TAB_NAME], tab[| TAB_INFO]));
+                        file_text_close(file);
+                    }
+                    break;
+            }
+        }
     }
     draw_sprite_stretched(spr_file, i, nowX + (i * buttonW), nowY, buttonW, buttonH);
 }

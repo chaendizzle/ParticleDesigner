@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_popupMenu</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -26,7 +26,177 @@
           <argument>
             <kind>1</kind>
             <string>/// background changing menu
+/// create submenu
 
+X = 0;
+Y = 0;
+W = 204;
+H = 134;
+RelX = (getDisplayRoomWidth() - obj_particleTypeMenu.W - W) * 0.5;
+RelY = (getDisplayRoomHeight() - H) * 0.5;
+
+parent = noone;
+
+submenus = ds_list_create();
+
+active = false;
+
+bgnd = noone;
+
+addSubmenu(submenus, id, createTextRect(0, 0, W, 30, "Background Settings", fnt_subtitle, c_black, c_ltgray, c_black, 1, 0, 0));
+
+// color
+(addSubmenu(submenus, id, createTextRect(6, 32, 32, 24, "Color: ", fnt_kindabig, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+colorButton = addSubmenu(submenus, id, createColorButton(70, 36, 18, 18));
+colorButton.color = c_gray;
+
+// tile
+(addSubmenu(submenus, id, createTextRect(6, 62, 32, 24, "Tile: ", fnt_kindabig, c_black, c_white, c_white, 1, 0, 0))).halign = fa_left;
+tileCheckbox = addSubmenu(submenus, id, createCheckbox(70, 66, 18, 18, c_red, c_dkgray, c_black, 1, 1, 1));
+
+// load button (just a textbox, click is handled internally)
+loadButton = addSubmenu(submenus, id, createTextRect(10, 100, 80, 24, "Load", fnt_kindabig, c_black, c_gray, c_black, 1, 1, 1))
+
+// confirm button (just a textbox, click is handled internally)
+confirmButton = addSubmenu(submenus, id, createTextRect(97, 100, 96, 24, "Confirm", fnt_kindabig, c_black, c_gray, c_black, 1, 1, 1))
+
+// set submenus' focus
+for (var i = 0; i &lt; ds_list_size(submenus); i++)
+{
+    submenus[| i].popup = id;
+}
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// this is the root submenu
+
+// update all positions
+updateAbsolutePositions(id);
+
+// set active of all submenus
+setActive(id, active);
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// set background color
+background_blend[0] = colorButton.color;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="75">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// mouse over highlight
+if (active &amp;&amp; checkFocus(id))
+{
+    if (mouse_in_rect(confirmButton.X, confirmButton.Y, confirmButton.W, confirmButton.H))
+    {
+        drawOutlineRectExt(confirmButton.X, confirmButton.Y, confirmButton.W, confirmButton.H, 1, c_white, c_black, 0.4, 0);
+        if (mouse_check_button_pressed(mb_left))
+        {
+            active = false;
+            setFocus(noone);
+            // deselect textboxes
+            for (var i = 0; i &lt; ds_list_size(submenus); i++)
+            {
+                with (submenus[| i])
+                {
+                    if (object_index == obj_numbox)
+                    {
+                        selected = false;
+                    }
+                }
+            }
+        }
+    }
+    if (mouse_in_rect(loadButton.X, loadButton.Y, loadButton.W, loadButton.H))
+    {
+        drawOutlineRectExt(loadButton.X, loadButton.Y, loadButton.W, loadButton.H, 1, c_white, c_black, 0.4, 0);
+        if (mouse_check_button_pressed(mb_left))
+        {
+        }
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// draw the popup menu back
+if (active)
+{
+    drawOutlineRectExt(X, Y, W, H, 2, c_ltgray, c_black, 1, 1);
+}
 </string>
           </argument>
         </arguments>

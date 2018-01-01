@@ -14,7 +14,9 @@
     <sprite>sprites\spr_emitter</sprite>
     <sprite>sprites\spr_particle</sprite>
   </sprites>
-  <backgrounds name="background"/>
+  <backgrounds name="background">
+    <background>background\bgnd_square</background>
+  </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <scripts name="menuElement">
@@ -82,6 +84,7 @@
       <script>scripts\generateParticleTypeCode.gml</script>
     </scripts>
     <script>scripts\createEmitter.gml</script>
+    <script>scripts\stringb.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_tab</font>
@@ -126,18 +129,15 @@
   <rooms name="rooms">
     <room>rooms\rm_test</room>
   </rooms>
-  <constants number="58">
+  <constants number="59">
     <constant name="UPDATE_SIZES">0</constant>
     <constant name="WRITE_INFO">1</constant>
+    <constant name="READ_INFO">2</constant>
     <constant name="TAB_MENU">0</constant>
     <constant name="TAB_NAME">1</constant>
     <constant name="TAB_SURF">2</constant>
     <constant name="TAB_INFO">3</constant>
     <constant name="TAB_PARTICLE">4</constant>
-    <constant name="BUTTON_NEW">0</constant>
-    <constant name="BUTTON_SAVE">1</constant>
-    <constant name="BUTTON_LOAD">2</constant>
-    <constant name="BUTTON_EXPORT">3</constant>
     <constant name="vk_period">190</constant>
     <constant name="vk_control2">162</constant>
     <constant name="vk_minus">189</constant>
@@ -185,6 +185,10 @@
     <constant name="RESIZE_DIAMOND_U">2</constant>
     <constant name="RESIZE_DIAMOND_D">3</constant>
     <constant name="RESIZE_POINT">4</constant>
+    <constant name="FILE_BUTTON_NEW">0</constant>
+    <constant name="FILE_BUTTON_SAVE">1</constant>
+    <constant name="FILE_BUTTON_LOAD">2</constant>
+    <constant name="FILE_BUTTON_EXPORT">3</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>
