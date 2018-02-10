@@ -2,10 +2,9 @@
 // generates code for a particle type
 var name = argument0;
 var info = argument1;
-var str = "///init_" + name + "_type(sys)" + newline();
+var str = "///init_" + name + "_type()" + newline();
 str += "// Creates the " + name + " particle type and returns it." + newline();
-str += "var sys = argument0;" + newline();
-str += "var part = part_emitter_create(sys);" + newline();
+str += "var part = part_type_create();" + newline();
 
 var shapes = obj_system.shapes;
 var shape = info[? "shape"];
@@ -102,7 +101,7 @@ if (ds_exists(stepTab, ds_type_list))
     var stepPart = stepTab[| TAB_NAME];
     if (part_type_exists(stepPart))
     {
-        str += "part_type_death(part, " + string(step[? "amt"]) + ", " + string(stepPart) + ");" + newline();
+        str += "part_type_step(part, " + string(step[? "amt"]) + ", " + string(stepPart) + ");" + newline();
     }
 }
 
